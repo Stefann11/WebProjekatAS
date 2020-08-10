@@ -21,6 +21,39 @@ public class CommentForApartment {
 		this.text = text;
 		this.grade = grade;
 	}
+
+	public User getGuest() {
+		return guest;
+	}
+
+	public void setGuest(User guest) {
+		this.guest = guest;
+	}
+
+	public Apartment getApartment() {
+		return apartment;
+	}
+
+	public void setApartment(Apartment apartment) {
+		this.apartment = apartment;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	
 	
 	
 }

@@ -62,6 +62,128 @@ public class Apartment {
 		this.listOfAmenities = listOfAmenities;
 		this.reservations = reservations;
 	}
+
+	public TypeOfApartment getType() {
+		return type;
+	}
+
+	public void setType(TypeOfApartment type) {
+		this.type = type;
+	}
+
+	public int getNumberOfRooms() {
+		return numberOfRooms;
+	}
+
+	public void setNumberOfRooms(int numberOfRooms) {
+		this.numberOfRooms = numberOfRooms;
+	}
+
+	public int getNumberOfGuests() {
+		return numberOfGuests;
+	}
+
+	public void setNumberOfGuests(int numberOfGuests) {
+		this.numberOfGuests = numberOfGuests;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public List<Date> getReleaseDates() {
+		return releaseDates;
+	}
+
+	public void setReleaseDates(List<Date> releaseDates) {
+		this.releaseDates = releaseDates;
+	}
+
+	public List<Date> getAvailableDates() {
+		return availableDates;
+	}
+
+	public void setAvailableDates(List<Date> availableDates) {
+		this.availableDates = availableDates;
+	}
+
+	public User getHost() {
+		return host;
+	}
+
+	public void setHost(User host) {
+		this.host = host;
+	}
+
+	public List<CommentForApartment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentForApartment> comments) {
+		this.comments = comments;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
+	}
+
+	public double getPriceForOneNight() {
+		return priceForOneNight;
+	}
+
+	public void setPriceForOneNight(double priceForOneNight) {
+		this.priceForOneNight = priceForOneNight;
+	}
+
+	public LocalDateTime getCheckInTime() {
+		return checkInTime;
+	}
+
+	public void setCheckInTime(LocalDateTime checkInTime) {
+		this.checkInTime = checkInTime;
+	}
+
+	public LocalDateTime getCheckOutTime() {
+		return checkOutTime;
+	}
+
+	public void setCheckOutTime(LocalDateTime checkOutTime) {
+		this.checkOutTime = checkOutTime;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public List<Amenties> getListOfAmenities() {
+		return listOfAmenities;
+	}
+
+	public void setListOfAmenities(List<Amenties> listOfAmenities) {
+		this.listOfAmenities = listOfAmenities;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+	
+	
 	
 	
 }

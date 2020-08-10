@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Registration</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Registration</title>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/toast.js"></script>
 </head>
 <body>
 	<h3>Login</h3>
@@ -36,6 +38,9 @@
 			<tr>
 				<td>Repeat password:</td>
 				<td><input type="text" name="password2" id="password2"/></td>
+			</tr>
+			<tr>
+				<button v-on:click="registerUser">Registration</button>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="Registration"/></td>
