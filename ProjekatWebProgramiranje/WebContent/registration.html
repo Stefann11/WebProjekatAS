@@ -7,45 +7,52 @@
 	<script src="js/toast.js"></script>
 </head>
 <body>
-	<h3>Login</h3>
-	<form>
-		<table border = "1">
-			<tr>
-				<td>Username:</td>
-				<td><input type="text" name="username" id="username"/></td>
-			</tr>
-			<tr>
-				<td>Name:</td>
-				<td><input type="text" name="name" id="name"/></td>
-			</tr>
-			<tr>
-				<td>Surname:</td>
-				<td><input type="text" name="surname" id="surname"/></td>
-			</tr>
-			<tr>
-				<td>Gender:</td>
-				<td>
-					<input type="radio" id="male" name="gender" value="male">
-					<label for="male">Male</label><br>
-					<input type="radio" id="female" name="gender" value="female">
-					<label for="female">Female</label><br>
-				</td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><input type="text" name="password" id="password"/></td>
-			</tr>
-			<tr>
-				<td>Repeat password:</td>
-				<td><input type="text" name="password2" id="password2"/></td>
-			</tr>
-			<tr>
-				<button v-on:click="registerUser">Registration</button>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="Registration"/></td>
-			</tr>
-		</table>
-	</form>
+	<div id="users">
+		<h3>{{title}}</h3>
+		<form>
+			<table border = "1">
+				<tr>
+					<td>Username:</td>
+					<td><input type="text" name="username" id="username"/></td>
+				</tr>
+				<tr>
+					<td>Name:</td>
+					<td><input type="text" name="name" id="name"/></td>
+				</tr>
+				<tr>
+					<td>Surname:</td>
+					<td><input type="text" name="surname" id="surname"/></td>
+				</tr>
+				<tr>
+					<td>Gender:</td>
+					<td>
+						<input type="radio" id="male" name="gender" value="male">
+						<label for="male">Male</label><br>
+						<input type="radio" id="female" name="gender" value="female">
+						<label for="female">Female</label><br>
+					</td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="text" name="password" id="password"/></td>
+				</tr>
+				<tr>
+					<td>Repeat password:</td>
+					<td><input type="text" name="password2" id="password2"/></td>
+				</tr>
+				<tr>
+					<button v-on:click="registerUser">Registration</button>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="Registration"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/moment.min.js"></script>
+	<script src="app/app.js"></script>
 </body>
 </html>
