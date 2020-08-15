@@ -1,58 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Registration</title>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/toast.js"></script>
+<meta charset="ISO-8859-1">
+<title>Registration</title>
+<style>
+body{
+	background-image: url('images2/registration.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-size: 100% 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	margin:0;
+} 
+label.a1{
+	color: white;
+	padding: 12px;
+	font-size: 25px;
+	text-align: center;
+	
+}
+h3 {text-align: center; font-size: 45px;}
+p {text-align: center;}
+div {text-align: center;}
+
+button {
+  transition-duration: 0.4s;
+  border-radius: 15px;
+   background-color: white; /* Green */
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin:15px;
+}
+
+button:hover {
+ 
+  background-color: #ff6600; 
+  color: white;
+   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+</style>
 </head>
 <body>
-	<div id="users">
-		<h3>{{title}}</h3>
-		<form>
-			<table border = "1">
-				<tr>
-					<td>Username:</td>
-					<td><input type="text" name="username" id="username"/></td>
-				</tr>
-				<tr>
-					<td>Name:</td>
-					<td><input type="text" name="name" id="name"/></td>
-				</tr>
-				<tr>
-					<td>Surname:</td>
-					<td><input type="text" name="surname" id="surname"/></td>
-				</tr>
-				<tr>
-					<td>Gender:</td>
-					<td>
-						<input type="radio" id="male" name="gender" value="male">
-						<label for="male">Male</label><br>
-						<input type="radio" id="female" name="gender" value="female">
-						<label for="female">Female</label><br>
-					</td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type="text" name="password" id="password"/></td>
-				</tr>
-				<tr>
-					<td>Repeat password:</td>
-					<td><input type="text" name="password2" id="password2"/></td>
-				</tr>
-				<tr>
-					<button v-on:click="registerUser">Registration</button>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="submit" value="Registration"/></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	
-	<script src="js/vue.js"></script>
-	<script src="js/axios.js"></script>
-	<script src="js/moment.min.js"></script>
-	<script src="app/app.js"></script>
+	<h3 style="color:white;">REGISTRATION</h3>
+	</br>
+	</br>
+	</br>	
+	<div class="container">
+    <label class="a1" for="uname"><b>Username:</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+	</br>
+	</br>
+	<label class="a1" for="name"><b>Name:</b></label>
+    <input type="text" placeholder="Enter Username" name="name" required>
+	</br>
+	</br>
+	<label class="a1" for="surname"><b>Surname:</b></label>
+    <input type="text" placeholder="Enter Username" name="surname" required>
+	</br>
+	</br>
+    <label class="a1" for="psw"><b>Password:</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+	</br>
+	</br>
+	<label class="a1" for="apsw"><b>Re-enter Password:</b></label>
+    <input type="password" placeholder="Re-enter Password" name="apsw" required>
+	</br>
+	</br>
+	</br>
+	</br>
+    <button type="submit">Login</button>
+    <button type="button" class="cancelbtn">Cancel</button>
+    
+  </div>
+
+ 
+    
+  
 </body>
 </html>
