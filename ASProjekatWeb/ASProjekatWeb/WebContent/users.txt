@@ -1,5 +1,5 @@
-Pera;Peric;pera@email.com;pera;pera
-Jovana;Jovanovic;jj@email.com;jovana;jj123
-Stojanka;Novakovic;st.nov@email.com;st.nov;100ja
-Marko;Markovic;marko@gmail.com;marko;marko
-Jana;Jankovic;jana@gmail.com;jana;jana
+Pera;Peric;pera;pera
+Jovana;Jovanovic;jovana;jj123
+Stojanka;Novakovic;st.nov;100ja
+Marko;Markovic;marko;marko
+Jana;Jankovic;jana;jana

@@ -74,10 +74,9 @@ public class UserDAO {
 				while (st.hasMoreTokens()) {
 					String firstName = st.nextToken().trim();
 					String lastName = st.nextToken().trim();
-					String email = st.nextToken().trim();
 					String username = st.nextToken().trim();
 					String password = st.nextToken().trim();
-					users.put(username, new User(firstName, lastName, email, username, password));
+					users.put(username, new User(firstName, lastName, username, password));
 				}
 				
 			}

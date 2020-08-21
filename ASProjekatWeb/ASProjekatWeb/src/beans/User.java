@@ -1,51 +1,58 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
 	
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String username;
-	private String password;
+	protected String username;
+	protected String password;
+	protected String name;
+	protected String surname;
+	protected Gender gender; 
+	protected Role role; 
+	protected List<Apartment> apartmentsForRent; 
+	protected List<Apartment> rentedApartments; 
+	protected List<Reservation> listOfReservations;
+	 
 	
 	public User() {
-	}
-
-	public User(String firstName, String lastName, String email, String username, String password) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
+		this.username = "username";
+		this.password = "password";
+		this.name = "name";
+		this.surname = "surname";
+		this.gender = Gender.MALE; this.role = Role.GUEST; this.apartmentsForRent =
+		new ArrayList<Apartment>(); this.rentedApartments = new
+		ArrayList<Apartment>(); this.listOfReservations = new
+		ArrayList<Reservation>();
+		 
+	}
+	
+	
+	public User(String username, String password, String name, String surname,
+			Gender gender, Role role, List<Apartment> apartmentsForRent, List<Apartment>rentedApartments, 
+			List<Reservation> listOfReservations) { 
+	  super();
+	  this.username = username; 
+	  this.password = password; 
+	  this.name = name;
+	  this.surname = surname; 
+	  this.gender = gender; 
+	  this.role = role;
+	  this.apartmentsForRent = apartmentsForRent; 
+	  this.rentedApartments = rentedApartments; 
+	  this.listOfReservations = listOfReservations; 
+  	}
+	 
+	
+	public User(String username, String password, String name, String surname) {
+		super();
 		this.username = username;
 		this.password = password;
-	}
-
-
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+		this.name = name;
+		this.surname = surname;
 	}
 
 	public String getUsername() {
@@ -64,13 +71,70 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	
+	  public Gender getGender() { 
+		  return gender; 
+	  }
+	  
+	  public void setGender(Gender gender) { 
+		  this.gender = gender; 
+	  }
+	  
+	  public Role getRole() { 
+		  return role; 
+	  }
+	  
+	  public void setRole(Role role) { 
+		  this.role = role; 
+	  }
+	  
+	  public List<Apartment> getApartmentsForRent() { 
+		  return apartmentsForRent; 
+	  }
+	  
+	  public void setApartmentsForRent(List<Apartment> apartmentsForRent) {
+		  this.apartmentsForRent = apartmentsForRent; 
+	  }
+	  
+	  public List<Apartment> getRentedApartments() { 
+		  return rentedApartments; 
+	  }
+	  
+	  public void setRentedApartments(List<Apartment> rentedApartments) {
+		  this.rentedApartments = rentedApartments; 
+	  }
+	 
+	  public List<Reservation> getListOfReservations() { 
+		  return listOfReservations;
+	  }
+	  
+	  public void setListOfReservations(List<Reservation> listOfReservations) {
+		  this.listOfReservations = listOfReservations; 
+	  }
+	 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -85,20 +149,15 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!email.equals(other.email))
+		} else if (!name.equals(other.name))
 			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
+		if (surname == null) {
+			if (other.surname != null)
 				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
+		} else if (!surname.equals(other.surname))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -115,7 +174,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", username=" + username
+		return "User [firstName=" + name + ", lastName=" + surname +  ", username=" + username
 				+ ", password=" + password + "]";
 	}
 
