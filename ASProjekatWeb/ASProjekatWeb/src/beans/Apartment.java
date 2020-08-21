@@ -1,11 +1,17 @@
 package beans;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Apartment {
+public class Apartment implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8916789543074852656L;
+	protected long id;
 	protected TypeOfApartment type;
 	protected int numberOfRooms;
 	protected int numberOfGuests;
@@ -24,6 +30,7 @@ public class Apartment {
 	
 	public Apartment() {
 		super();
+		this.id = 0;
 		this.type = TypeOfApartment.ROOM;
 		this.numberOfRooms = 0;
 		this.numberOfGuests = 0;
@@ -41,11 +48,12 @@ public class Apartment {
 		this.reservations = new ArrayList<Reservation>();
 	}
 	
-	public Apartment(TypeOfApartment type, int numberOfRooms, int numberOfGuests, Location location,
+	public Apartment(Long id, TypeOfApartment type, int numberOfRooms, int numberOfGuests, Location location,
 			List<Date> releaseDates, List<Date> availableDates, User host, List<CommentForApartment> comments,
 			List<String> images, double priceForOneNight, LocalDateTime checkInTime, LocalDateTime checkOutTime,
 			boolean status, List<Amenties> listOfAmenities, List<Reservation> reservations) {
 		super();
+		this.id = id;
 		this.type = type;
 		this.numberOfRooms = numberOfRooms;
 		this.numberOfGuests = numberOfGuests;
@@ -61,6 +69,28 @@ public class Apartment {
 		this.status = status;
 		this.listOfAmenities = listOfAmenities;
 		this.reservations = reservations;
+	}
+	
+	public Apartment(Long id, TypeOfApartment type, int numberOfRooms, int numberOfGuests,
+			double priceForOneNight, boolean status) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.numberOfRooms = numberOfRooms;
+		this.numberOfGuests = numberOfGuests;
+		//this.location = location;
+		this.priceForOneNight = priceForOneNight;
+		this.status = status;
+	}
+	
+	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public TypeOfApartment getType() {
@@ -182,4 +212,17 @@ public class Apartment {
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+
+	@Override
+	public String toString() {
+		return "Apartment [id=" + id + ", type=" + type + ", numberOfRooms=" + numberOfRooms + ", numberOfGuests="
+				+ numberOfGuests + ", location=" + location + ", releaseDates=" + releaseDates + ", availableDates="
+				+ availableDates + ", host=" + host + ", comments=" + comments + ", images=" + images
+				+ ", priceForOneNight=" + priceForOneNight + ", checkInTime=" + checkInTime + ", checkOutTime="
+				+ checkOutTime + ", status=" + status + ", listOfAmenities=" + listOfAmenities + ", reservations="
+				+ reservations + "]";
+	}
+	
+	
+	
 }

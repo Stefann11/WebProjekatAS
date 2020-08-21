@@ -1,6 +1,12 @@
 package beans;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2120182138853617449L;
 	protected double longitude;
 	protected double latitude;
 	protected Address address;
@@ -18,4 +24,11 @@ public class Location {
 		this.latitude = latitude;
 		this.address = address;
 	}
+
+	@Override
+	public String toString() {
+		return "Location [longitude=" + longitude + ", latitude=" + latitude + ", address=" + address + "]";
+	}
+	
+	
 }

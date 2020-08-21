@@ -54,6 +54,21 @@ public class UserDAO {
 		return users.values();
 	}
 	
+	public User save(User user) {	
+		users.put(user.getUsername(), user);
+		return user;
+	}
+	
+	public User findUser(String username) {	
+		return users.get(username);
+	}
+	
+	public User edit(User user) {
+		users.remove(user.getUsername());
+		users.put(user.getUsername(), user);
+		return user;
+	}
+	
 	/**
 	 * Uèitava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
 	 * Kljuè je korisnièko ime korisnika.
@@ -76,7 +91,7 @@ public class UserDAO {
 					String lastName = st.nextToken().trim();
 					String username = st.nextToken().trim();
 					String password = st.nextToken().trim();
-					users.put(username, new User(firstName, lastName, username, password));
+					users.put(username, new User(username, password, firstName, lastName));
 				}
 				
 			}
