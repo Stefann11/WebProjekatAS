@@ -30,6 +30,15 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		return apartments.values();
 	}
 	
+	public Apartment save(Apartment apartment) {
+		apartments.put(Long.toString(apartment.getId()), apartment);
+		return apartment;
+	}
+	
+	public Apartment findApartment(long id) {	
+		return apartments.get(Long.toString(id));
+	}
+	
 	private void loadApartments(String contextPath) {
 		BufferedReader in = null;
 		try {
