@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Login</title>
+<title>Registration</title>
 <style>
 body{
-	background-image: url('images/registration.jpg');
+	background-image: url('images2/registration.jpg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
@@ -17,6 +17,8 @@ label.a1{
 	color: white;
 	padding: 12px;
 	font-size: 25px;
+	text-align: center;
+	
 }
 h3 {text-align: center; font-size: 45px;}
 p {text-align: center;}
@@ -45,7 +47,7 @@ button:hover {
 </style>
 </head>
 <body>
-	<h3 style="color:white;">LOGIN</h3>
+	<h3 style="color:white;">REGISTRATION</h3>
 	</br>
 	</br>
 	</br>	
@@ -54,8 +56,20 @@ button:hover {
     <input type="text" placeholder="Enter Username" name="uname" required>
 	</br>
 	</br>
+	<label class="a1" for="name"><b>Name:</b></label>
+    <input type="text" placeholder="Enter Username" name="name" required>
+	</br>
+	</br>
+	<label class="a1" for="surname"><b>Surname:</b></label>
+    <input type="text" placeholder="Enter Username" name="surname" required>
+	</br>
+	</br>
     <label class="a1" for="psw"><b>Password:</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
+	</br>
+	</br>
+	<label class="a1" for="apsw"><b>Re-enter Password:</b></label>
+    <input type="password" placeholder="Re-enter Password" name="apsw" required>
 	</br>
 	</br>
 	</br>
