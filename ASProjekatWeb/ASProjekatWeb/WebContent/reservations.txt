@@ -1,0 +1,4 @@
+1;10;100;Dvoiposobna
+2;5;120;Jednosobna
+3;8;140;Dvoiposobna
+4;10;50;Jednosobna

@@ -1,8 +1,14 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Reservation {
+public class Reservation implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7620671524598941417L;
+	protected long id;
 	protected Apartment apartment;
 	protected Date startDate;
 	protected int numberOfOvernights;
@@ -13,6 +19,7 @@ public class Reservation {
 	
 	public Reservation() {
 		super();
+		this.id = 0;
 		this.apartment = new Apartment();
 		this.startDate = new Date();
 		this.numberOfOvernights = 0;
@@ -22,9 +29,10 @@ public class Reservation {
 		this.status = Status.REJECTED;
 	}
 	
-	public Reservation(Apartment apartment, Date startDate, int numberOfOvernights, double totalPrice, String message,
+	public Reservation(long id, Apartment apartment, Date startDate, int numberOfOvernights, double totalPrice, String message,
 			User guest, Status status) {
 		super();
+		this.id = id;
 		this.apartment = apartment;
 		this.startDate = startDate;
 		this.numberOfOvernights = numberOfOvernights;
@@ -32,6 +40,22 @@ public class Reservation {
 		this.message = message;
 		this.guest = guest;
 		this.status = status;
+	}
+	
+	public Reservation(long id, int numberOfOvernights, double totalPrice, String message) {
+		super();
+		this.id = id;		
+		this.numberOfOvernights = numberOfOvernights;
+		this.totalPrice = totalPrice;
+		this.message = message;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public Apartment getApartment() {
@@ -89,4 +113,12 @@ public class Reservation {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", apartment=" + apartment + ", startDate=" + startDate
+				+ ", numberOfOvernights=" + numberOfOvernights + ", totalPrice=" + totalPrice + ", message=" + message
+				+ ", guest=" + guest + ", status=" + status + "]";
+	}
+
 }
