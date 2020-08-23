@@ -20,6 +20,8 @@ import dao.UserDAO;
 @Path("/users")
 public class UserService {
 	
+	private static String path="";
+	
 	@Context
 	ServletContext ctx;
 	
@@ -33,6 +35,7 @@ public class UserService {
 		// Inicijalizacija treba da se obavi samo jednom
 		if (ctx.getAttribute("userDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
+	    	path = contextPath;
 			ctx.setAttribute("userDAO", new UserDAO(contextPath));
 		}
 	}
@@ -42,6 +45,7 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<User> getProducts(){
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+		dao.findAll();
 		return dao.findAll();
 	}
 	
@@ -51,6 +55,7 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public User saveUser(User user) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+		dao.printUsers(path, user);
 		return dao.save(user);
 	}
 	
