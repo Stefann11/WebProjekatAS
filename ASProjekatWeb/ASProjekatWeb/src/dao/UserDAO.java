@@ -165,20 +165,20 @@ public class UserDAO {
 	
 	public void readUsers(String contextPath) {
 		ObjectMapper mapper = new ObjectMapper();
-		String path = contextPath + "/writeusers.json";
+		
+		BufferedReader in = null;
+		
+		
 		try {
-			//User user = mapper.readValue(Paths.get(path).toFile(), User.class);
-			//List<User> usersList = Arrays.asList(mapper.readValue(Paths.get(path).toFile(), User[].class));
 			
-			//List<User> usersList = mapper.readValue(path, new TypeReference<List<User>>(){});
-			Map<String, User> usersMap = mapper.readValue(path, new TypeReference<Map<String, User>>() {
+			File file = new File(contextPath + "/writeusers.json");
+			in = new BufferedReader(new FileReader(file));
+			
+			Map<String, User> usersMap = mapper.readValue(in, new TypeReference<Map<String, User>>() {
             });
 			
 			users = usersMap;
 			
-//			for(User user:usersList){ 
-//				users.put(user.getUsername(), user); 
-//			}
 			 
 
 		} catch (JsonParseException e) {
