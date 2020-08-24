@@ -45,7 +45,7 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<User> getProducts(){
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
-		dao.findAll();
+		//dao.findAll();
 		return dao.findAll();
 	}
 	
@@ -55,8 +55,8 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public User saveUser(User user) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
-		dao.printUsers(path, user);
-		return dao.save(user);
+		return dao.printUsers(path, user);
+		//return dao.save(user);
 	}
 	
 	@PUT
@@ -65,7 +65,7 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public User editUser(User user) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
-		return dao.edit(user);
+		return dao.edit(path, user);
 	}
 	
 	@GET

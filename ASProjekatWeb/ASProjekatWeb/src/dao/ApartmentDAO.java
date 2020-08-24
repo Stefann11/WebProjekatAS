@@ -3,10 +3,19 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Address;
 import beans.Apartment;
@@ -23,7 +32,7 @@ private Map<String, Apartment> apartments = new HashMap<>();
 	}
 	
 	public ApartmentDAO(String contextPath) {
-		loadApartments(contextPath);
+		readApartments(contextPath);
 	}
 	
 	public Collection<Apartment> findAll() {
@@ -33,6 +42,11 @@ private Map<String, Apartment> apartments = new HashMap<>();
 	public Apartment save(Apartment apartment) {
 		apartments.put(Long.toString(apartment.getId()), apartment);
 		return apartment;
+	}
+	
+	public Apartment editApartment(String contextPath, Apartment apartment) {
+		apartments.remove(Long.toString(apartment.getId()));
+		return printApartments(contextPath, apartment);
 	}
 	
 	public Apartment findApartment(long id) {	
@@ -92,4 +106,57 @@ private Map<String, Apartment> apartments = new HashMap<>();
 			}
 		}
 	}
+	
+	public Apartment printApartments(String contextPath, Apartment apartment) {
+		ObjectMapper mapper = new ObjectMapper();
+		String path = contextPath + "/apartments.json";
+		apartments.put(Long.toString(apartment.getId()), apartment);
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		try {
+			mapper.writeValue(Paths.get(path).toFile(), apartments);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return apartment;
+		
+	}
+	
+	public void readApartments(String contextPath) {
+		ObjectMapper mapper = new ObjectMapper();
+		
+		BufferedReader in = null;
+		
+		try {
+			
+			File file = new File(contextPath + "/apartments.json");
+			in = new BufferedReader(new FileReader(file));
+			
+			Map<String, Apartment> apartmentsMap = mapper.readValue(in, new TypeReference<Map<String, Apartment>>() {
+            });
+			
+			apartments = apartmentsMap;
+			 
+
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 }

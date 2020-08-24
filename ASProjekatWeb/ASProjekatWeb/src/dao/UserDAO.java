@@ -76,10 +76,9 @@ public class UserDAO {
 		return users.get(username);
 	}
 	
-	public User edit(User user) {
+	public User edit(String contextPath, User user) {
 		users.remove(user.getUsername());
-		users.put(user.getUsername(), user);
-		return user;
+		return printUsers(contextPath, user);
 	}
 	
 	/**
@@ -144,7 +143,7 @@ public class UserDAO {
 		
 	}
 	
-	public void printUsers(String contextPath, User user) {
+	public User printUsers(String contextPath, User user) {
 		ObjectMapper mapper = new ObjectMapper();
 		String path = contextPath + "/writeusers.json";
 		users.put(user.getUsername(), user);
@@ -161,6 +160,8 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return user;
 	}
 	
 	public void readUsers(String contextPath) {
