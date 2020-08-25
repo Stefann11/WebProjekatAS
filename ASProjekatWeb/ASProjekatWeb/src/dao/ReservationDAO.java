@@ -3,11 +3,21 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import beans.Apartment;
 import beans.Reservation;
 
 
@@ -20,7 +30,7 @@ public class ReservationDAO {
 	}
 	
 	public ReservationDAO(String contextPath) {
-		loadReservations(contextPath);
+		readReservations(contextPath);
 	}
 	
 	public Reservation find(String id) {
@@ -37,6 +47,17 @@ public class ReservationDAO {
 	
 	public Collection<Reservation> findAll() {
 		return reservations.values();
+	}
+	
+	
+	
+	public Reservation editReservation(String contextPath, Reservation reservation) {
+		reservations.remove(Long.toString(reservation.getId()));
+		return printReservations(contextPath, reservation);
+	}
+	
+	public Reservation findReservation(long id) {	
+		return reservations.get(Long.toString(id));
 	}
 	
 	public Reservation save(Reservation reservation) {
@@ -80,4 +101,56 @@ public class ReservationDAO {
 			}
 		}
 	}
+	
+	public Reservation printReservations(String contextPath, Reservation reservation) {
+		ObjectMapper mapper = new ObjectMapper();
+		String path = contextPath + "/reservations.json";
+		reservations.put(Long.toString(reservation.getId()), reservation);
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		try {
+			mapper.writeValue(Paths.get(path).toFile(), reservations);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return reservation;
+		
+	}
+	
+	public void readReservations(String contextPath) {
+		ObjectMapper mapper = new ObjectMapper();
+		
+		BufferedReader in = null;
+		
+		try {
+			
+			File file = new File(contextPath + "/reservations.json");
+			in = new BufferedReader(new FileReader(file));
+			
+			Map<String, Reservation> reservationsMap = mapper.readValue(in, new TypeReference<Map<String, Reservation>>() {
+            });
+			
+			reservations = reservationsMap;
+			 
+
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
