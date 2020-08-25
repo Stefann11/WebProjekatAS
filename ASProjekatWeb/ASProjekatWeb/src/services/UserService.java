@@ -43,7 +43,7 @@ public class UserService {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<User> getProducts(){
+	public Collection<User> getUsers(){
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
 		//dao.findAll();
 		return dao.findAll();
