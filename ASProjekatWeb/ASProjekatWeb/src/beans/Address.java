@@ -1,6 +1,12 @@
 package beans;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8707764425196932628L;
 	protected String streetAndNumber;
 	protected String place;
 	protected long postcode;
