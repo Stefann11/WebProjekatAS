@@ -1,11 +1,11 @@
 $(document).ready(function() {
-	$('#forma').submit(function(event) {
+	$('#loginForm').submit(function(event) {
 		event.preventDefault();
 		let name = $('input[name="username"]').val();
 		let price = $('input[name="password"]').val();
 		$('#error').hide();
 		$.post({
-			url: 'rest/products',
+			url: 'rest/login',
 			data: JSON.stringify({username: username, password: password}),
 			contentType: 'application/json',
 			success: function(product) {
