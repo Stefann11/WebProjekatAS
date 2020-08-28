@@ -50,6 +50,14 @@ public class ApartmentService {
 		return dao.findAll();
 	}
 	
+	@GET
+	@Path("/getAllActive")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> getActiveApartments(){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		return dao.getAllActive();
+	}
+	
 	@POST
 	@Path("/save")
 	@Produces(MediaType.APPLICATION_JSON)

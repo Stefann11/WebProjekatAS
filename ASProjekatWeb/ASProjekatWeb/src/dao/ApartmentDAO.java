@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,18 @@ private Map<String, Apartment> apartments = new HashMap<>();
 	
 	public Collection<Apartment> findAll() {
 		return apartments.values();
+	}
+	
+	public Collection<Apartment> getAllActive() {
+		Collection<Apartment> toReturn = new ArrayList<Apartment>();
+		
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.isStatus()) {
+				toReturn.add(apartment);
+			}
+		}
+		
+		return toReturn;
 	}
 	
 	public Apartment save(Apartment apartment) {
