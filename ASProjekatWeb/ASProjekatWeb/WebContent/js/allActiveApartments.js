@@ -1,19 +1,19 @@
 $(document).ready(function() {
-	allApartments();
+	allActiveApartments();
 });
 
 
-function allApartments() {
+function allActiveApartments() {
 	$.ajax({
 		type : "GET",
-		url : "rest/apartments/",
+		url : "rest/apartments/getAllActive",
 		success : function(result) {
-			var table = $("#allApartmentsTable");
+			var table = $("#allActiveApartmentsTable");
 			table.empty();
 			if (result == null) {
-				$('#allApartmentsTable').hide();
+				$('#allActiveApartmentsTable').hide();
 			} else {
-				$('#allApartmentsTable').show();
+				$('#allActiveApartmentsTable').show();
 				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Komentari</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
@@ -140,16 +140,3 @@ function printLocation(obj, apartment) {
         };
     }
 };
-
-function getArray(parsedData){
-	var arr = [];
-
-	for(item in parsedData) {
-    arr.push({
-        "id": parsedData[item],
-        "value": parsedData[item]
-    });
-};
-
-console.log(arr);
-}
