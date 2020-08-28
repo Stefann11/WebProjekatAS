@@ -99,6 +99,12 @@ public class UserService {
 		if (user.getRole().equals(Role.GUEST)) {
 			return Response.ok().entity("guestIndex.html").build();
 		}
+		if (user.getRole().equals(Role.HOST)) {
+			return Response.ok().entity("hostIndex.html").build();
+		}
+		if (user.getRole().equals(Role.ADMINISTRATOR)) {
+			return Response.ok().entity("adminIndex.html").build();
+		}
 		return Response.ok().entity("index.html").build();
 	}
 	
