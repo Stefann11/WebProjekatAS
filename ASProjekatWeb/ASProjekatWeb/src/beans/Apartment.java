@@ -38,11 +38,11 @@ public class Apartment implements Serializable{
 		this.releaseDates = new ArrayList<Date>();
 		this.availableDates = new ArrayList<Date>();
 		this.host = new User();
-		this.comments =new ArrayList<CommentForApartment>();
+		this.comments = new ArrayList<CommentForApartment>();
 		this.images = new ArrayList<String>();
 		this.priceForOneNight = 0;
-		this.checkInTime = LocalDateTime.of(2017, 1, 14, 10, 34);
-		this.checkOutTime = LocalDateTime.of(2017, 1, 14, 10, 34);;
+		this.checkInTime = null;
+		this.checkOutTime = null;
 		this.status = false;
 		this.listOfAmenities = new ArrayList<Amenties>();
 		this.reservations = new ArrayList<Reservation>();
@@ -79,6 +79,16 @@ public class Apartment implements Serializable{
 		this.numberOfRooms = numberOfRooms;
 		this.numberOfGuests = numberOfGuests;
 		//this.location = location;
+		this.priceForOneNight = priceForOneNight;
+		this.status = status;
+	}
+	
+	public Apartment(Long id, int numberOfRooms, int numberOfGuests,
+			double priceForOneNight, boolean status) {
+		super();
+		this.id = id;
+		this.numberOfRooms = numberOfRooms;
+		this.numberOfGuests = numberOfGuests;
 		this.priceForOneNight = priceForOneNight;
 		this.status = status;
 	}
