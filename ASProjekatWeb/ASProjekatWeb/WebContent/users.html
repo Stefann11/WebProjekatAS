@@ -47,7 +47,7 @@
   
 <body> 
     <section> 
-        <h1>GeeksForGeeks</h1> 
+        <h1>List of users</h1> 
   
         <!-- TABLE CONSTRUCTION-->
         <table id='table'> 
@@ -72,10 +72,10 @@
                             // DATA FROM JSON OBJECT 
                             student += '<tr>'; 
                             student += '<td>' +  
-                                value.name + '</td>'; 
+                                value.getName() + '</td>'; 
   
                             student += '<td>' +  
-                                value.surname + '</td>'; 
+                                value.getSurname() + '</td>'; 
                            
                             student += '</tr>'; 
                         }); 
