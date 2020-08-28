@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.Role;
 import beans.User;
 import dao.UserDAO;
 
@@ -56,6 +57,13 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public User saveUser(User user) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+		for (User oneUser : dao.findAll()) {
+			if (oneUser.getUsername().equals(user.getUsername())) {
+				Response.status(Response.Status.BAD_REQUEST)
+						.entity("Mora biti jedinstveni username.").build();
+				return null;
+			}
+		}
 		return dao.printUsers(path, user);
 		//return dao.save(user);
 	}
@@ -88,7 +96,15 @@ public class UserService {
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity("Pogrešno ste uneli korisničko ime/lozinku. Pokušajte ponovo.").build();
 		}
-
+		if (user.getRole().equals(Role.GUEST)) {
+			return Response.ok().entity("guestIndex.html").build();
+		}
+		if (user.getRole().equals(Role.HOST)) {
+			return Response.ok().entity("hostIndex.html").build();
+		}
+		if (user.getRole().equals(Role.ADMINISTRATOR)) {
+			return Response.ok().entity("adminIndex.html").build();
+		}
 		return Response.ok().entity("index.html").build();
 	}
 	

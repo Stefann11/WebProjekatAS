@@ -4,6 +4,7 @@
 <title>Home page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 * {
   box-sizing: border-box;
@@ -109,12 +110,16 @@ body {
 <div class="navbar">
   <a href="#" class="active">Home</a>
   <a href="#">Reservations</a>
-  <a href="http://localhost:8080/ASProjekatWeb/listUsers.html">All users</a>
+  <a href="#">All users</a>
   <a href="#">All apartments</a>
   <a href="#">Comments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/registration.html" class="right">Registration</a>
-  <a href="http://localhost:8080/ASProjekatWeb/login.html" class="right">Login</a>
+  <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
+  <a href="http://localhost:8080/ASProjekatWeb/login.html" class = "right">Logout</a>
 </div>
+
+<script>
+document.getElementById('lblUsername').innerHTML = 'Username';
+</script>
 
 <div>
 
