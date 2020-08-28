@@ -7,6 +7,7 @@ public class CommentForApartment implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 9159234366497138095L;
+	protected long id;
 	protected User guest;
 	protected Apartment apartment;
 	protected String text;
@@ -26,6 +27,14 @@ public class CommentForApartment implements Serializable{
 		this.apartment = apartment;
 		this.text = text;
 		this.grade = grade;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public User getGuest() {
