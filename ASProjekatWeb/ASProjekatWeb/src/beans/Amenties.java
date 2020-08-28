@@ -1,7 +1,7 @@
 package beans;
 
 public class Amenties {
-	protected int id;
+	protected long id;
 	protected String name;
 	
 	public Amenties() {
@@ -16,11 +16,11 @@ public class Amenties {
 		this.name = name;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
