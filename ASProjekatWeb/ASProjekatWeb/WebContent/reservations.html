@@ -6,9 +6,11 @@
 <script src="jquery-3.3.1.min.js"></script>
 <script src="js/toastr.min.js"></script>
 <script type="js/bootstrap.bundle.min.js"></script>
-<script src="js/allActiveApartments.js"></script>
-<style>
- table { 
+<script src="js/reservations.js"></script>
+
+<title>Insert title here</title>
+<style> 
+        table { 
             margin: 0 auto; 
             font-size: large; 
             border: 1px solid white; 
@@ -45,7 +47,7 @@
 			}
   
         td { 
-            background-color: #B8B8B7;
+            background-color: #B8B8B7 ;
            
             border: 1px solid white; 
         } 
@@ -132,10 +134,10 @@
     width: 100%;
   }           
            
-</style>
+</style> 
 </head>
 <body>
-	<div class="navbar">
+<div class="navbar">
   <a href="#" class="active">Home</a>
   <a href="#">Reservations</a>
   <a href="http://localhost:8080/ASProjekatWeb/listUsers.html">All users</a>
@@ -143,11 +145,10 @@
   <a href="#">Comments</a>
     <a href="http://localhost:8080/ASProjekatWeb/login.html" class="right">Logout</a>
 </div>
-	
-	<h2>Svi aktivni apartmani</h2>
+<h2>Sve rezervacije</h2>
 
 	
-	<table border="1" id="allActiveApartmentsTable"></table>
-	
+	<table border="1" id="reservationsTable"></table>
+
 </body>
 </html>
