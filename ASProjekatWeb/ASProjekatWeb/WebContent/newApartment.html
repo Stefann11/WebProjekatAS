@@ -77,10 +77,12 @@ button:hover {
 	<div class="container">
 	<form action="rest/apartments/save" method="POST" id="apartmentForm">
     <label class="a1" for="id"><b>Id:</b></label>
-    <input type="text" placeholder="Enter id" name="id" required>
+    <input type="text" placeholder="Enter id" name="id" id="id" required>
 	</br>
 	</br>
-	
+	<script>
+		@Html.DropDownListFor(model => model.Indicator, Enum.GetValues(typeof(ColorTypes)).Cast<ColorTypes>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }), new { @class = "form-control", id = "Indicator" })
+	</script>
 	</br>
 	</br>
 	<label class="a1" for="numberOfRooms"><b>Number of rooms:</b></label>
@@ -96,7 +98,7 @@ button:hover {
 	</br>
 	</br>
 	<label class="a1" for="status"><b>Status:</b></label>
-	<input type="radio" id="true" name="status" value="true">
+	<input type="radio" id="true" name="status" value="true"  checked>
   	<label for="true">True</label><br>
   	<input type="radio" id="false" name="status" value="false">
   	<label for="false">False</label><br>

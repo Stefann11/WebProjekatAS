@@ -21,6 +21,9 @@ public class LoginService {
 	@Context
 	ServletContext ctx;
 	
+	@Context
+	HttpServletRequest request;
+	
 	public LoginService() {
 		
 	}
@@ -40,7 +43,7 @@ public class LoginService {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response login(User user, @Context HttpServletRequest request) {
+	public Response login(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		User loggedUser = userDao.find(user.getUsername(), user.getPassword());
 		if (loggedUser != null) {

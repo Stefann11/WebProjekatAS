@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -89,7 +90,7 @@ public class UserService {
 	@Path("/login")
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response loginUser(User sentUser) {
+	public Response loginUser(User sentUser,  @Context HttpServletRequest request) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
 		User user = dao.findUser(sentUser.getUsername());
 		if (user == null || !user.getPassword().equals(sentUser.getPassword())) {
@@ -97,16 +98,37 @@ public class UserService {
 					.entity("Pogrešno ste uneli korisničko ime/lozinku. Pokušajte ponovo.").build();
 		}
 		if (user.getRole().equals(Role.GUEST)) {
+			request.getSession().setAttribute("user", user);
 			return Response.ok().entity("guestIndex.html").build();
 		}
 		if (user.getRole().equals(Role.HOST)) {
+			request.getSession().setAttribute("user", user);
 			return Response.ok().entity("hostIndex.html").build();
 		}
 		if (user.getRole().equals(Role.ADMINISTRATOR)) {
+			request.getSession().setAttribute("user", user);
 			return Response.ok().entity("adminIndex.html").build();
 		}
+		request.getSession().setAttribute("user", user);
 		return Response.ok().entity("index.html").build();
 	}
 	
+	@POST
+	@Path("/logout")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response logout(@Context HttpServletRequest request) {
+		request.getSession().invalidate();
+		
+		return Response.ok().build();
+	}
+	
+	@GET
+	@Path("/loggedUser")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User login(@Context HttpServletRequest request) {
+		return (User) request.getSession().getAttribute("user");
+	}
 	
 }

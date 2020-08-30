@@ -4,6 +4,9 @@
 <title>Home page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="jquery-3.3.1.min.js"></script>
+	<script src="js/getLoggedUser.js"></script>
+	<script src="js/toastr.min.js"></script>
 <style>
 * {
   box-sizing: border-box;
@@ -115,8 +118,13 @@ body {
   <a href="#">All comments</a>
   <a href="#">Edit account</a>
 
+  <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
   <a href="http://localhost:8080/ASProjekatWeb/login.html" class="right">Logout</a>
 </div>
+
+<script>
+document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
+</script>
 
 <div>
 

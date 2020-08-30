@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="js/getLoggedUser.js"></script>
+	<script src="js/toastr.min.js"></script>
 <title>Home page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -89,6 +92,11 @@ body {
   padding: 20px;
 }
 
+label.right {text-align: left; font-size: 45px; color: white;
+	padding: 400px;;
+	font-size: 25px; }
+
+
 /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 700px) {
   .row {   
@@ -117,7 +125,7 @@ body {
 </div>
 
 <script>
-document.getElementById('lblUsername').innerHTML = 'Username';
+document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 </script>
 
 <div>
