@@ -4,6 +4,7 @@
 	<script src="jquery-3.3.1.min.js"></script>
 	<script src="js/getLoggedUser.js"></script>
 	<script src="js/toastr.min.js"></script>
+	<script src="js/logout.js"></script>
 <title>Home page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -121,7 +122,7 @@ label.right {text-align: left; font-size: 45px; color: white;
   <a href="http://localhost:8080/ASProjekatWeb/allActiveApartments.html">All active apartments</a>
   <a href="#">Comments</a>
   <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
-  <a href="http://localhost:8080/ASProjekatWeb/login.html" class = "right">Logout</a>
+  <a onclick=logout(this) href="#" class="right">Logout</a>
 </div>
 
 <script>

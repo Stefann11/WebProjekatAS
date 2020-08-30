@@ -28,6 +28,9 @@ public class UserService {
 	@Context
 	ServletContext ctx;
 	
+	@Context
+	HttpServletRequest request;
+	
 	public UserService() {
 	}
 	
