@@ -74,11 +74,25 @@ public class UserService {
 	
 	@PUT
 	@Path("/edit")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public User editUser(User user) {
+	public Response editUser(User user) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
-		return dao.edit(path, user);
+		dao.edit(path, user);
+		if (user.getRole().equals(Role.GUEST)) {
+			request.getSession().setAttribute("user", user);
+			return Response.ok().entity("guestIndex.html").build();
+		}
+		if (user.getRole().equals(Role.HOST)) {
+			request.getSession().setAttribute("user", user);
+			return Response.ok().entity("hostIndex.html").build();
+		}
+		if (user.getRole().equals(Role.ADMINISTRATOR)) {
+			request.getSession().setAttribute("user", user);
+			return Response.ok().entity("adminIndex.html").build();
+		}
+		request.getSession().setAttribute("user", user);
+		return Response.ok().entity("index.html").build();
 	}
 	
 	@GET

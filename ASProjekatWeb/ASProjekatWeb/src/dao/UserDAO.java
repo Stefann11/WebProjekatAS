@@ -75,8 +75,13 @@ public class UserDAO {
 	}
 	
 	public User edit(String contextPath, User user) {
-		users.remove(user.getUsername());
-		return printUsers(contextPath, user);
+		User us = users.get(user.getUsername());
+		us.setGender(user.getGender());
+		us.setName(user.getName());
+		us.setPassword(user.getPassword());
+		us.setRole(user.getRole());
+		us.setSurname(user.getSurname());
+		return printUsers(contextPath, us);
 	}
 	
 	/**
