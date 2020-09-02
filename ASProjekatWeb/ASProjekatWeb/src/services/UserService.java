@@ -79,19 +79,20 @@ public class UserService {
 	public Response editUser(User user) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
 		dao.edit(path, user);
-		if (user.getRole().equals(Role.GUEST)) {
-			request.getSession().setAttribute("user", user);
+		User user2 = dao.findUser(user.getUsername());
+		if (user2.getRole().equals(Role.GUEST)) {
+			request.getSession().setAttribute("user", user2);
 			return Response.ok().entity("guestIndex.html").build();
 		}
-		if (user.getRole().equals(Role.HOST)) {
-			request.getSession().setAttribute("user", user);
+		if (user2.getRole().equals(Role.HOST)) {
+			request.getSession().setAttribute("user", user2);
 			return Response.ok().entity("hostIndex.html").build();
 		}
-		if (user.getRole().equals(Role.ADMINISTRATOR)) {
-			request.getSession().setAttribute("user", user);
+		if (user2.getRole().equals(Role.ADMINISTRATOR)) {
+			request.getSession().setAttribute("user", user2);
 			return Response.ok().entity("adminIndex.html").build();
 		}
-		request.getSession().setAttribute("user", user);
+		request.getSession().setAttribute("user", user2);
 		return Response.ok().entity("index.html").build();
 	}
 	
