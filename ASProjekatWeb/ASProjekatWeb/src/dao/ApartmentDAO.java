@@ -52,6 +52,28 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		return toReturn;
 	}
 	
+	public Collection<Apartment> getHostActive(User host) {
+		Collection<Apartment> toReturn = new ArrayList<Apartment>();
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.getHost()!=null) {
+				if (apartment.getHost().getUsername().equals(host.getUsername())) {
+					toReturn.add(apartment);
+				}		
+			}
+		}
+		return toReturn;
+		
+		//SAMO ZA AKTIVNE
+//		for (Apartment apartment: apartments.values()) {
+//			if (apartment.getHost()!=null) {
+//				if (apartment.isStatus() && apartment.getHost().getUsername().equals(host.getUsername())) {
+//					toReturn.add(apartment);
+//				}		
+//			}
+//		}
+//		return toReturn;
+	}
+	
 	public Apartment save(Apartment apartment) {
 		apartments.put(Long.toString(apartment.getId()), apartment);
 		return apartment;

@@ -6,6 +6,7 @@
 	<script src="js/toastr.min.js"></script>
 	<script type="js/bootstrap.bundle.min.js"></script>
 	<script src="js/editUser.js"></script>
+	<script src="js/fillEditFields.js"></script>
 <title>EditAccount</title>
 <link rel="stylesheet" href="css/stilZaLogin.css">
 <style>
@@ -20,15 +21,15 @@ body{background-image: url('images/registration.jpg');}
 	<div class="container">
 	<form action="rest/users/edit" method="PUT" id="editUserForm">
     <label class="a1" for="uname"><b>Username:</b></label>
-    <input type="text" placeholder="Enter Username" name="username" required>
+    <input type="text" placeholder="Enter Username" name="username" id="username" disabled required>
 	</br>
 	</br>
 	<label class="a1" for="name"><b>Name:</b></label>
-    <input type="text" placeholder="Enter Name" name="name" required>
+    <input type="text" placeholder="Enter Name" name="name" id="name" required>
 	</br>
 	</br>
 	<label class="a1" for="surname"><b>Surname:</b></label>
-    <input type="text" placeholder="Enter Surname" name="surname" required>
+    <input type="text" placeholder="Enter Surname" name="surname" id="surname" required>
 	</br>
 	</br>
     <label class="a1" for="psw"><b>Password:</b></label>

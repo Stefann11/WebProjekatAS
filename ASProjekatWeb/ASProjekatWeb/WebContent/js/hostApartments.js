@@ -6,7 +6,7 @@ $(document).ready(function() {
 function allApartments() {
 	$.ajax({
 		type : "GET",
-		url : "rest/apartments/",
+		url : "rest/apartments/getHostActive",
 		success : function(result) {
 			var table = $("#allApartmentsTable");
 			table.empty();

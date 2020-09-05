@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -24,6 +25,9 @@ public class ApartmentService {
 	
 	@Context
 	ServletContext ctx;
+	
+	@Context
+	HttpServletRequest request;
 	
 	private static String path="";
 	
@@ -56,6 +60,16 @@ public class ApartmentService {
 	public Collection<Apartment> getActiveApartments(){
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		return dao.getAllActive();
+	}
+	
+	@GET
+	@Path("/getHostActive")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> getHostActiveApartments(@Context HttpServletRequest request){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.getHostActive(host);
 	}
 	
 	@POST
