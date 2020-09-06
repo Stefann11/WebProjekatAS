@@ -56,7 +56,7 @@ function allApartments() {
 					var resLoc = "Širina: " + res1Loc + ", dužina: " + res2Loc + ", ulica i broj: " + res3Loc + ", mesto: " + res4Loc + ", poštanski broj: " + res5Loc;
 					
 					apartment.append("<td>" + resLoc + "</td>");
-					
+									
 					apartment.append("<td>" + "Datumi za izdavanje" + "</td>");
 					apartment.append("<td>" + "Dostupnost po datumima" + "</td>");
 					
@@ -85,7 +85,24 @@ function allApartments() {
 					
 					apartment.append("<td>" + item["priceForOneNight"] + "</td>");
 					
-					apartment.append("<td>" + "Vreme za prijavu" + "</td>");
+					/*var date = new Date(item["releaseDates"] * 1000);
+
+					var year = date.getFullYear();
+					var month = date.getMonth() + 1;
+					var day = date.getDate();
+					
+					var dateString = day + "-" + month + "-" + year;
+					apartment.append("<td>" + dateString + "</td>");*/
+					
+					//var dateInt = parseInt(item["releaseDates"]);
+					
+					var date = new Date(parseInt(item["releaseDates"]));
+
+					//Create your custom format
+					var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
+					
+					apartment.append("<td>" + fdate + "</td>");
+					//apartment.append("<td>" + "Vreme za prijavu" + "</td>");
 					apartment.append("<td>" + "Vreme za odjavu" + "</td>");
 					
 					apartment.append("<td>" + item["status"] + "</td>");					

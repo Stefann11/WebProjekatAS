@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 public class Apartment implements Serializable{
 	/**
 	 * 
@@ -16,6 +18,7 @@ public class Apartment implements Serializable{
 	protected int numberOfRooms;
 	protected int numberOfGuests;
 	protected Location location;
+	@JsonDeserialize(contentUsing = DateHandler.class)
 	protected List<Date> releaseDates;
 	protected List<Date> availableDates;
 	protected User host;

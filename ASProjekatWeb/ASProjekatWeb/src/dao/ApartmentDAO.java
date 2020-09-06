@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -166,6 +167,10 @@ private Map<String, Apartment> apartments = new HashMap<>();
 	
 	public void readApartments(String contextPath) {
 		ObjectMapper mapper = new ObjectMapper();
+		
+		//za datum
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		mapper.setDateFormat(df);
 		
 		BufferedReader in = null;
 		
