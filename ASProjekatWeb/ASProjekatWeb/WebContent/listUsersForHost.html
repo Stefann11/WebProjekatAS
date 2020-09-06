@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title>Home page</title>
+<meta charset="UTF-8">
+<title>All users</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="jquery-3.3.1.min.js"></script>
+	<script src="jquery-3.3.1.min.js"></script>
 	<script src="js/getLoggedUser.js"></script>
 	<script src="js/toastr.min.js"></script>
 	<script src="js/logout.js"></script>
-<link rel="stylesheet" href="css/stilZaIndeks.css">
+	<script src="js/listUsersForHost.js"></script>
+	<link rel="stylesheet" href="css/stilZaIndeks.css">
+	<link rel="stylesheet" href="css/stilovi.css">
 <style>
-body{background-image: url('images/index.jpg');}
+body{background-image: url('images/registration.jpg');}
 </style>
 </head>
 <body>
 
 <div class="navbar">
-  <a href="#" class="active">Home</a>
+  <a href="http://localhost:8080/ASProjekatWeb/hostIndex.html">Home</a>
   <a href="#">All reservations</a>
-  <a href="http://localhost:8080/ASProjekatWeb/listUsersForHost.html">All users</a>
+  <a href="http://localhost:8080/ASProjekatWeb/listUsersForHost.html" class = "active">All users</a>
   <a href="http://localhost:8080/ASProjekatWeb/hostApartments.html">All host apartments</a>
   <a href="#">All comments</a>
   <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Edit account</a>
@@ -31,12 +34,10 @@ body{background-image: url('images/index.jpg');}
 document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 </script>
 
-<div>
+	<h2>Svi korisnici</h2>
 
-</div>
-
-
-
-
+	
+	<table border="1" id="allUsersTable"></table>
+	
 </body>
 </html>

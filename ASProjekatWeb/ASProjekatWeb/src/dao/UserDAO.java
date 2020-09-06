@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -19,6 +21,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import beans.Apartment;
+import beans.Reservation;
 import beans.User;
 
 /***
@@ -82,6 +86,27 @@ public class UserDAO {
 		
 		us.setSurname(user.getSurname());
 		return printUsers(contextPath, us);
+	}
+	
+	public Collection<User> listUsersForHost(User host){
+		List<User> usersToReturn = new ArrayList<User>();
+		for (User user : users.values()) {
+			if (host.getApartmentsForRent()!=null) {
+				for(Apartment apartment : host.getApartmentsForRent()) {
+					if (apartment.getReservations()!=null) {
+						for (Reservation reservation : apartment.getReservations()) {
+							if (reservation.getGuest()!=null) {
+								if (reservation.getGuest().getUsername().equals(user.getUsername())) {
+									usersToReturn.add(user);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return usersToReturn;
 	}
 	
 	/**
