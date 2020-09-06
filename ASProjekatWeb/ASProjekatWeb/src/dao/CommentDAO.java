@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.CommentForApartment;
-import beans.Reservation;
 import beans.User;
 
 public class CommentDAO {
@@ -52,9 +51,9 @@ public class CommentDAO {
 	}
 	
 	
-	public CommentForApartment editComment(String contextPath, CommentForApartment comm) {
+	public CommentForApartment editComment(String contextPath, CommentForApartment comm, User user) {
 		comments.remove(Long.toString(comm.getId()));
-		return printComment(contextPath, comm);
+		return printComment(contextPath, comm, user);
 	}
 	
 	public CommentForApartment findComment(long id) {	
@@ -68,9 +67,10 @@ public class CommentDAO {
 	}
 	
 	
-	public CommentForApartment printComment(String contextPath, CommentForApartment comm) {
+	public CommentForApartment printComment(String contextPath, CommentForApartment comm, User user) {
 		ObjectMapper mapper = new ObjectMapper();
 		String path = contextPath + "/comments.json";
+		comm.setGuest(user);
 		comments.put(Long.toString(comm.getId()), comm);
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		try {

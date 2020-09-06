@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="jquery-3.3.1.min.js"></script>
-	<script src="js/newApartment.js"></script>
+	<script src="js/newComment.js"></script>
 	<script src="js/toastr.min.js"></script>
 <title>New comment</title>
 <link rel="stylesheet" href="css/stilZaLogin.css">
@@ -17,20 +17,16 @@ body{background-image: url('images/registration.jpg');}
 	</br>
 	</br>	
 	<div class="container">
-	<form action="rest/apartments/save" method="POST" id="apartmentForm">
+	<form action="rest/comments/save" method="POST" id="commentForm">
     <label class="a1" for="id"><b>Id:</b></label>
     <input type="text" placeholder="Enter id" name="id" id="id" required>
 	
 	<script>
-		@Html.DropDownListFor(model => model.Indicator, Enum.GetValues(typeof(ColorTypes)).Cast<ColorTypes>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }), new { @class = "form-control", id = "Indicator" })
-	</script>
+		</script>
 	</br>
 	</br>
-	<label class="a1" for="apartmant"><b>Id apartmana:</b></label>
-    <input type="text" placeholder="id apartmana" id="apartmant" name="apartmant" required>
-	</br>
-	</br>
-    <label class="a1" for="text"><b>Unesite komentara:</b></label>
+	
+    <label class="a1" for="text"><b>Unesite komentar:</b></label>
     <input type="text" placeholder="Komentar" id="text"  name="text" required>
 	</br>
 	</br>

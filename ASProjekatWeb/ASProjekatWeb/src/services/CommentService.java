@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,9 +16,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.CommentForApartment;
-import beans.Reservation;
+import beans.User;
 import dao.CommentDAO;
-import dao.ReservationDAO;
 
 @Path("/comments")
 public class CommentService {
@@ -25,7 +25,11 @@ public class CommentService {
 	@Context
 	ServletContext ctx;
 	
+	@Context
+	HttpServletRequest request;
+	
 	private static String path="";
+	
 	
 	public CommentService() {
 	}
@@ -57,7 +61,8 @@ public class CommentService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public CommentForApartment newComment(CommentForApartment comm){
 		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
-		return dao.printComment(path, comm);
+		User user = (User) request.getSession().getAttribute("user");
+		return dao.printComment(path, comm, user);
 		//return dao.save(reservation);
 	}
 	
@@ -75,6 +80,8 @@ public class CommentService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public CommentForApartment editComment(CommentForApartment comm) {
 		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
-		return dao.editComment(path, comm);
+		User user = (User) request.getSession().getAttribute("user");
+		return dao.editComment(path, comm, user);
 	}
+	
 }
