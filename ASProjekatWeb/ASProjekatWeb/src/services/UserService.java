@@ -142,6 +142,16 @@ public class UserService {
 	}
 	
 	@GET
+	@Path("/listUsersForHost")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public  Collection<User> listUsersForHost(@Context HttpServletRequest request){
+		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.listUsersForHost(host);
+	}
+	
+	@GET
 	@Path("/loggedUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
