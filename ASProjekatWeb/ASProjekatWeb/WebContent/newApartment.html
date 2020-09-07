@@ -21,9 +21,6 @@ body{background-image: url('images/registration.jpg');}
     <label class="a1" for="id"><b>Id:</b></label>
     <input type="text" placeholder="Enter id" name="id" id="id" required>
 	
-	<script>
-		@Html.DropDownListFor(model => model.Indicator, Enum.GetValues(typeof(ColorTypes)).Cast<ColorTypes>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }), new { @class = "form-control", id = "Indicator" })
-	</script>
 	</br>
 	</br>
 	<label class="a1" for="numberOfRooms"><b>Number of rooms:</b></label>
@@ -34,8 +31,36 @@ body{background-image: url('images/registration.jpg');}
     <input type="text" placeholder="Enter Number Of Guests" id="numberOfGuests"  name="numberOfGuests" required>
 	</br>
 	</br>
+	<label class="a1" for="longitude"><b>Longitude:</b></label>
+    <input type="text" placeholder="Enter Longitude" id="longitude"  name="longitude" required>
+	</br>
+	</br>
+	<label class="a1" for="latitude"><b>Latitude:</b></label>
+    <input type="text" placeholder="Enter Latitude" id="latitude"  name="latitude" required>
+	</br>
+	</br>
+	<label class="a1" for="streetAndNumber"><b>Street and number:</b></label>
+    <input type="text" placeholder="Enter Street And Number" id="streetAndNumber"  name="streetAndNumber" required>
+	</br>
+	</br>
+	<label class="a1" for="place"><b>Place:</b></label>
+    <input type="text" placeholder="Enter Place" id="place"  name="place" required>
+	</br>
+	</br>
+	<label class="a1" for="postcode"><b>Postcode:</b></label>
+    <input type="text" placeholder="Enter Postcode" id="postcode"  name="postcode" required>
+	</br>
+	</br>
 	<label class="a1" for="priceForOneNight"><b>Price for one night:</b></label>
     <input type="text" placeholder="Price For One Night" id="priceForOneNight" name="priceForOneNight" required>
+	</br>
+	</br>
+	<label class="a1" for="checkInTime"><b>Check in time:</b></label>
+    <input type="text" placeholder="Check In Time (14h)" id="checkInTime" name="checkInTime" required>h
+	</br>
+	</br>
+	<label class="a1" for="checkOutTime"><b>Check out time:</b></label>
+    <input type="text" placeholder="Check Out Time (10h)" id="checkOutTime" name="checkOutTime" required>h
 	</br>
 	</br>
 	<label class="a1" for="status"><b>Status:</b></label>

@@ -76,7 +76,9 @@ public class ApartmentService {
 	@Path("/save")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Apartment saveUser(Apartment apartment) {
+	public Apartment saveApartment(Apartment apartment, @Context HttpServletRequest request) {
+		User host = (User) request.getSession().getAttribute("user");
+		apartment.setHost(host);
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		return dao.printApartments(path, apartment);
 		//return dao.save(apartment);

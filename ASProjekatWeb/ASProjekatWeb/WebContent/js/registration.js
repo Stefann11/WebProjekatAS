@@ -6,7 +6,7 @@ $(document).ready(function() {
 		let surname = $("input[name=surname]").val();
 		let password = $("input[name=password]").val();
 		let repassword = $('#repassword').val();
-		let gender="Male";
+		let gender = $('input[name=gender]:checked').val();
 		var radios = document.getElementsByName('gender');
 
 		for (var i = 0, length = radios.length; i < length; i++) {
@@ -20,6 +20,7 @@ $(document).ready(function() {
 		
 		if (password != repassword){
 			toastr["error"]("Lozinke moraju biti iste");
+			alert("Lozinke moraju biti iste");
 			allInputs[4].append("Nisu iste lozinke");
 			$(allInputs[4]).css("color", "red");
 			event.preventDefault();

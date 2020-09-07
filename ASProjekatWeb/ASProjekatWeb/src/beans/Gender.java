@@ -12,6 +12,10 @@ public enum Gender implements Serializable{
 	
 	private String gender;
 	
+	private Gender() {
+		
+	}
+	
 	private Gender(String gender) {
 		this.gender = gender;
 	}

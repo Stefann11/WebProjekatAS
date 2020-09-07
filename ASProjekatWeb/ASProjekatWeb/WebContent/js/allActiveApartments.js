@@ -47,7 +47,7 @@ function allActiveApartments() {
 					var pos4Loc = locationStr.indexOf("place");
 					var pos5Loc = locationStr.indexOf("postcode");
 					
-					var res1Loc = locationStr.substring(posLoc+11,pos2Loc-3);
+					var res1Loc = locationStr.substring(posLoc+11,pos2Loc-2);
 					var res2Loc = locationStr.substring(pos2Loc+10, pos3Loc-13);
 					var res3Loc = locationStr.substring(pos3Loc+18, pos4Loc-3);
 					var res4Loc = locationStr.substring(pos4Loc+8, pos5Loc-3);
@@ -148,7 +148,6 @@ function getAllDates(obj, apartment){
 	var arrayDates = strJS.split(",");
 	var str = "";
 	for (var i = 0; i < arrayDates.length; i++) {
-		console.log(arrayDates[i] + "  onedate");
 		var date = new Date(parseInt(arrayDates[i]));
 
 		var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
