@@ -57,8 +57,9 @@ function allActiveApartments() {
 					
 					apartment.append("<td>" + resLoc + "</td>");
 					
-					apartment.append("<td>" + "Datumi za izdavanje" + "</td>");
-					apartment.append("<td>" + "Dostupnost po datumima" + "</td>");
+					getAllDates(item["releaseDates"], apartment);
+					
+					getAllDates(item["availableDates"], apartment);
 					
 					var host = item["host"];	
 					var hostStr = JSON.stringify(host);
@@ -140,3 +141,21 @@ function printLocation(obj, apartment) {
         };
     }
 };
+
+function getAllDates(obj, apartment){
+	var strJSON = JSON.stringify(obj);
+	var strJS = strJSON.substring(1, strJSON.length-1);
+	var arrayDates = strJS.split(",");
+	var str = "";
+	for (var i = 0; i < arrayDates.length; i++) {
+		console.log(arrayDates[i] + "  onedate");
+		var date = new Date(parseInt(arrayDates[i]));
+
+		var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
+		str += fdate;
+		if (i<arrayDates.length-1){
+			str += ", ";
+		}
+	}
+	apartment.append("<td>" + str + "</td>");
+}

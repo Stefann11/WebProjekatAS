@@ -20,6 +20,7 @@ public class Apartment implements Serializable{
 	protected Location location;
 	@JsonDeserialize(contentUsing = DateHandler.class)
 	protected List<Date> releaseDates;
+	@JsonDeserialize(contentUsing = DateHandler.class)
 	protected List<Date> availableDates;
 	protected User host;
 	protected List<CommentForApartment> comments;

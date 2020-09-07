@@ -56,9 +56,9 @@ function allApartments() {
 					var resLoc = "Širina: " + res1Loc + ", dužina: " + res2Loc + ", ulica i broj: " + res3Loc + ", mesto: " + res4Loc + ", poštanski broj: " + res5Loc;
 					
 					apartment.append("<td>" + resLoc + "</td>");
-									
-					apartment.append("<td>" + "Datumi za izdavanje" + "</td>");
-					apartment.append("<td>" + "Dostupnost po datumima" + "</td>");
+						
+					getAllDates(item["releaseDates"], apartment);
+					getAllDates(item["availableDates"], apartment);					
 					
 					var host = item["host"];	
 					var hostStr = JSON.stringify(host);
@@ -85,24 +85,8 @@ function allApartments() {
 					
 					apartment.append("<td>" + item["priceForOneNight"] + "</td>");
 					
-					/*var date = new Date(item["releaseDates"] * 1000);
-
-					var year = date.getFullYear();
-					var month = date.getMonth() + 1;
-					var day = date.getDate();
 					
-					var dateString = day + "-" + month + "-" + year;
-					apartment.append("<td>" + dateString + "</td>");*/
-					
-					//var dateInt = parseInt(item["releaseDates"]);
-					
-					var date = new Date(parseInt(item["releaseDates"]));
-
-					//Create your custom format
-					var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
-					
-					apartment.append("<td>" + fdate + "</td>");
-					//apartment.append("<td>" + "Vreme za prijavu" + "</td>");
+					apartment.append("<td>" + "Vreme za prijavu" + "</td>");
 					apartment.append("<td>" + "Vreme za odjavu" + "</td>");
 					
 					apartment.append("<td>" + item["status"] + "</td>");					
@@ -158,15 +142,20 @@ function printLocation(obj, apartment) {
     }
 };
 
-function getArray(parsedData){
-	var arr = [];
+function getAllDates(obj, apartment){
+	var strJSON = JSON.stringify(obj);
+	var strJS = strJSON.substring(1, strJSON.length-1);
+	var arrayDates = strJS.split(",");
+	var str = "";
+	for (var i = 0; i < arrayDates.length; i++) {
+		console.log(arrayDates[i] + "  onedate");
+		var date = new Date(parseInt(arrayDates[i]));
 
-	for(item in parsedData) {
-    arr.push({
-        "id": parsedData[item],
-        "value": parsedData[item]
-    });
-};
-
-console.log(arr);
+		var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
+		str += fdate;
+		if (i<arrayDates.length-1){
+			str += ", ";
+		}
+	}
+	apartment.append("<td>" + str + "</td>");
 }
