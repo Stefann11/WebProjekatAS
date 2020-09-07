@@ -1,7 +1,7 @@
 package beans;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +26,8 @@ public class Apartment implements Serializable{
 	protected List<CommentForApartment> comments;
 	protected List<String> images;
 	protected double priceForOneNight;
-	protected LocalDateTime checkInTime;
-	protected LocalDateTime checkOutTime;
+	protected int checkInTime;
+	protected int checkOutTime;
 	protected boolean status;
 	protected List<Amenties> listOfAmenities;
 	protected List<Reservation> reservations;
@@ -45,8 +45,8 @@ public class Apartment implements Serializable{
 		this.comments = new ArrayList<CommentForApartment>();
 		this.images = new ArrayList<String>();
 		this.priceForOneNight = 0;
-		this.checkInTime = null;
-		this.checkOutTime = null;
+		this.checkInTime = 14;
+		this.checkOutTime = 10;
 		this.status = false;
 		this.listOfAmenities = new ArrayList<Amenties>();
 		this.reservations = new ArrayList<Reservation>();
@@ -54,7 +54,7 @@ public class Apartment implements Serializable{
 	
 	public Apartment(Long id, TypeOfApartment type, int numberOfRooms, int numberOfGuests, Location location,
 			List<Date> releaseDates, List<Date> availableDates, User host, List<CommentForApartment> comments,
-			List<String> images, double priceForOneNight, LocalDateTime checkInTime, LocalDateTime checkOutTime,
+			List<String> images, double priceForOneNight, int checkInTime, int checkOutTime,
 			boolean status, List<Amenties> listOfAmenities, List<Reservation> reservations) {
 		super();
 		this.id = id;
@@ -187,19 +187,19 @@ public class Apartment implements Serializable{
 		this.priceForOneNight = priceForOneNight;
 	}
 
-	public LocalDateTime getCheckInTime() {
+	public int getCheckInTime() {
 		return checkInTime;
 	}
 
-	public void setCheckInTime(LocalDateTime checkInTime) {
+	public void setCheckInTime(int checkInTime) {
 		this.checkInTime = checkInTime;
 	}
 
-	public LocalDateTime getCheckOutTime() {
+	public int getCheckOutTime() {
 		return checkOutTime;
 	}
 
-	public void setCheckOutTime(LocalDateTime checkOutTime) {
+	public void setCheckOutTime(int checkOutTime) {
 		this.checkOutTime = checkOutTime;
 	}
 

@@ -17,7 +17,7 @@ body{background-image: url('images/registration.jpg');}
 	</br>
 	</br>	
 	<div class="container">
-	<form action="rest/users/save" method="POST" id="registrationForm" onsubmit="return validate(this)">
+	<form action="rest/users/save" method="POST" id="registrationForm">
     <label class="a1" for="uname"><b>Username:</b></label>
     <input type="text" placeholder="Enter Username" name="username" required>
 	</br>
@@ -30,6 +30,11 @@ body{background-image: url('images/registration.jpg');}
     <input type="text" placeholder="Enter Surname" name="surname" required>
 	</br>
 	</br>
+	<label for="gender">Gender: </label>
+	<input type="radio" name="gender" value="MALE" checked="checked">Male</input>
+	<input type="radio" name="gender" value="FEMALE">Female</input>
+	<br/>
+	<br/>
     <label class="a1" for="psw"><b>Password:</b></label>
     <input type="password" placeholder="Enter Password" id="password"  name="password" required>
 	</br>

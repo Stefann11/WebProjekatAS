@@ -1,6 +1,31 @@
 $(document).ready(function() {
 	$('#registrationForm').submit(function(e) {
 		e.preventDefault();
+		let username = $("input[name=username]").val();
+		let name = $("input[name=name]").val();
+		let surname = $("input[name=surname]").val();
+		let password = $("input[name=password]").val();
+		let repassword = $('#repassword').val();
+		let gender="Male";
+		var radios = document.getElementsByName('gender');
+
+		for (var i = 0, length = radios.length; i < length; i++) {
+		  if (radios[i].checked) {
+			gender = radios[i].value;
+		    break;
+		  }
+		}
+		
+		var allInputs = document.querySelectorAll("#container_id input[type=text]");
+		
+		if (password != repassword){
+			toastr["error"]("Lozinke moraju biti iste");
+			allInputs[4].append("Nisu iste lozinke");
+			$(allInputs[4]).css("color", "red");
+			event.preventDefault();
+			return;
+		}
+		
 			var $inputs = $('#registrationForm input:not([type="submit"])');
 			var values = {};
 			$inputs.each(function() {
@@ -11,7 +36,7 @@ $(document).ready(function() {
 				type: "POST",
 				url: "rest/users/save",
 				contentType : "application/json",
-				data: JSON.stringify(values),
+				data: JSON.stringify({username: username, password: password, name: name, surname: surname}),
 				success: function(result) {
 					toastr["success"]("Uspešno ste se registrovali!");
 					setTimeout(function() {
@@ -25,7 +50,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('#password').focusout(function() {
+	/*$('#password').focusout(function() {
 		//var lozinka = $('#lozinka');
 		var password = $('#password');
 		var repassword = $('#repassword');
@@ -40,20 +65,11 @@ $(document).ready(function() {
 			toastr["error"]("Lozinke moraju biti iste");
 		}
 		
-		/*var lozinkaVal = lozinka.val();
-		if(!lozinkaVal) {
-			toastr["error"]("Morate uneti lozinku.");
-		} else if (!lozinkaVal.match("^[a-zA-Z0-9]+$")) {
-			toastr["error"]("Lozinka može sadržati samo slova i brojeve.");
-			lozinka.val("");
-		} else if(lozinkaVal.length < 4) {
-			toastr["error"]("Lozinka mora sadržati minimalno 4 karaktera.");
-		}	*/	
-	});
+	});*/
 	
 });
 
-function validate(forma){
+/*function validate(forma){
 	var passwordEl = document.getElementByName('password')[0];
 	var repasswordEl = document.getElementByName('password')[1];
 	var password = passwordEl.value;
@@ -65,4 +81,4 @@ function validate(forma){
 		return false;
 	}
 	return true;
-}
+}*/

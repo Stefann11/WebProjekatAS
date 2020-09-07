@@ -86,8 +86,8 @@ function allApartments() {
 					apartment.append("<td>" + item["priceForOneNight"] + "</td>");
 					
 					
-					apartment.append("<td>" + "Vreme za prijavu" + "</td>");
-					apartment.append("<td>" + "Vreme za odjavu" + "</td>");
+					apartment.append("<td>" + item["checkInTime"] + "h" + "</td>");
+					apartment.append("<td>" + item["checkOutTime"] + "h" + "</td>");
 					
 					apartment.append("<td>" + item["status"] + "</td>");					
 					
