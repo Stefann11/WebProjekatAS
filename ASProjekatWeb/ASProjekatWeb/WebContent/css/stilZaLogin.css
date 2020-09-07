@@ -27,6 +27,20 @@ input[type=submit]:hover {
    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+input[type=checkbox]{
+  transition-duration: 0.4s;
+  border-radius: 15px;
+   background-color: white; /* Green */
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin:15px;
+  
+}
+
 label.a1{
 	color: white;
 	padding: 12px;
@@ -34,7 +48,7 @@ label.a1{
 	text-align: center;
 	
 }
-h3 {text-align: center; font-size: 45px;}
+h3 {text-align: center; font-size: 45px; color: white}
 p {text-align: center;}
 div {text-align: center;}
 
