@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,6 +67,18 @@ public class CommentDAO {
 		return comm;
 	}
 	
+	
+	public Collection<CommentForApartment> getCommentsForHost(User host) {
+		Collection<CommentForApartment> toReturn = new ArrayList<CommentForApartment>();
+		for (CommentForApartment c: comments.values()) {
+			if (c.getApartment().getHost()!=null) {
+				if (c.getApartment().getHost().getUsername().equals(host.getUsername())) {
+					toReturn.add(c);
+				}		
+			}
+		}
+		return toReturn;
+	}
 	
 	public CommentForApartment printComment(String contextPath, CommentForApartment comm, User user) {
 		ObjectMapper mapper = new ObjectMapper();
