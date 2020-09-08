@@ -12,6 +12,7 @@ public class CommentForApartment implements Serializable{
 	protected Apartment apartment;
 	protected String text;
 	protected int grade;
+	protected boolean approved;
 	
 	public CommentForApartment() {
 		super();
@@ -19,6 +20,7 @@ public class CommentForApartment implements Serializable{
 		this.apartment = new Apartment();
 		this.text = "text";
 		this.grade = 0;
+		this.approved = false;
 	}
 	
 	public CommentForApartment(User guest, Apartment apartment, String text, int grade) {
@@ -27,8 +29,17 @@ public class CommentForApartment implements Serializable{
 		this.apartment = apartment;
 		this.text = text;
 		this.grade = grade;
+		this.approved = false;
 	}
 	
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
 	public long getId() {
 		return id;
 	}
