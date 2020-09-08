@@ -81,8 +81,19 @@ private Map<String, Apartment> apartments = new HashMap<>();
 	}
 	
 	public Apartment editApartment(String contextPath, Apartment apartment) {
+		Apartment apartmentToSave = apartments.get(Long.toString(apartment.getId()));
+		
 		apartments.remove(Long.toString(apartment.getId()));
-		return printApartments(contextPath, apartment);
+		
+		apartmentToSave.setNumberOfRooms(apartment.getNumberOfRooms());
+		apartmentToSave.setNumberOfGuests(apartment.getNumberOfGuests());
+		apartmentToSave.setLocation(apartment.getLocation());
+		apartmentToSave.setPriceForOneNight(apartment.getPriceForOneNight());
+		apartmentToSave.setCheckInTime(apartment.getCheckInTime());
+		apartmentToSave.setCheckOutTime(apartment.getCheckOutTime());
+		apartmentToSave.setStatus(apartment.isStatus());
+		
+		return printApartments(contextPath, apartmentToSave);
 	}
 	
 	public Apartment findApartment(long id) {	

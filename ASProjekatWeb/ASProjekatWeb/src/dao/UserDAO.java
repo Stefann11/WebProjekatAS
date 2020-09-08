@@ -85,6 +85,7 @@ public class UserDAO {
 		us.setPassword(user.getPassword());
 		
 		us.setSurname(user.getSurname());
+		users.remove(user.getUsername());
 		return printUsers(contextPath, us);
 	}
 	

@@ -14,14 +14,14 @@ function allApartments() {
 				$('#allApartmentsTable').hide();
 			} else {
 				$('#allApartmentsTable').show();
-				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Komentari</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th></thead></tr>");
+				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Komentari</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Izmena</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var apartment = $("<tr></tr>");
 
 					apartment.append("<td>" + item["id"] + "</td>");
 				
-					
+					var id = item["id"];
 					
 					var type = item["type"];
 					var typeStr = JSON.stringify(type);
@@ -32,6 +32,9 @@ function allApartments() {
 					
 					apartment.append("<td>" + item["numberOfRooms"] + "</td>");
 					apartment.append("<td>" + item["numberOfGuests"] + "</td>");
+					
+					var numberOfRooms = item["numberOfRooms"];
+					var numberOfGuests = item["numberOfGuests"];
 						
 					var location = item["location"];	
 					var locationStr = JSON.stringify(location);
@@ -85,13 +88,20 @@ function allApartments() {
 					
 					apartment.append("<td>" + item["priceForOneNight"] + "</td>");
 					
+					var priceForOneNight = item["priceForOneNight"];
+					
 					
 					apartment.append("<td>" + item["checkInTime"] + "h" + "</td>");
 					apartment.append("<td>" + item["checkOutTime"] + "h" + "</td>");
 					
-					apartment.append("<td>" + item["status"] + "</td>");					
+					var checkInTime = item["checkInTime"];
+					var checkOutTime = item["checkOutTime"];
 					
-					//user.append("<td>" + apartmentsForRentStr + "</td>");
+					apartment.append("<td>" + item["status"] + "</td>");	
+					
+					var status = item["status"];				
+					
+					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/editApartment.html?id=" + id + ";numberOfRooms=" + numberOfRooms + ";numberOfGuests=" + numberOfGuests + ";longitude=" + res2Loc + ";latitude=" + res1Loc + ";streetAndNumber=" + res3Loc + ";place=" + res4Loc + ";postcode=" + res5Loc + ";priceForOneNight=" + priceForOneNight + ";checkInTime=" + checkInTime + ";checkOutTime=" + checkOutTime + ";status=" + status + "\'\" value=\"Izmeni\"></td>");
 
 					body.append(apartment);
 				});

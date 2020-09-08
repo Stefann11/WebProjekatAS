@@ -3,23 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="jquery-3.3.1.min.js"></script>
-	<script src="js/newApartment.js"></script>
+	<script src="js/fillEditApartment.js"></script>
+	<script src="js/editApartment.js"></script>
 	<script src="js/toastr.min.js"></script>
-<title>New apartment</title>
+<title>Edit apartment</title>
 <link rel="stylesheet" href="css/stilZaLogin.css">
 <style>
 body{background-image: url('images/registration.jpg');}
 </style>
 </head>
 <body>
-	<h3 style="color:white;">New Apartment</h3>
+	<h3 style="color:white;">Edit Apartment</h3>
 	</br>
 	</br>
 	</br>	
 	<div class="container">
-	<form action="rest/apartments/save" method="POST" id="apartmentForm">
+	<form action="rest/apartments/edit" method="PUT" id="apartmentForm">
     <label class="a1" for="id"><b>Id:</b></label>
-    <input type="text" placeholder="Enter id" name="id" id="id" required>
+    <input type="text" placeholder="Enter id" name="id" id="id" disabled required>
 	
 	</br>
 	</br>
@@ -70,7 +71,7 @@ body{background-image: url('images/registration.jpg');}
   	<label for="false">False</label><br>
 	</br>
 	</br>
-    <input type="submit" name="create" value="Create"/>
+    <input type="submit" name="edit" value="Edit"/>
    
     <button type="button" class="cancelbtn">Cancel</button>
      </form>
