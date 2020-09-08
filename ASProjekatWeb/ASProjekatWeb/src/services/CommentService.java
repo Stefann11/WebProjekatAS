@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import beans.Apartment;
 import beans.CommentForApartment;
 import beans.User;
-import dao.ApartmentDAO;
 import dao.CommentDAO;
 
 @Path("/comments")
@@ -95,6 +94,25 @@ public class CommentService {
 		User host = (User) request.getSession().getAttribute("user");
 		return dao.getCommentsForHost(host);
 	}
+	
+	@PUT
+	@Path("/editUserInComment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void editUserInComment(User user) {
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
+		dao.editUserInComment(path, user);
+	}
+	
+	@PUT
+	@Path("/editApartmentInComment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void editApartmentInComment(Apartment apartment) {
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
+		dao.editApartmentInComment(path, apartment);
+	}
+	
 	
 	
 }

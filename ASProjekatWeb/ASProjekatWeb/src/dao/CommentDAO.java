@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import beans.Apartment;
 import beans.CommentForApartment;
 import beans.User;
 
@@ -55,6 +57,64 @@ public class CommentDAO {
 	public CommentForApartment editComment(String contextPath, CommentForApartment comm, User user) {
 		comments.remove(Long.toString(comm.getId()));
 		return printComment(contextPath, comm, user);
+	}
+	
+	public void editUserInComment(String contextPath, User user) {
+		List<Long> idsToRemove = new ArrayList<Long>();
+		List<CommentForApartment> commentsToAdd = new ArrayList<CommentForApartment>();
+		for (CommentForApartment comment: comments.values()) {
+			if (comment.getGuest().getUsername().equals(user.getUsername())) {
+				idsToRemove.add(comment.getId());
+				comment.setGuest(user);
+				commentsToAdd.add(comment);
+			}
+		}
+		
+		for (Long id: idsToRemove) {
+			comments.remove(Long.toString(id));
+		}
+		
+		for (CommentForApartment comment: commentsToAdd) {
+			printComment(contextPath, comment, user);
+		}
+		
+	}
+	
+	public void editApartmentInComment(String contextPath, Apartment apartment) {
+		List<Long> idsToRemove = new ArrayList<Long>();
+		List<CommentForApartment> commentsToAdd = new ArrayList<CommentForApartment>();
+		for (CommentForApartment comment: comments.values()) {
+			if (comment.getApartment().getId()== apartment.getId()) {
+				idsToRemove.add(comment.getId());
+				comment.setApartment(apartment);
+				commentsToAdd.add(comment);
+			}
+		}
+		
+		for (Long id: idsToRemove) {
+			comments.remove(Long.toString(id));
+		}
+		
+		for (CommentForApartment comm: commentsToAdd) {
+			ObjectMapper mapper = new ObjectMapper();
+			String path = contextPath + "/comments.json";
+			comments.put(Long.toString(comm.getId()), comm);
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			try {
+				mapper.writeValue(Paths.get(path).toFile(), comments);
+			} catch (JsonGenerationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 	
 	public CommentForApartment findComment(long id) {	

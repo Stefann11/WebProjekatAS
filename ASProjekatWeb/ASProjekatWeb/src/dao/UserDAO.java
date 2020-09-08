@@ -89,6 +89,49 @@ public class UserDAO {
 		return printUsers(contextPath, us);
 	}
 	
+	public void editApartmentInUser(String contextPath, Apartment apartment) {
+		List<String> usernamesToDelete = new ArrayList<String>();
+		List<User> usersToAdd = new ArrayList<User>();
+		int flag = 0;
+		
+		for (User user: users.values()) {
+			if (user.getApartmentsForRent()!=null) {
+				for (Apartment rentApartment: user.getApartmentsForRent()) {
+					if (rentApartment.getId()==apartment.getId()) {
+						flag = 1;
+						usernamesToDelete.add(user.getUsername());
+						rentApartment.setHost(user);
+					}
+				}
+			}
+				
+				if (user.getRentedApartments()!=null) {
+					for (Apartment rentApartment: user.getRentedApartments()) {
+						if (rentApartment.getId()==apartment.getId()) {
+							rentApartment.setHost(user);
+							if (flag == 0) {
+								usernamesToDelete.add(user.getUsername());
+								flag = 1;
+							}
+						}
+					}
+				}
+				
+				if (flag == 1) {
+					usersToAdd.add(user);
+				}
+		}
+		
+		for (String username: usernamesToDelete) {
+			users.remove(username);
+		}
+		
+		for (User user: usersToAdd) {
+			printUsers(contextPath, user);
+		}
+		
+	}
+	
 	public Collection<User> listUsersForHost(User host){
 		List<User> usersToReturn = new ArrayList<User>();
 		for (User user : users.values()) {

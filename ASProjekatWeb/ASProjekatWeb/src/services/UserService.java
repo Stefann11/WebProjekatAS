@@ -16,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.Apartment;
 import beans.Role;
 import beans.User;
 import dao.UserDAO;
@@ -157,6 +158,15 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User login(@Context HttpServletRequest request) {
 		return (User) request.getSession().getAttribute("user");
+	}
+	
+	@PUT
+	@Path("/editApartmentInUser")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void editApartmentInUser(Apartment apartment) {
+		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+		dao.editApartmentInUser(path, apartment);
 	}
 	
 }
