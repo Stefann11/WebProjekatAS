@@ -138,7 +138,8 @@ public class Apartment implements Serializable{
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-
+	
+	@JsonDeserialize(contentUsing = DateHandler.class)
 	public List<Date> getReleaseDates() {
 		return releaseDates;
 	}
@@ -147,6 +148,7 @@ public class Apartment implements Serializable{
 		this.releaseDates = releaseDates;
 	}
 
+	@JsonDeserialize(contentUsing = DateHandler.class)
 	public List<Date> getAvailableDates() {
 		return availableDates;
 	}

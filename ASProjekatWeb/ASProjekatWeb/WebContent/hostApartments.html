@@ -9,6 +9,7 @@
 <script src="js/hostApartments.js"></script>
 
  <link rel="stylesheet" href="css/stilovi.css">
+ <link rel="stylesheet" href="css/stilZaLogin.css">
 <style>
 body{background-image: url('images/registration.jpg');}
 </style>
@@ -23,10 +24,34 @@ body{background-image: url('images/registration.jpg');}
     <a href="http://localhost:8080/ASProjekatWeb/login.html" class="right">Logout</a>
 </div>
 	<h2>Svi apartmani</h2>
-
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for ids..">
 	
 	<table border="1" id="allApartmentsTable"></table>
-	<a href="http://localhost:8080/ASProjekatWeb/newApartment.html">Kreiraj novi apartman</a>
+	<input type=button onClick="location.href='http://localhost:8080/ASProjekatWeb/newApartment.html'" value='Kreiraj novi'>
+	
+<script>
+	function myFunction() {
+	  // Declare variables
+	  var input, filter, table, tr, td, i, txtValue;
+	  input = document.getElementById("myInput");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("allApartmentsTable");
+	  tr = table.getElementsByTagName("tr");
+	
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[0];
+	    if (td) {
+	      txtValue = td.textContent || td.innerText;
+	      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }
+	  }
+	}
+</script>
 	
 </body>
 </html>

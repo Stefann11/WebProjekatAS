@@ -169,8 +169,8 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		ObjectMapper mapper = new ObjectMapper();
 		
 		//za datum
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-		mapper.setDateFormat(df);
+//		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+//		mapper.setDateFormat(df);
 		
 		BufferedReader in = null;
 		
