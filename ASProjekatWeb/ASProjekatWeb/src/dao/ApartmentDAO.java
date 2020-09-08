@@ -5,10 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -19,9 +19,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import beans.Address;
 import beans.Apartment;
-import beans.Location;
+import beans.CommentForApartment;
+import beans.Reservation;
 import beans.TypeOfApartment;
 import beans.User;
 
@@ -123,6 +123,70 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		apartmentToSave.setStatus(apartment.isStatus());
 		
 		return printApartments(contextPath, apartmentToSave);
+	}
+	
+	public void editUserInApartment(String contextPath, User user) {
+		int flag = 0;
+		List<Long>idsToDelete = new ArrayList<Long>();
+		List<Apartment> apartmentsToAdd = new ArrayList<Apartment>();
+		
+		for (Apartment apartment: apartments.values()) {
+			flag = 0;
+			if (apartment==null) {
+				System.out.println("greska");
+			} else {
+			if (apartment.getHost()!=null) {
+				if (apartment.getHost().getUsername().equals(user.getUsername())) {
+					flag = 1;
+					apartment.setHost(user);
+					idsToDelete.add(apartment.getId());
+				}
+			}
+			
+			if (apartment.getComments()!=null) {
+				for (CommentForApartment comment: apartment.getComments()) {
+					if (comment.getGuest()!=null) {
+						if (comment.getGuest().getUsername().equals(user.getUsername())) {
+							comment.setGuest(user);
+							if (flag == 0) {
+								flag = 1;
+								idsToDelete.add(apartment.getId());
+							}
+						}
+					}
+				}
+			}
+			
+			if (apartment.getReservations() != null) {
+				for (Reservation reservation: apartment.getReservations()) {
+					if (reservation.getGuest() != null) {
+						if (reservation.getGuest().getUsername().equals(user.getUsername())) {
+							reservation.setGuest(user);
+							if (flag == 0) {
+								flag = 1;
+								idsToDelete.add(apartment.getId());
+							}
+						}
+					}
+				}
+			}
+			
+			if (flag == 1) {
+				apartmentsToAdd.add(apartment);
+			}
+			}
+		}
+		
+		for (Long id: idsToDelete) {
+			apartments.remove(Long.toString(id));
+		}
+		
+		for (Apartment apartment: apartmentsToAdd) {
+			printApartments(contextPath, apartment);
+		}
+		
+		
+
 	}
 	
 	public Apartment findApartment(long id) {	

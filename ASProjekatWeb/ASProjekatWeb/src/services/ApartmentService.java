@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import beans.Apartment;
 import beans.User;
 import dao.ApartmentDAO;
-import dao.UserDAO;
 
 @Path("/apartments")
 public class ApartmentService {
@@ -109,6 +108,15 @@ public class ApartmentService {
 	public boolean removeApartment(String idString) {
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		return dao.removeApartment(path, idString);
+	}
+	
+	@PUT
+	@Path("/editUserInApartment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void editUserInApartment(User user) {
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		dao.editUserInApartment(path, user);
 	}
 	
 }
