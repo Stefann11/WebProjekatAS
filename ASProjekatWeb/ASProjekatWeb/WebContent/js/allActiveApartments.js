@@ -1,7 +1,150 @@
 $(document).ready(function() {
 	allActiveApartments();
+	searchActiveApartments();
 });
 
+function searchActiveApartments(){
+	$('#searchForm').submit(function(e) {
+		e.preventDefault();
+		let dateFrom = $("input[name=datumDolaska]").val();
+		let dateTo = $("input[name=datumOdlaska]").val();
+		let place = $("input[name=nazivGrada]").val();
+		let priceFrom = $("input[name=cenaOd]").val();
+		let priceTo = $("input[name=cenaDo]").val();
+		let numberOfRoomsFrom = $("input[name=brojSobaOd]").val();
+		let numberOfRoomsTo = $("input[name=brojSobaDo]").val();
+		let numberOfGuestsFrom = $("input[name=brojOsobaOd]").val();
+		let numberOfGuestsTo = $("input[name=brojOsobaDo]").val();
+
+		var searchFields={
+			dateFrom : dateFrom,
+			dateTo : dateTo,
+			place : place,
+			priceFrom : priceFrom,
+			priceTo : priceTo,
+			numberOfRoomsFrom : numberOfRoomsFrom,
+			numberOfRoomsTo : numberOfRoomsTo,
+			numberOfGuestsFrom : numberOfGuestsFrom,
+			numberOfGuestsTo : numberOfGuestsTo
+		}
+
+			var $inputs = $('#searchForm input:not([type="submit"])');
+			var values = {};
+			$inputs.each(function() {
+				values[this.name] = $(this).val();
+			});
+			$.ajax({
+			type : "POST",
+			url : "rest/apartments/searchActiveApartments",
+			contentType : "application/json",
+			data: JSON.stringify({dateFrom: dateFrom, dateTo: dateTo, place: place, priceFrom: priceFrom, priceTo: priceTo, numberOfRoomsFrom: numberOfRoomsFrom, numberOfRoomsTo: numberOfRoomsTo, numberOfGuestsFrom: numberOfGuestsFrom, numberOfGuestsTo: numberOfGuestsTo}),
+			success : function(result) {
+				var table = $("#allActiveApartmentsTable");
+				table.empty();
+				if (result == null) {
+					$('#allActiveApartmentsTable').hide();
+				} else {
+					$('#allActiveApartmentsTable').show();
+					table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Komentari</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Izmena</th><th>Brisanje</th></thead></tr>");
+					var body = $("<tbody></tbody>");
+					result.forEach(function(item, index) {
+						var apartment = $("<tr></tr>");
+
+						apartment.append("<td>" + item["id"] + "</td>");
+
+						var id = item["id"];
+
+						var type = item["type"];
+						var typeStr = JSON.stringify(type);
+						var len = typeStr.length;
+						var pos = typeStr.indexOf(":");
+						var res = typeStr.substring(pos+2,len-2);
+						apartment.append("<td>" + res + "</td>");
+
+						apartment.append("<td>" + item["numberOfRooms"] + "</td>");
+						apartment.append("<td>" + item["numberOfGuests"] + "</td>");
+
+						var numberOfRooms = item["numberOfRooms"];
+						var numberOfGuests = item["numberOfGuests"];
+
+						var location = item["location"];	
+						var locationStr = JSON.stringify(location);
+
+						//printLocation(location, apartment);
+						//console.log(loc);
+
+						var lenLoc = locationStr.length;
+
+						var posLoc = locationStr.indexOf("longitude");
+						var pos2Loc = locationStr.indexOf("latitude");
+						var pos3Loc = locationStr.indexOf("streetAndNumber");
+						var pos4Loc = locationStr.indexOf("place");
+						var pos5Loc = locationStr.indexOf("postcode");
+
+						var res1Loc = locationStr.substring(posLoc+11,pos2Loc-2);
+						var res2Loc = locationStr.substring(pos2Loc+10, pos3Loc-13);
+						var res3Loc = locationStr.substring(pos3Loc+18, pos4Loc-3);
+						var res4Loc = locationStr.substring(pos4Loc+8, pos5Loc-3);
+						var res5Loc = locationStr.substring(pos5Loc+10, lenLoc-2); 
+
+						var resLoc = "Širina: " + res1Loc + ", dužina: " + res2Loc + ", ulica i broj: " + res3Loc + ", mesto: " + res4Loc + ", poštanski broj: " + res5Loc;
+
+						apartment.append("<td>" + resLoc + "</td>");
+
+						getAllDates(item["releaseDates"], apartment);
+						getAllDates(item["availableDates"], apartment);					
+
+						var host = item["host"];	
+						var hostStr = JSON.stringify(host);
+
+						var str = printHost(host);
+
+
+
+						apartment.append("<td>" + str + "</td>");
+
+
+						var comments = item["comments"];	
+						var commentsStr = JSON.stringify(comments);
+						var lenCom = commentsStr.length;
+						var posCom = commentsStr.indexOf("text");
+						var pos2Com = commentsStr.indexOf("grade");
+						var res1Com = commentsStr.substring(posCom+7,pos2Com-3);
+						var res2Com = commentsStr.substring(pos2Com+7, lenCom-2);
+
+
+						var resCom = "Komentar: " + res1Com + ", ocena: " + res2Com;
+
+						apartment.append("<td>" + resCom + "</td>");
+
+						apartment.append("<td>" + item["priceForOneNight"] + "</td>");
+
+						var priceForOneNight = item["priceForOneNight"];
+
+
+						apartment.append("<td>" + item["checkInTime"] + "h" + "</td>");
+						apartment.append("<td>" + item["checkOutTime"] + "h" + "</td>");
+
+						var checkInTime = item["checkInTime"];
+						var checkOutTime = item["checkOutTime"];
+
+						apartment.append("<td>" + item["status"] + "</td>");	
+
+						var status = item["status"];				
+
+						apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/editApartment.html?id=" + id + ";numberOfRooms=" + numberOfRooms + ";numberOfGuests=" + numberOfGuests + ";longitude=" + res2Loc + ";latitude=" + res1Loc + ";streetAndNumber=" + res3Loc + ";place=" + res4Loc + ";postcode=" + res5Loc + ";priceForOneNight=" + priceForOneNight + ";checkInTime=" + checkInTime + ";checkOutTime=" + checkOutTime + ";status=" + status + "\'\" value=\"Izmeni\"></td>");
+
+						apartment.append("<td><button onclick=\"deleteApartment( " + id + ")\">Obriši</button></td>");
+
+						body.append(apartment);
+					});
+					table.append(body);
+
+				}
+			}
+		});
+	});
+}
 
 function allActiveApartments() {
 	$.ajax({

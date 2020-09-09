@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import beans.Apartment;
 import beans.CommentForApartment;
 import beans.Reservation;
+import beans.SearchFields;
 import beans.TypeOfApartment;
 import beans.User;
 
@@ -81,6 +82,243 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		
 		return toReturn;
 	}
+	
+	public Collection<Apartment> searchApartments(SearchFields searchFields) {
+		List<Apartment> apartmentsToReturn = new ArrayList<Apartment>();
+
+		int flag = 0;
+		int max = 7;
+
+		for (Apartment apartment: apartments.values()) {
+			flag = 0;
+			max = 7;
+			if (apartment.getLocation()!=null) {
+				if (searchFields.getPlace().equals("")) {
+					max--;
+				} else {
+					if (apartment.getLocation().getAddress().getPlace().equals(searchFields.getPlace())) {
+						flag++;
+					}
+				}
+			}
+
+			if (searchFields.getPriceFrom()==0) {
+				max--;
+			} else {
+				if (apartment.getPriceForOneNight()>=searchFields.getPriceFrom()) {
+					flag++;
+				}
+			}
+
+			if (searchFields.getPriceTo()==0) {
+				max--;
+			} else {
+				if (apartment.getPriceForOneNight()<=searchFields.getPriceTo()) {
+					flag++;
+				}
+			}
+
+			if (searchFields.getNumberOfRoomsFrom()==0) {
+				max--;
+			} else {
+				if (apartment.getNumberOfRooms()>=searchFields.getNumberOfRoomsFrom()) {
+					flag++;
+				}
+			}
+
+			if (searchFields.getNumberOfRoomsTo()==0) {
+				max--;
+			} else {
+				if (apartment.getNumberOfRooms()<=searchFields.getNumberOfRoomsTo()) {
+					flag++;
+				}
+			}
+
+			if (searchFields.getNumberOfGuestsFrom()==0) {
+				max--;
+			} else {
+				if (apartment.getNumberOfGuests()>=searchFields.getNumberOfGuestsFrom()) {
+					flag++;
+				}
+			}
+
+			if (searchFields.getNumberOfGuestsTo()==0) {
+				max--;
+			} else {
+				if (apartment.getNumberOfGuests()<=searchFields.getNumberOfGuestsTo()) {
+					flag++;
+				}
+			}
+
+			if (flag==max) {
+				apartmentsToReturn.add(apartment);
+			}
+
+		}
+
+
+		return apartmentsToReturn;
+	}
+	
+	public Collection<Apartment> searchActiveApartments(SearchFields searchFields) {
+		List<Apartment> apartmentsToReturn = new ArrayList<Apartment>();
+
+		int flag = 0;
+		int max = 7;
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.isStatus()) {
+				flag = 0;
+				max = 7;
+				if (apartment.getLocation()!=null) {
+					if (searchFields.getPlace().equals("")) {
+						max--;
+					} else {
+						if (apartment.getLocation().getAddress().getPlace().equals(searchFields.getPlace())) {
+							flag++;
+						}
+					}
+				}
+
+				if (searchFields.getPriceFrom()==0) {
+					max--;
+				} else {
+					if (apartment.getPriceForOneNight()>=searchFields.getPriceFrom()) {
+						flag++;
+					}
+				}
+
+				if (searchFields.getPriceTo()==0) {
+					max--;
+				} else {
+					if (apartment.getPriceForOneNight()<=searchFields.getPriceTo()) {
+						flag++;
+					}
+				}
+
+				if (searchFields.getNumberOfRoomsFrom()==0) {
+					max--;
+				} else {
+					if (apartment.getNumberOfRooms()>=searchFields.getNumberOfRoomsFrom()) {
+						flag++;
+					}
+				}
+
+				if (searchFields.getNumberOfRoomsTo()==0) {
+					max--;
+				} else {
+					if (apartment.getNumberOfRooms()<=searchFields.getNumberOfRoomsTo()) {
+						flag++;
+					}
+				}
+
+				if (searchFields.getNumberOfGuestsFrom()==0) {
+					max--;
+				} else {
+					if (apartment.getNumberOfGuests()>=searchFields.getNumberOfGuestsFrom()) {
+						flag++;
+					}
+				}
+
+				if (searchFields.getNumberOfGuestsTo()==0) {
+					max--;
+				} else {
+					if (apartment.getNumberOfGuests()<=searchFields.getNumberOfGuestsTo()) {
+						flag++;
+
+					}
+				}
+
+				if (flag==max) {
+					apartmentsToReturn.add(apartment);
+				}
+
+			}
+		}
+
+		return apartmentsToReturn;
+	}
+	
+	public Collection<Apartment> searchHostApartments(SearchFields searchFields, User host) {
+		List<Apartment> apartmentsToReturn = new ArrayList<Apartment>();
+
+		int flag = 0;
+		int max = 7;
+
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.getHost()!=null) {
+				if (apartment.getHost().getUsername().equals(host.getUsername())) {
+					flag = 0;
+					max = 7;
+					if (apartment.getLocation()!=null) {
+						if (searchFields.getPlace().equals("")) {
+							max--;
+						} else {
+							if (apartment.getLocation().getAddress().getPlace().equals(searchFields.getPlace())) {
+								flag++;
+							}
+						}
+					}
+
+					if (searchFields.getPriceFrom()==0) {
+						max--;
+					} else {
+						if (apartment.getPriceForOneNight()>=searchFields.getPriceFrom()) {
+							flag++;
+						}
+					}
+
+					if (searchFields.getPriceTo()==0) {
+						max--;
+					} else {
+						if (apartment.getPriceForOneNight()<=searchFields.getPriceTo()) {
+							flag++;
+						}
+					}
+
+					if (searchFields.getNumberOfRoomsFrom()==0) {
+						max--;
+					} else {
+						if (apartment.getNumberOfRooms()>=searchFields.getNumberOfRoomsFrom()) {
+							flag++;
+						}
+					}
+
+					if (searchFields.getNumberOfRoomsTo()==0) {
+						max--;
+					} else {
+						if (apartment.getNumberOfRooms()<=searchFields.getNumberOfRoomsTo()) {
+							flag++;
+						}
+					}
+
+					if (searchFields.getNumberOfGuestsFrom()==0) {
+						max--;
+					} else {
+						if (apartment.getNumberOfGuests()>=searchFields.getNumberOfGuestsFrom()) {
+							flag++;
+						}
+					}
+
+					if (searchFields.getNumberOfGuestsTo()==0) {
+						max--;
+					} else {
+						if (apartment.getNumberOfGuests()<=searchFields.getNumberOfGuestsTo()) {
+							flag++;
+						}
+					}
+
+					if (flag==max) {
+						apartmentsToReturn.add(apartment);
+					}
+				}
+
+			}
+		}
+
+
+		return apartmentsToReturn;
+	}
+	
 	
 	public Collection<Apartment> getHostActive(User host) {
 		Collection<Apartment> toReturn = new ArrayList<Apartment>();

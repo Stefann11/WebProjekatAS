@@ -17,6 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.Apartment;
+import beans.SearchFields;
 import beans.User;
 import dao.ApartmentDAO;
 
@@ -117,6 +118,34 @@ public class ApartmentService {
 	public void editUserInApartment(User user) {
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		dao.editUserInApartment(path, user);
+	}
+	
+	@POST
+	@Path("/searchApartments")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> searchApartments(SearchFields searchFields){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		return dao.searchApartments(searchFields);
+	}
+	
+	@POST
+	@Path("/searchActiveApartments")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> searchActiveApartments(SearchFields searchFields){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		return dao.searchActiveApartments(searchFields);
+	}
+	
+	@POST
+	@Path("/searchHostApartments")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> searchHostApartments(SearchFields searchFields){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.searchHostApartments(searchFields, host);
 	}
 	
 }
