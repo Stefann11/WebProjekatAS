@@ -19,6 +19,7 @@ import beans.Apartment;
 import beans.CommentForApartment;
 import beans.User;
 import beans.newCommentHelp;
+import dao.ApartmentDAO;
 import dao.CommentDAO;
 
 @Path("/comments")
@@ -49,6 +50,15 @@ public class CommentService {
 		}
 	}
 	
+	private ApartmentDAO getApartmani() { 
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		if (apartmentDAO == null) {
+			String contextPath = ctx.getRealPath("");
+			ctx.setAttribute("apartmentDAO", new ApartmentDAO(contextPath));
+		}
+		return apartmentDAO;
+	}
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -62,12 +72,20 @@ public class CommentService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public CommentForApartment newComment(newCommentHelp comment){
-		//CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
-		//User user = (User) request.getSession().getAttribute("user");
-		//return dao.printComment(path, comm, user);
-		System.out.println(comment.getId());
-		CommentForApartment c = new CommentForApartment();
-		return c;
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
+		
+		ApartmentDAO dao2 =  (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		Apartment apartment = new Apartment();
+		User user = (User) request.getSession().getAttribute("user");
+		Collection<Apartment> apartments = dao2.findAll();
+		for(Apartment ap : apartments) {
+			if(Long.toString(ap.getId()).equals(comment.getApartment())) {
+				apartment = ap;
+				break;
+			}
+		}
+		CommentForApartment com = new CommentForApartment(comment.getId(), user, apartment, comment.getText(), comment.getGrade());		
+		return dao.printComment(path, com, user);		
 		//return dao.save(reservation);
 	}
 	
