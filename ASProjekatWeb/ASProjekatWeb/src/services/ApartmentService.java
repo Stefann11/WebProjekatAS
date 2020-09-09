@@ -17,8 +17,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.Apartment;
+import beans.CommentForApartment;
 import beans.SearchFields;
 import beans.User;
+import beans.newCommentHelp;
 import dao.ApartmentDAO;
 
 @Path("/apartments")
@@ -148,4 +150,19 @@ public class ApartmentService {
 		return dao.searchHostApartments(searchFields, host);
 	}
 	
+	@PUT
+	@Path("/editCommentInApartment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void editCommentInApartment(newCommentHelp comment) {
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		CommentForApartment com = new CommentForApartment();
+		User user = (User) request.getSession().getAttribute("user");
+		for(Apartment a: dao.findAll()) {
+			if(Long.toString(a.getId()).equals(comment.getApartment())) {
+				com = new CommentForApartment(comment.getId(),user, a, comment.getText(), comment.getGrade());
+			}
+		}
+		dao.editCommentInApartment(path, com);
+	}
 }

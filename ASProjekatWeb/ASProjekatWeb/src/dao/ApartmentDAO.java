@@ -25,6 +25,7 @@ import beans.Reservation;
 import beans.SearchFields;
 import beans.TypeOfApartment;
 import beans.User;
+import beans.newCommentHelp;
 
 public class ApartmentDAO {
 private Map<String, Apartment> apartments = new HashMap<>();
@@ -425,6 +426,21 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		
 		
 
+	}
+	
+	public void editCommentInApartment(String contextPath, CommentForApartment comment) {
+		Apartment ap = null;
+		for(Apartment a: apartments.values()) {
+			if(a.getId() == comment.getApartment().getId()) {
+				a.getComments().add(comment);
+				ap = a;
+				}
+			}
+		if(ap != null) {
+			apartments.remove(Long.toString(ap.getId()));
+			apartments.put(Long.toString(ap.getId()), ap);
+		}
+		
 	}
 	
 	public Apartment findApartment(long id) {	
