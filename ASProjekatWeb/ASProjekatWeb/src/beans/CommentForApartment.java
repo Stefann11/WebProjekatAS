@@ -14,6 +14,7 @@ public class CommentForApartment{
 	
 	public CommentForApartment() {
 		super();
+		this.id = 0;
 		this.guest = new User();
 		this.apartment = new Apartment();
 		this.text = "text";
@@ -21,8 +22,9 @@ public class CommentForApartment{
 		this.approved = false;
 	}
 	
-	public CommentForApartment(User guest, Apartment apartment, String text, int grade) {
+	public CommentForApartment(long id, User guest, Apartment apartment, String text, int grade) {
 		super();
+		this.id = id;
 		this.guest = guest;
 		this.apartment = apartment;
 		this.text = text;
