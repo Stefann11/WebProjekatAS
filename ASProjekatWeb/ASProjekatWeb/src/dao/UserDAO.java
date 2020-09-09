@@ -22,7 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Apartment;
+import beans.FilterUser;
+import beans.Gender;
 import beans.Reservation;
+import beans.Role;
 import beans.User;
 
 /***
@@ -87,6 +90,63 @@ public class UserDAO {
 		us.setSurname(user.getSurname());
 		users.remove(user.getUsername());
 		return printUsers(contextPath, us);
+	}
+	
+	public Collection<User> searchUsers(FilterUser filterUser){
+		List<User> usersToReturn = new ArrayList<User>();
+		int flag=0;
+		int max = 3;
+		
+		for (User user: users.values()) {
+			flag = 0;
+			max = 3;
+			if (filterUser.getRole().equals("")) {
+				max--;
+			} else {
+				if (filterUser.getRole().equals("GUEST")) {
+					if (user.getRole().equals(Role.GUEST)) {
+						flag++;
+					}
+				} else if (filterUser.getRole().equals("HOST")) {
+					if (user.getRole().equals(Role.HOST)) {
+						flag++;
+					}
+				} else if (filterUser.getRole().equals("ADMINISTRATOR")) {
+					if (user.getRole().equals(Role.ADMINISTRATOR)) {
+						flag++;
+					}
+				}
+			}
+			
+			if (filterUser.getGender().equals("")) {
+				max--;
+			} else {
+				if (filterUser.getGender().equals("MALE")) {
+					if (user.getGender().equals(Gender.MALE)) {
+						flag++;
+					}
+				} else if (filterUser.getGender().equals("FEMALE")) {
+					if (user.getGender().equals(Gender.FEMALE)) {
+						flag++;
+					}
+				}
+			}
+			
+			if (filterUser.getUsername().equals("")) {
+				max--;
+			} else {
+				if (filterUser.getUsername().equals(user.getUsername())) {
+					flag++;
+				}
+			}
+			
+			if (flag==max) {
+				usersToReturn.add(user);
+			}
+			
+		}
+		
+		return usersToReturn;
 	}
 	
 	public void editApartmentInUser(String contextPath, Apartment apartment) {

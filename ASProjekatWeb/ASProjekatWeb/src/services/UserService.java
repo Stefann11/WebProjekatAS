@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.Apartment;
+import beans.FilterUser;
 import beans.Role;
 import beans.User;
 import dao.UserDAO;
@@ -177,6 +178,15 @@ public class UserService {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
 		User host = (User) request.getSession().getAttribute("user");
 		return dao.addApartmentToHost(apartment, host, path);
+	}
+	
+	@POST
+	@Path("/searchUsers")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<User> searchUsers(FilterUser filterUser) {
+		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+		return dao.searchUsers(filterUser);
 	}
 	
 }
