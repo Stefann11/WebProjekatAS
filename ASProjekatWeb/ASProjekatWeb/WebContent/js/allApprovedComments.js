@@ -6,21 +6,19 @@ $(document).ready(function() {
 function allComments() {
 	$.ajax({
 		type : "GET",
-		url : "rest/comments/commentsForHost",
+		url : "rest/comments/allApproved",
 		success : function(result) {
-			var table = $("#commentsForHostTable");
+			var table = $("#allApprovedCommentsTable");
 			table.empty();
 			if (result == null) {
-				$('#commentsForHostTable').hide();
+				$('#allApprovedCommentsTable').hide();
 			} else {
-				$('#commentsForHostTable').show();
-				table.append("<thead><tr><th>Id</th><th>Gost</th><th>Apartman</th><th>Sadržaj</th><th>Ocena</th><th>Odobri</th></thead></tr>");
+				$('#allApprovedCommentsTable').show();
+				table.append("<thead><tr><th>Id</th><th>Gost</th><th>Apartman</th><th>Sadržaj</th><th>Ocena</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var comment = $("<tr></tr>");
 
-					
-					var id = item["id"];
 					comment.append("<td>" + item["id"] + "</td>");			
 					
 					var guest = item["guest"];	
@@ -46,18 +44,6 @@ function allComments() {
 					comment.append("<td>" + item["text"] + "</td>");
 					
 					comment.append("<td>" + item["grade"] + "</td>");
-					
-					
-					
-					if(item["approved"] == false){					
-					comment.append("<td><button onclick=\"approveComment( " + id + ")\">Odobri</button></td>");
-					}
-					else{
-						comment.append("<td>Odobren</td>");
-					}
-					
-					/*comment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/editApartment.html?id=" + id + ";numberOfRooms=" + numberOfRooms + ";numberOfGuests=" + numberOfGuests + ";longitude=" + res2Loc + ";latitude=" + res1Loc + ";streetAndNumber=" + res3Loc + ";place=" + res4Loc + ";postcode=" + res5Loc + ";priceForOneNight=" + priceForOneNight + ";checkInTime=" + checkInTime + ";checkOutTime=" + checkOutTime + ";status=" + status + "\'\" value=\"Izmeni\"></td>");
-					*/
 
 					body.append(comment);
 				});
@@ -67,26 +53,6 @@ function allComments() {
 		}
 	});
 }
-
-
-function approveComment(id){
-	$.ajax({
-		type : "PUT",
-		url: "rest/comments/approve",
-		contentType : "application/json",
-		data: JSON.stringify({idString: id}),
-		success: function(result) {
-					toastr["success"]("Uspešno ste odobrili komentar!");
-					setTimeout(function() {
-						location.href = "commentsForHost.html";
-					}, 1000);
-				},
-				error: function(jqXHR, textStatus, errorThrown)  {
-					toastr["error"](jqXHR.responseText);
-				}
-	});
-}
-
 
 function printHost(obj) {
 	var i = 0;

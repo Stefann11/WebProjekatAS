@@ -49,8 +49,31 @@ public class CommentDAO {
 		return comm;
 	}
 	
+	public boolean approveComment(String contextPath, String idStr) {
+		String realId = idStr.substring(12, idStr.length()-1);
+		CommentForApartment com = comments.get(realId);
+		if(com !=null) {
+		com.setApproved(true);
+		comments.remove(Long.toString(com.getId()));
+		printComment(contextPath, com, com.getGuest());
+		return true;
+		}		
+		return false;
+	}
+	
 	public Collection<CommentForApartment> findAll() {
 		return comments.values();
+	}
+	
+	public Collection<CommentForApartment> findAllApproved() {
+		
+		ArrayList<CommentForApartment> toReturn = new ArrayList<>();
+		for(CommentForApartment c:comments.values()) {
+			if(c.isApproved()) {
+				toReturn.add(c);
+			}
+		}
+		return toReturn;			
 	}
 	
 	
