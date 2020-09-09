@@ -1,13 +1,11 @@
 package beans;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonDeserialize(using = RoleDeserializer.class)
-public enum Role implements Serializable{
+public enum Role{
 	ADMINISTRATOR("Administrator"), HOST("Host"), GUEST("Guest");
 	
 	private String role;

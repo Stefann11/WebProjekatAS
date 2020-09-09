@@ -1,18 +1,16 @@
 package beans;
 
-import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-public class Apartment implements Serializable{
+public class Apartment{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8916789543074852656L;
+
 	protected long id;
 	protected TypeOfApartment type;
 	protected int numberOfRooms;

@@ -1,13 +1,11 @@
 package beans;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonDeserialize(using = TypeOfApartmentDeserializer.class)
-public enum TypeOfApartment implements Serializable{
+public enum TypeOfApartment{
 	ROOM("Room"), SUITE("Suite");
 	
 	private String type;

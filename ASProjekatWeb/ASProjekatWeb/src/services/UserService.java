@@ -169,4 +169,14 @@ public class UserService {
 		dao.editApartmentInUser(path, apartment);
 	}
 	
+	@POST
+	@Path("/addApartmentToHost")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Apartment addApartmentToHost(Apartment apartment, @Context HttpServletRequest request) {
+		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.addApartmentToHost(apartment, host, path);
+	}
+	
 }

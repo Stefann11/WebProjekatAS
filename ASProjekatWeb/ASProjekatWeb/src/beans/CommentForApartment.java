@@ -1,12 +1,10 @@
 package beans;
 
-import java.io.Serializable;
-
-public class CommentForApartment implements Serializable{
+public class CommentForApartment{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9159234366497138095L;
+
 	protected long id;
 	protected User guest;
 	protected Apartment apartment;

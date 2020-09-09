@@ -153,6 +153,16 @@ public class UserDAO {
 		return usersToReturn;
 	}
 	
+	public Apartment addApartmentToHost(Apartment apartment, User host, String contextPath) {
+		host.getApartmentsForRent().add(apartment);
+		
+		users.remove(host.getUsername());
+		
+		printUsers(contextPath, host);
+		
+		return apartment;
+	}
+	
 	/**
 	 * Uèitava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
 	 * Kljuè je korisnièko ime korisnika.

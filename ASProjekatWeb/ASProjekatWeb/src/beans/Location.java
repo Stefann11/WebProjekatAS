@@ -1,12 +1,9 @@
 package beans;
 
-import java.io.Serializable;
-
-public class Location implements Serializable{
+public class Location{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2120182138853617449L;
 	protected double longitude;
 	protected double latitude;
 	protected Address address;

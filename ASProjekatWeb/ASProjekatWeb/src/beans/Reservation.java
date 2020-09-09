@@ -1,13 +1,11 @@
 package beans;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Reservation implements Serializable{
+public class Reservation{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7620671524598941417L;
 	protected long id;
 	protected Apartment apartment;
 	protected Date startDate;

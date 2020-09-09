@@ -1,13 +1,11 @@
 package beans;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonDeserialize(using = MyEnumDeserializer.class)
-public enum Gender implements Serializable{
+public enum Gender{
 	MALE("Male"), FEMALE("Female");
 	
 	private String gender;
