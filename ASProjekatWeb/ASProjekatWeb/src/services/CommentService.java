@@ -6,7 +6,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -19,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import beans.Apartment;
 import beans.CommentForApartment;
 import beans.User;
-import dao.ApartmentDAO;
+import beans.newCommentHelp;
 import dao.CommentDAO;
 
 @Path("/comments")
@@ -62,10 +61,13 @@ public class CommentService {
 	@Path("/save")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CommentForApartment newComment(CommentForApartment comm){
-		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
-		User user = (User) request.getSession().getAttribute("user");
-		return dao.printComment(path, comm, user);
+	public CommentForApartment newComment(newCommentHelp comment){
+		//CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
+		//User user = (User) request.getSession().getAttribute("user");
+		//return dao.printComment(path, comm, user);
+		System.out.println(comment.getId());
+		CommentForApartment c = new CommentForApartment();
+		return c;
 		//return dao.save(reservation);
 	}
 	
