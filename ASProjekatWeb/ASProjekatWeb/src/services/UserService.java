@@ -189,4 +189,14 @@ public class UserService {
 		return dao.searchUsers(filterUser);
 	}
 	
+	@POST
+	@Path("/searchUsersForHost")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<User> searchUsersForHost(FilterUser filterUser) {
+		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.searchUsersForHost(host, filterUser);
+	}
+	
 }

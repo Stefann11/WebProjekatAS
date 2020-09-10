@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -19,6 +21,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Apartment;
 import beans.Reservation;
+import beans.User;
 
 
 public class ReservationDAO {
@@ -64,6 +67,25 @@ public class ReservationDAO {
 		
 		reservations.put(Long.toString(reservation.getId()), reservation);
 		return reservation;
+	}
+	
+	public Collection<Reservation> getUserReservations(User user) {
+		return user.getListOfReservations();
+	}
+	
+	public Collection<Reservation> getHostReservations(User host) {
+		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
+		if (host.getApartmentsForRent()!=null) {
+			for (Apartment apartment: host.getApartmentsForRent()) {
+				if (apartment.getReservations()!=null) {
+					for (Reservation res: apartment.getReservations()) {
+						reservationsToReturn.add(res);
+					}
+				}
+			}
+		}
+		
+		return reservationsToReturn;
 	}
 	
 	private void loadReservations(String contextPath) {

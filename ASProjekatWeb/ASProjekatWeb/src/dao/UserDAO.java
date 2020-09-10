@@ -213,6 +213,74 @@ public class UserDAO {
 		return usersToReturn;
 	}
 	
+	public Collection<User> searchUsersForHost(User host, FilterUser filterUser){
+		List<User> usersToReturn = new ArrayList<User>();
+		int flag = 0;
+		int max = 3;
+		for (User user : users.values()) {
+			flag = 0;
+			max = 3;
+			if (host.getApartmentsForRent()!=null) {
+				for(Apartment apartment : host.getApartmentsForRent()) {
+					if (apartment.getReservations()!=null) {
+						for (Reservation reservation : apartment.getReservations()) {
+							if (reservation.getGuest()!=null) {
+								if (reservation.getGuest().getUsername().equals(user.getUsername())) {
+									if (filterUser.getRole().equals("")) {
+										max--;
+									} else {
+										if (filterUser.getRole().equals("GUEST")) {
+											if (user.getRole().equals(Role.GUEST)) {
+												flag++;
+											}
+										} else if (filterUser.getRole().equals("HOST")) {
+											if (user.getRole().equals(Role.HOST)) {
+												flag++;
+											}
+										} else if (filterUser.getRole().equals("ADMINISTRATOR")) {
+											if (user.getRole().equals(Role.ADMINISTRATOR)) {
+												flag++;
+											}
+										}
+									}
+									
+									if (filterUser.getGender().equals("")) {
+										max--;
+									} else {
+										if (filterUser.getGender().equals("MALE")) {
+											if (user.getGender().equals(Gender.MALE)) {
+												flag++;
+											}
+										} else if (filterUser.getGender().equals("FEMALE")) {
+											if (user.getGender().equals(Gender.FEMALE)) {
+												flag++;
+											}
+										}
+									}
+									
+									if (filterUser.getUsername().equals("")) {
+										max--;
+									} else {
+										if (filterUser.getUsername().equals(user.getUsername())) {
+											flag++;
+										}
+									}
+									
+									if (flag==max) {
+										usersToReturn.add(user);
+									}
+									
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return usersToReturn;
+	}
+	
 	public Apartment addApartmentToHost(Apartment apartment, User host, String contextPath) {
 		host.getApartmentsForRent().add(apartment);
 		

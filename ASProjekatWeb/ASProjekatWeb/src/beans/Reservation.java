@@ -24,7 +24,7 @@ public class Reservation{
 		this.totalPrice = 0;
 		this.message = "message";
 		this.guest = new User();
-		this.status = Status.REJECTED;
+		this.status = Status.CREATED;
 	}
 	
 	public Reservation(long id, Apartment apartment, Date startDate, int numberOfOvernights, double totalPrice, String message,

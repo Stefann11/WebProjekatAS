@@ -33,6 +33,43 @@ body{background-image: url('images/registration.jpg');}
 <script>
 document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 </script>
+	<h2>Pretraga</h2>
+
+	<form id="searchForm" accept-charset="UTF-8">
+		<table>
+			<tr>
+				<th><label for="role">Uloga: </label></th> 
+				
+				<th><input type="radio" id="guest" name="role" value="GUEST">
+                        <label for="guest">Gost</label><br>
+                    
+               		<input type="radio" id="host" name="role" value="HOST">
+                        <label for="host">Domaćin</label><br>
+                
+                   
+                    <input type="radio" id="administrator" name="role" value="ADMINISTRATOR">
+                        <label for="administrator">Admin</label><br></th>
+			</tr>
+			<tr>
+				<th><label for="gender">Pol: </label></th>
+                    <th><input type="radio" id="female" name="gender" value="FEMALE">
+                        <label for="female">Žensko</label><br>
+                    
+               
+                
+                   
+                    <input type="radio" id="male" name="gender" value="MALE">
+                        <label for="male">Muško</label><br></th>
+			</tr>
+			<tr>
+				<th>Username:</th> <th><input type="text" name="username" id="username"></th>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="submit" value="Pretraži"></th>
+			</tr>
+		</table>
+	</form>
+
 
 	<h2>Svi korisnici</h2>
 	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for usernames..">

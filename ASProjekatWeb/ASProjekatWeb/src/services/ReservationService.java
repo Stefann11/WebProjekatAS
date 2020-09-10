@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import beans.Apartment;
 import beans.Reservation;
+import beans.User;
 import dao.ApartmentDAO;
 import dao.ReservationDAO;
 
@@ -24,6 +26,9 @@ public class ReservationService {
 
 	@Context
 	ServletContext ctx;
+	
+	@Context
+	HttpServletRequest request;
 	
 	private static String path="";
 	
@@ -75,5 +80,23 @@ public class ReservationService {
 	public Reservation editReservation(Reservation reservation) {
 		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
 		return dao.editReservation(path, reservation);
+	}
+	
+	@GET
+	@Path("/userReservations")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Reservation> getUserReservations(@Context HttpServletRequest request){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		User user = (User) request.getSession().getAttribute("user");
+		return dao.getUserReservations(user);
+	}
+	
+	@GET
+	@Path("/hostReservations")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Reservation> getHostReservations(@Context HttpServletRequest request){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.getHostReservations(host);
 	}
 }

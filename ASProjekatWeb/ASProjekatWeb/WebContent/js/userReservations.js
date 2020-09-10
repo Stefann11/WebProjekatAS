@@ -6,7 +6,7 @@ $(document).ready(function() {
 function reservations() {
 	$.ajax({
 		type : "GET",
-		url : "rest/reservations/",
+		url : "rest/reservations/userReservations",
 		success : function(result) {
 			var table = $("#reservationsTable");
 			table.empty();
