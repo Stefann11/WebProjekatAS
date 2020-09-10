@@ -47,10 +47,31 @@ body{background-image: url('images/registration.jpg');}
 				<th>Broj osoba do:</th> <th><input type="text" name="brojOsobaDo" id="brojOsobaDo"></th>
 			</tr>
 			<tr>
-				<th colspan="2"><input type="submit" value="Pretraži"></th>
-				<th colspan="2"><input type="button" value="Odustani" id="odustaniButton"></th>
+				<th style="background-color:#FFFFFF00" colspan="2"><input type="submit" value="Pretraži"></th>
+				<th style="background-color:#FFFFFF00" colspan="2"><input type="button" value="Odustani" id="odustaniButton"></th>
 			</tr>
 		</table>
+	</form>
+	
+	<h2>Sortiraj</h2>
+
+	<form id="sortForm" accept-charset="UTF-8">
+	<div style="margin-left:10px">
+		<table style="width:15%"  >
+			<tr>
+				<th style="background-color:#FFFFFF00"><input type="submit" value="Rastuce po ceni"></th>					
+			</tr>			
+		</table>
+	</div>
+	</form>
+	<form id="sortOForm" accept-charset="UTF-8">
+		<div style="margin-left:10px">
+		<table style="width:15%" >
+			<tr>
+				<th style="background-color:#FFFFFF00"><input type="submit" value="Opadajuce po ceni"></th>					
+			</tr>			
+		</table>
+		</div>
 	</form>
 	
 	<h2>Svi aktivni apartmani</h2>
@@ -80,6 +101,7 @@ body{background-image: url('images/registration.jpg');}
 	    }
 	  }
 	}
+	
 </script>
 
 </body>

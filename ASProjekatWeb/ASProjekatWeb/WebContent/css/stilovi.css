@@ -1,7 +1,7 @@
 table { 
             margin: 0 auto; 
             font-size: large; 
-            border: 1px solid white; 
+           
             color: white; 
             
         } 
@@ -55,7 +55,7 @@ table {
         td { 
             font-weight: lighter; 
         } 
-         
+
 .navbar {
   overflow: hidden;
   background-color: #333;
