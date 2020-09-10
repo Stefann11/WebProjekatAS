@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -17,6 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Amenties;
+import beans.AmentiesHelp;
+import beans.Apartment;
 
 public class AmentiesDAO {
 
@@ -49,6 +53,14 @@ public class AmentiesDAO {
 	
 	public Collection<Amenties> findAll() {
 		return amenties.values();
+	}
+	
+	public Collection<Amenties> saveAmenitiesToApartment(Apartment apartment, AmentiesHelp amenitiesHelp){
+		List<Amenties> amenitiesToReturn = new ArrayList<Amenties>();
+		
+		
+		
+		return amenitiesToReturn;
 	}
 	
 	

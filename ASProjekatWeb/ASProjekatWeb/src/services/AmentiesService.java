@@ -15,7 +15,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.Amenties;
+import beans.AmentiesHelp;
+import beans.Apartment;
 import dao.AmentiesDAO;
+import dao.ApartmentDAO;
 
 
 @Path("/amenties")
@@ -39,6 +42,15 @@ public class AmentiesService {
 	    	path = contextPath;
 			ctx.setAttribute("amentiesDAO", new AmentiesDAO(contextPath));
 		}
+	}
+	
+	private ApartmentDAO getApartmani() { 
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		if (apartmentDAO == null) {
+			String contextPath = ctx.getRealPath("");
+			ctx.setAttribute("apartmentDAO", new ApartmentDAO(contextPath));
+		}
+		return apartmentDAO;
 	}
 	
 	
@@ -75,6 +87,20 @@ public class AmentiesService {
 	public Amenties editAmenties(Amenties amen) {
 		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
 		return dao.editAmenties(path, amen);
+	}
+	
+	@POST
+	@Path("/saveToApartment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Amenties> saveToApartment(AmentiesHelp amenitiesHelp){
+		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
+		ApartmentDAO apartmentDAO = getApartmani();
+		Long idApartment = Long.parseLong(amenitiesHelp.getIdApartment());
+	
+		
+		Apartment apartment = apartmentDAO.findApartment(idApartment);
+		return dao.saveAmenitiesToApartment(apartment, amenitiesHelp);
 	}
 	
 }
