@@ -55,11 +55,12 @@ function searchApartments(){
 						var id = item["id"];
 
 						var type = item["type"];
-						var typeStr = JSON.stringify(type);
+						/*var typeStr = JSON.stringify(type);
 						var len = typeStr.length;
 						var pos = typeStr.indexOf(":");
 						var res = typeStr.substring(pos+2,len-2);
-						apartment.append("<td>" + res + "</td>");
+						apartment.append("<td>" + res + "</td>");*/
+						apartment.append("<td>" + type + "</td>");
 
 						apartment.append("<td>" + item["numberOfRooms"] + "</td>");
 						apartment.append("<td>" + item["numberOfGuests"] + "</td>");
@@ -167,11 +168,12 @@ function allApartments() {
 					var id = item["id"];
 					
 					var type = item["type"];
-					var typeStr = JSON.stringify(type);
+					/*var typeStr = JSON.stringify(type);
 					var len = typeStr.length;
 					var pos = typeStr.indexOf(":");
 					var res = typeStr.substring(pos+2,len-2);
-					apartment.append("<td>" + res + "</td>");
+					apartment.append("<td>" + res + "</td>");*/
+					apartment.append("<td>" + type + "</td>");
 					
 					apartment.append("<td>" + item["numberOfRooms"] + "</td>");
 					apartment.append("<td>" + item["numberOfGuests"] + "</td>");

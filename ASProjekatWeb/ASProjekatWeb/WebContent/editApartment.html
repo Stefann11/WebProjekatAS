@@ -21,9 +21,24 @@ body{background-image: url('images/registration.jpg');}
 	<form action="rest/apartments/edit" method="PUT" id="apartmentForm">
     <label class="a1" for="id"><b>Id:</b></label>
     <input type="text" placeholder="Enter id" name="id" id="id" disabled required>
+	</br>
+	</br>
+	<label for="type">Type: </label>
 	
-	</br>
-	</br>
+                    <input type="radio" id="room" name="type" value="ROOM" checked>
+                        <label for="room">Room</label><br>
+                    
+               
+                
+                   
+                    <input type="radio" id="suite" name="type" value="SUITE">
+                        <label for="suite">Suite</label><br>
+                   
+                
+	<br/>
+	<br/>
+	
+	
 	<label class="a1" for="numberOfRooms"><b>Number of rooms:</b></label>
     <input type="text" placeholder="Enter Number Of Rooms" id="numberOfRooms" name="numberOfRooms" required>
 	</br>

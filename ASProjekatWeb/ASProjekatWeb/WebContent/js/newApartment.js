@@ -7,6 +7,7 @@ function createApartment(){
 	$('#apartmentForm').submit(function(e) {
 		e.preventDefault();
 		let id = $("input[name=id]").val();
+		let type = $('input[name=type]:checked').val();
 		let numberOfRooms = $("input[name=numberOfRooms]").val();
 		let numberOfGuests = $("input[name=numberOfGuests]").val();
 		let longitude = $("input[name=longitude]").val();
@@ -55,7 +56,7 @@ function createApartment(){
 				type: "POST",
 				url: "rest/apartments/save",
 				contentType : "application/json",
-				data: JSON.stringify({id: id, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
+				data: JSON.stringify({id: id, type: type, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
 				success: function(result) {
 					toastr["success"]("Uspešno kreiranje!");
 					setTimeout(function() {

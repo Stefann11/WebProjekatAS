@@ -353,6 +353,7 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		
 		apartments.remove(Long.toString(apartment.getId()));
 		
+		apartmentToSave.setType(apartment.getType());
 		apartmentToSave.setNumberOfRooms(apartment.getNumberOfRooms());
 		apartmentToSave.setNumberOfGuests(apartment.getNumberOfGuests());
 		apartmentToSave.setLocation(apartment.getLocation());
