@@ -7,16 +7,7 @@ $(document).ready(function() {
 		let password = $("input[name=password]").val();
 		let repassword = $('#repassword').val();
 		let gender = $('input[name=gender]:checked').val();
-		var radios = document.getElementsByName('gender');
-
-		for (var i = 0, length = radios.length; i < length; i++) {
-		  if (radios[i].checked) {
-			gender = radios[i].value;
-		    break;
-		  }
-		}
 		
-		var allInputs = document.querySelectorAll("#container_id input[type=text]");
 		
 		if (password != repassword){
 			toastr["error"]("Lozinke moraju biti iste");
@@ -37,7 +28,7 @@ $(document).ready(function() {
 				type: "POST",
 				url: "rest/users/save",
 				contentType : "application/json",
-				data: JSON.stringify({username: username, password: password, name: name, surname: surname}),
+				data: JSON.stringify({username: username, password: password, name: name, surname: surname, gender: gender}),
 				success: function(result) {
 					toastr["success"]("Uspešno ste se registrovali!");
 					setTimeout(function() {

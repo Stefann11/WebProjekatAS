@@ -37,18 +37,20 @@ function searchUsers(){
 						user.append("<td>" + item["surname"] + "</td>");
 						
 						var gender = item["gender"];
-						var genderStr = JSON.stringify(gender);
+						/*var genderStr = JSON.stringify(gender);
 						var len = genderStr.length;
 						var pos = genderStr.indexOf(":");
 						var res = genderStr.substring(pos+2,len-2);
-						user.append("<td>" + res + "</td>");
+						user.append("<td>" + res + "</td>");*/
+						user.append("<td>" + gender + "</td>")
 							
 						var role = item["role"];	
-						var roleStr = JSON.stringify(role);
+						/*var roleStr = JSON.stringify(role);
 						var len = roleStr.length;
 						var pos = roleStr.indexOf(":");
 						var res = roleStr.substring(pos+2,len-2);
-						user.append("<td>" + res + "</td>");
+						user.append("<td>" + res + "</td>");*/
+						user.append("<td>" + role + "</td>");
 						
 						var apartmentsForRent = item["apartmentsForRent"];
 						var apartmentsForRentStr = JSON.stringify(apartmentsForRent);
@@ -88,18 +90,20 @@ function listUsers() {
 					user.append("<td>" + item["surname"] + "</td>");
 					
 					var gender = item["gender"];
-					var genderStr = JSON.stringify(gender);
+					/*var genderStr = JSON.stringify(gender);
 					var len = genderStr.length;
 					var pos = genderStr.indexOf(":");
 					var res = genderStr.substring(pos+2,len-2);
-					user.append("<td>" + res + "</td>");
+					user.append("<td>" + res + "</td>");*/
+					user.append("<td>" + gender + "</td>")
 						
 					var role = item["role"];	
-					var roleStr = JSON.stringify(role);
+					/*var roleStr = JSON.stringify(role);
 					var len = roleStr.length;
 					var pos = roleStr.indexOf(":");
 					var res = roleStr.substring(pos+2,len-2);
-					user.append("<td>" + res + "</td>");
+					user.append("<td>" + res + "</td>");*/
+					user.append("<td>" + role + "</td>");
 					
 					var apartmentsForRent = item["apartmentsForRent"];
 					var apartmentsForRentStr = JSON.stringify(apartmentsForRent);

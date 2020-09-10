@@ -12,10 +12,8 @@ function editUser(){
 		let surname = $("input[name=surname]").val();
 		let password = $("input[name=password]").val();
 		let repassword = $('#repassword').val();
-		let gender="Male";
-		var radios = document.getElementsByName('gender');
+		let gender = $('input[name=gender]:checked').val();
 		
-		var allInputs = document.querySelectorAll("#container_id input[type=text]");
 		
 		if (password != repassword){
 			toastr["error"]("Lozinke moraju biti iste");
@@ -35,7 +33,7 @@ function editUser(){
 			type: "PUT",
 			url: "rest/users/edit",
 			contentType : "application/json",
-			data: JSON.stringify(values),
+			data: JSON.stringify({username: username, password: password, name: name, surname: surname, gender: gender}),
 			success: function(data, textStatus, XmlHttpRequest) {					
 				toastr["success"]("Uspešno ste promenili korisnika!");
 				setTimeout(function() {
@@ -59,8 +57,7 @@ function editUserInApartment(){
 		let surname = $("input[name=surname]").val();
 		let password = $("input[name=password]").val();
 		let repassword = $('#repassword').val();
-		let gender="Male";
-		var radios = document.getElementsByName('gender');
+		let gender = $('input[name=gender]:checked').val();
 		
 		var allInputs = document.querySelectorAll("#container_id input[type=text]");
 		
@@ -82,7 +79,7 @@ function editUserInApartment(){
 			type: "PUT",
 			url: "rest/apartments/editUserInApartment",
 			contentType : "application/json",
-			data: JSON.stringify({username: username, password: password, name: name, surname: surname}),
+			data: JSON.stringify({username: username, password: password, name: name, surname: surname, gender: gender}),
 			success: function(data, textStatus, XmlHttpRequest) {					
 				setTimeout(function() {
 					location.href = XmlHttpRequest.responseText;
@@ -105,8 +102,7 @@ function editUserInComment(){
 		let surname = $("input[name=surname]").val();
 		let password = $("input[name=password]").val();
 		let repassword = $('#repassword').val();
-		let gender="Male";
-		var radios = document.getElementsByName('gender');
+		let gender = $('input[name=gender]:checked').val();
 		
 		var allInputs = document.querySelectorAll("#container_id input[type=text]");
 		
@@ -128,7 +124,7 @@ function editUserInComment(){
 			type: "PUT",
 			url: "rest/comments/editUserInComment",
 			contentType : "application/json",
-			data: JSON.stringify({username: username, password: password, name: name, surname: surname}),
+			data: JSON.stringify({username: username, password: password, name: name, surname: surname, gender: gender}),
 			success: function(data, textStatus, XmlHttpRequest) {					
 				setTimeout(function() {
 					location.href = XmlHttpRequest.responseText;
