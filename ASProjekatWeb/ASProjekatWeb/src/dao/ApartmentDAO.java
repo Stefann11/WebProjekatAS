@@ -19,13 +19,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import beans.Amenties;
+import beans.AmentiesHelp;
 import beans.Apartment;
 import beans.CommentForApartment;
 import beans.Reservation;
 import beans.SearchFields;
 import beans.TypeOfApartment;
 import beans.User;
-import beans.newCommentHelp;
 
 public class ApartmentDAO {
 private Map<String, Apartment> apartments = new HashMap<>();
@@ -555,6 +556,28 @@ private Map<String, Apartment> apartments = new HashMap<>();
 			e.printStackTrace();
 		}
 		
+	}
+
+	public Apartment saveAmenitiesToApartment(Apartment apartment, AmentiesHelp amenitiesHelp, String contextPath) {
+		
+		apartments.remove(Long.toString(apartment.getId()));
+		
+		List<Amenties> amentiesToAdd = new ArrayList<Amenties>();
+		
+		long id = 0;
+		
+		for (String amentiesString: amenitiesHelp.getAmenities()) {
+			Amenties amenties = new Amenties(id, amentiesString);
+			
+			amentiesToAdd.add(amenties);
+			
+		}
+		
+		apartment.setListOfAmenities(amentiesToAdd);
+		
+		printApartments(contextPath, apartment);
+		
+		return apartment;
 	}
 	
 	

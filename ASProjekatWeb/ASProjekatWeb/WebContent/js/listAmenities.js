@@ -22,7 +22,7 @@ function listAmenities(){
 	
 	$.ajax({
 				type: "POST",
-				url: "rest/amenties/saveToApartment",
+				url: "rest/apartments/saveToApartment",
 				contentType : "application/json",
 				data: JSON.stringify({idApartment: idApartment, amenities: amenities}),
 				success: function(result) {

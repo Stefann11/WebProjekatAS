@@ -55,14 +55,6 @@ public class AmentiesDAO {
 		return amenties.values();
 	}
 	
-	public Collection<Amenties> saveAmenitiesToApartment(Apartment apartment, AmentiesHelp amenitiesHelp){
-		List<Amenties> amenitiesToReturn = new ArrayList<Amenties>();
-		
-		
-		
-		return amenitiesToReturn;
-	}
-	
 	
 	public Amenties editAmenties(String contextPath, Amenties amen) {
 		amenties.remove(Long.toString(amen.getId()));

@@ -89,18 +89,4 @@ public class AmentiesService {
 		return dao.editAmenties(path, amen);
 	}
 	
-	@POST
-	@Path("/saveToApartment")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Collection<Amenties> saveToApartment(AmentiesHelp amenitiesHelp){
-		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
-		ApartmentDAO apartmentDAO = getApartmani();
-		Long idApartment = Long.parseLong(amenitiesHelp.getIdApartment());
-	
-		
-		Apartment apartment = apartmentDAO.findApartment(idApartment);
-		return dao.saveAmenitiesToApartment(apartment, amenitiesHelp);
-	}
-	
 }

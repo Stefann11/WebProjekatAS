@@ -10,7 +10,7 @@ public class Amenties {
 		this.name = "name";
 	}
 	
-	public Amenties(int id, String name) {
+	public Amenties(long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;

@@ -16,11 +16,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import beans.Amenties;
+import beans.AmentiesHelp;
 import beans.Apartment;
 import beans.CommentForApartment;
 import beans.SearchFields;
 import beans.User;
 import beans.newCommentHelp;
+import dao.AmentiesDAO;
 import dao.ApartmentDAO;
 
 @Path("/apartments")
@@ -164,5 +167,16 @@ public class ApartmentService {
 			}
 		}
 		dao.editCommentInApartment(path, com);
+	}
+	
+	@POST
+	@Path("/saveToApartment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Apartment saveToApartment(AmentiesHelp amenitiesHelp){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");	
+		Long idApartment = Long.parseLong(amenitiesHelp.getIdApartment());
+		Apartment apartment = dao.findApartment(idApartment);
+		return dao.saveAmenitiesToApartment(apartment, amenitiesHelp, path);
 	}
 }
