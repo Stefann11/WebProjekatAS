@@ -4,7 +4,7 @@ $(document).ready(function() {
 	sort();
 	sortO();
 });
-/*function sortO(){
+function sortO(){
 	$('#sortOForm').submit(function(e) {
 		e.preventDefault();
 		 var table, rows, switching, i, x, y, shouldSwitch;
@@ -23,7 +23,7 @@ $(document).ready(function() {
 		      x = rows[i].getElementsByTagName("TD")[9];
 		      y = rows[i + 1].getElementsByTagName("TD")[9];
 		     
-		      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
 		        
 		        shouldSwitch = true;
 		        break;
@@ -56,7 +56,7 @@ function sort(){
 		      x = rows[i].getElementsByTagName("TD")[9];
 		      y = rows[i + 1].getElementsByTagName("TD")[9];
 		     
-		      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
 		        
 		        shouldSwitch = true;
 		        break;
@@ -69,7 +69,7 @@ function sort(){
 		    }
 		  }
 		});
-}*/
+}
 function searchActiveApartments(){
 	$('#searchForm').submit(function(e) {
 		e.preventDefault();
