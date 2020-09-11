@@ -3,7 +3,11 @@ $(document).ready(function() {
 	searchActiveApartments();
 	sort();
 	sortO();
+
 });
+
+
+
 function sortO(){
 	$('#sortOForm').submit(function(e) {
 		e.preventDefault();
