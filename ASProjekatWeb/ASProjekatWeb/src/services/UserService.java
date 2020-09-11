@@ -59,9 +59,9 @@ public class UserService {
 	
 	@POST
 	@Path("/save")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public User saveUser(User user) {
+	public Response saveUser(User user, @Context HttpServletRequest request) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
 		for (User oneUser : dao.findAll()) {
 			if (oneUser.getUsername().equals(user.getUsername())) {
@@ -70,7 +70,16 @@ public class UserService {
 				return null;
 			}
 		}
-		return dao.printUsers(path, user);
+		
+		request.getSession().setAttribute("user", user);
+		dao.printUsers(path, user);
+		
+		request.getSession().setAttribute("user", user);
+		return Response.ok().entity("guestIndex.html").build();
+		
+	
+		
+		
 		//return dao.save(user);
 	}
 	

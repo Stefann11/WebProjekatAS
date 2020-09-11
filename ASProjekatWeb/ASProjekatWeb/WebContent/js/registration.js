@@ -29,16 +29,16 @@ $(document).ready(function() {
 				url: "rest/users/save",
 				contentType : "application/json",
 				data: JSON.stringify({username: username, password: password, name: name, surname: surname, gender: gender}),
-				success: function(result) {
-					toastr["success"]("Uspešno ste se registrovali!");
-					setTimeout(function() {
-						location.href = "login.html";
-						$('#registrationForm')[0].reset();
-					}, 1000);
-				},
-				error: function(jqXHR, textStatus, errorThrown)  {
-					toastr["error"](jqXHR.responseText);
-				}
+				success: function(data, textStatus, XmlHttpRequest) {					
+				toastr["success"]("Uspešno ste se registrovali!");
+				setTimeout(function() {
+					window.location.assign( XmlHttpRequest.responseText);
+					$('#registrationForm')[0].reset();
+				}, 1000);
+			},
+			error: function(jqXHR, textStatus, errorThrown)  {		    		
+				toastr["error"](jqXHR.responseText);
+			}
 		});
 	});
 	
