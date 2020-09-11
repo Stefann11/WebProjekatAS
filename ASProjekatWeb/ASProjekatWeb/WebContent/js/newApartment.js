@@ -57,10 +57,10 @@ function createApartment(){
 				url: "rest/apartments/save",
 				contentType : "application/json",
 				data: JSON.stringify({id: id, type: type, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
-				success: function(result) {
+				success: function(data, textStatus, XmlHttpRequest){
 					toastr["success"]("Uspešno kreiranje!");
 					setTimeout(function() {
-						location.href = "hostIndex.html";
+						window.location.assign( XmlHttpRequest.responseText);
 						$('#apartmentForm')[0].reset();
 					}, 1000);
 				},
@@ -124,9 +124,9 @@ function addApartmentToHost(){
 				url: "rest/users/addApartmentToHost",
 				contentType : "application/json",
 				data: JSON.stringify({id: id, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
-				success: function(result) {
+				success: function(data, textStatus, XmlHttpRequest){
 					setTimeout(function() {
-						location.href = "hostIndex.html";
+						window.location.assign( XmlHttpRequest.responseText);
 						$('#apartmentForm')[0].reset();
 					}, 1000);
 				},

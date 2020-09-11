@@ -12,13 +12,14 @@ function listAmenities(){
 	
 	var amenities = [];
 	
-	for (var i = 0; i<sepStringsLength; i++){
+	var idAll = sepStrings[0].split("=");
+	var idApartment = idAll[1];
+	
+	for (var i = 1; i<sepStringsLength; i++){
 		var all = sepStrings[i].split("=");
 		var replaced = all[1].replace("+", " ");
 		amenities.push(replaced); 
 	}
-	
-	var idApartment = "1";
 	
 	$.ajax({
 				type: "POST",
