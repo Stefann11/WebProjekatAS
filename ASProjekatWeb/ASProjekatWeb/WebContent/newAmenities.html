@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="js/newAmenities.js"></script>
+	<script src="js/toastr.min.js"></script>
+<title>Registration</title>
+<link rel="stylesheet" href="css/stilZaLogin.css">
+<link rel="stylesheet" href="css/stilovi.css">
+<style>
+body{background-image: url('images/registration.jpg');}
+</style>
+</head>
+<body>
+	<h3 style="color:white;">Create amenities</h3>
+	</br>
+	</br>
+	</br>	
+	<div class="container">
+	<form action="rest/amenties/save" method="POST" id="amenitiesForm">
+	<label class="a1" for="id"><b>ID of amenitie:</b></label>
+    <input type="text" placeholder="Enter Id Of Amenitie" name="id" required>
+	<br/>
+	<br/>
+    <label class="a1" for="name"><b>Name of amenitie:</b></label>
+    <input type="text" placeholder="Enter Name Of Amenitie" name="name" required>
+	<br/>
+	<br/>
+	
+    <input type="submit" name="add" value="Add"/>
+   
+    <button type="button" class="cancelbtn">Cancel</button>
+     </form>
+  </div>
+
+ 
+    
+  
+</body>
+</html>

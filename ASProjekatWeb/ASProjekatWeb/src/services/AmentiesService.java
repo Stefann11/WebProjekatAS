@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -13,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import beans.Amenties;
 import beans.AmentiesHelp;
@@ -64,11 +66,13 @@ public class AmentiesService {
 	
 	@POST
 	@Path("/save")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Amenties newAmenties(Amenties amen){
+	public Response newAmenties(Amenties amen){
 		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
-		return dao.printAmenties(path, amen);
+		dao.printAmenties(path, amen);
+		
+		return Response.ok().entity("adminIndex.html").build();
 		//return dao.save(reservation);
 	}
 	
@@ -87,6 +91,15 @@ public class AmentiesService {
 	public Amenties editAmenties(Amenties amen) {
 		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
 		return dao.editAmenties(path, amen);
+	}
+	
+	@DELETE
+	@Path("/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public boolean removeAmenities(Amenties amenities) {
+		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
+		return dao.delete(path, amenities);
 	}
 	
 }

@@ -87,30 +87,34 @@ function allAmenities() {
 					var oneItem = $("<tr></tr>");
 					var name = item["name"];
 					
+					var deleted = item["deleted"];
 					
+					if (deleted == false){
 					
-					var x = document.createElement("INPUT");
-					x.setAttribute("type", "checkbox");
-					x.setAttribute("name", "amenities");
-					x.setAttribute("id", name);
-					x.setAttribute("value", name);
-					
-					var r = document.createElement("LABEL");
-  					var t = document.createTextNode(name);
-  					r.setAttribute("for", name);
-					r.setAttribute("class", "a1");
-  					r.appendChild(t);
-			
-					oneItem.append("<td>" + x + r +  "</td>");
-					
-					body.append(oneItem);
-					
-					
-					
-					node.appendChild(br);
-					
-					node.appendChild(x);
-					node.appendChild(r);
+						var x = document.createElement("INPUT");
+						x.setAttribute("type", "checkbox");
+						x.setAttribute("name", "amenities");
+						x.setAttribute("id", name);
+						x.setAttribute("value", name);
+						
+						var r = document.createElement("LABEL");
+	  					var t = document.createTextNode(name);
+	  					r.setAttribute("for", name);
+						r.setAttribute("class", "a1");
+	  					r.appendChild(t);
+				
+						oneItem.append("<td>" + x + r +  "</td>");
+						
+						body.append(oneItem);
+						
+						
+						
+						node.appendChild(br);
+						
+						node.appendChild(x);
+						node.appendChild(r);
+						
+					}
 					 
 					
 					
