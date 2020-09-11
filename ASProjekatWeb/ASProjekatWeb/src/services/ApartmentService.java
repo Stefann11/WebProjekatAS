@@ -15,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import beans.Amenties;
 import beans.AmentiesHelp;
@@ -80,13 +81,14 @@ public class ApartmentService {
 	
 	@POST
 	@Path("/save")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Apartment saveApartment(Apartment apartment, @Context HttpServletRequest request) {
+	public Response saveApartment(Apartment apartment, @Context HttpServletRequest request) {
 		User host = (User) request.getSession().getAttribute("user");
 		apartment.setHost(host);
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		return dao.printApartments(path, apartment);
+		dao.printApartments(path, apartment);
+		return Response.ok().entity("allAmenities.html?idApartment=" + apartment.getId()).build();
 		//return dao.save(apartment);
 	}
 	

@@ -42,6 +42,14 @@ function createAmenities(){
 }
 
 function allAmenities() {
+	
+	const queryString2 = window.location.search;
+	var queryString = queryString2.substr(1, queryString2.length);
+	
+	var sepStrings = queryString.split("=");
+	
+	var idApartment = sepStrings[1];
+	
 	$.ajax({
 		type : "GET",
 		url : "rest/amenties/",
@@ -55,10 +63,31 @@ function allAmenities() {
 				var node = document.createElement("FORM");
 				
 				var body = $("<tbody></tbody>");
+					
+				var g = document.createElement("INPUT");
+				g.setAttribute("type", "text");
+				g.setAttribute("name", "idApartment");
+				g.setAttribute("id", "idApartment");
+				g.setAttribute("value", idApartment);
+				//g.setAttribute("disabled", true);
+				
+				var y = document.createElement("LABEL");
+				var h = document.createTextNode("Id Apartment");
+				y.setAttribute("for", "idApartment");
+				y.setAttribute("class", "a1");
+				y.appendChild(h);
+				
+				node.appendChild(y);
+				node.appendChild(g);
+			
+				var br = document.createElement('br');
+				
 				result.forEach(function(item, index) {
 					
 					var oneItem = $("<tr></tr>");
 					var name = item["name"];
+					
+					
 					
 					var x = document.createElement("INPUT");
 					x.setAttribute("type", "checkbox");
@@ -69,13 +98,16 @@ function allAmenities() {
 					var r = document.createElement("LABEL");
   					var t = document.createTextNode(name);
   					r.setAttribute("for", name);
+					r.setAttribute("class", "a1");
   					r.appendChild(t);
 			
 					oneItem.append("<td>" + x + r +  "</td>");
 					
 					body.append(oneItem);
 					
-
+					
+					
+					node.appendChild(br);
 					
 					node.appendChild(x);
 					node.appendChild(r);
@@ -92,10 +124,15 @@ function allAmenities() {
 				submitButton.setAttribute("type", "submit");
 				submitButton.setAttribute("value", "Posalji");	
 				
+				node.appendChild(br);
+				
 				node.setAttribute("id", "amenitiesForm");
 				node.setAttribute("action", "http://localhost:8080/ASProjekatWeb/listAmenities.html");
 			
 				node.appendChild(submitButton);
+				
+				
+				
 				document.body.appendChild(node);
 				//table.append(body);
 				

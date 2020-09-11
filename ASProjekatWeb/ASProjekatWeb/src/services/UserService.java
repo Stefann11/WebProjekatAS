@@ -174,10 +174,11 @@ public class UserService {
 	@Path("/addApartmentToHost")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Apartment addApartmentToHost(Apartment apartment, @Context HttpServletRequest request) {
+	public Response addApartmentToHost(Apartment apartment, @Context HttpServletRequest request) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
 		User host = (User) request.getSession().getAttribute("user");
-		return dao.addApartmentToHost(apartment, host, path);
+		dao.addApartmentToHost(apartment, host, path);
+		return Response.ok().entity("allAmenities.html?idApartment=" + apartment.getId()).build();
 	}
 	
 	@POST

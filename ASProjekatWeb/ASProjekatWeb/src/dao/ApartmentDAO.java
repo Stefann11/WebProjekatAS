@@ -568,7 +568,7 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		
 		for (String amentiesString: amenitiesHelp.getAmenities()) {
 			Amenties amenties = new Amenties(id, amentiesString);
-			
+			id++;
 			amentiesToAdd.add(amenties);
 			
 		}
