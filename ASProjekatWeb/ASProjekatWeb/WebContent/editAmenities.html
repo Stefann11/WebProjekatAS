@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="js/fillEditAmenities.js"></script>
+	<script src="js/editAmenities.js"></script>
+	<script src="js/toastr.min.js"></script>
+<title>Edit amenities</title>
+<link rel="stylesheet" href="css/stilZaLogin.css">
+<style>
+body{background-image: url('images/registration.jpg');}
+</style>
+</head>
+<body>
+	<h3 style="color:white;">Edit Amenities</h3>
+	</br>
+	</br>
+	</br>	
+	<div class="container">
+	<form action="rest/amenties/edit" method="PUT" id="amenitiesForm">
+	<label class="a1" for="id"><b>ID of amenitie:</b></label>
+    <input type="text" placeholder="Enter Id Of Amenitie" name="id" id="id" disabled required>
+	<br/>
+	<br/>
+    <label class="a1" for="name"><b>Name:</b></label>
+    <input type="text" placeholder="Enter Name" name="name" id="name" required>
+	
+	<br/>
+	<br/>
+    <input type="submit" name="edit" value="Edit"/>
+   
+    <button type="button" class="cancelbtn">Cancel</button>
+     </form>
+  </div>
+
+ 
+    
+  
+</body>
+</html>

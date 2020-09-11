@@ -57,8 +57,22 @@ public class AmentiesDAO {
 	
 	
 	public Amenties editAmenties(String contextPath, Amenties amen) {
+		Amenties amentie = amenties.get(Long.toString(amen.getId()));
 		amenties.remove(Long.toString(amen.getId()));
-		return printAmenties(contextPath, amen);
+		
+		amentie.setName(amen.getName());
+		
+		return printAmenties(contextPath, amentie);
+	}
+	
+	public boolean delete(String contextPath, Amenties amen) {
+		Amenties amentie = amenties.get(Long.toString(amen.getId()));
+		amenties.remove(Long.toString(amen.getId()));
+		
+		amentie.setDeleted(true);
+		
+		printAmenties(contextPath, amentie);
+		return true;
 	}
 	
 	public Amenties findAmenties(long id) {	
