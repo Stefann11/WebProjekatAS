@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="js/hostRegistration.js"></script>
+	<script src="js/toastr.min.js"></script>
+<title>Registration</title>
+<link rel="stylesheet" href="css/stilZaLogin.css">
+<style>
+body{background-image: url('images/registration.jpg');}
+</style>
+</head>
+<body>
+	<h3 style="color:white;">REGISTRATION</h3>
+	</br>
+	</br>
+	</br>	
+	<div class="container">
+	<form action="rest/users/save" method="POST" id="hostRegistrationForm">
+    <label class="a1" for="uname"><b>Username:</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
+	</br>
+	</br>
+	<label class="a1" for="name"><b>Name:</b></label>
+    <input type="text" placeholder="Enter Name" name="name" required>
+	</br>
+	</br>
+	<label class="a1" for="surname"><b>Surname:</b></label>
+    <input type="text" placeholder="Enter Surname" name="surname" required>
+	</br>
+	</br>
+	<label class="a1" for="gender">Gender: </label>
+	 
+                    <input type="radio" id="female" name="gender" value="FEMALE" checked>
+                        <label class="a1" for="female">Female</label><br>
+                    
+               
+                
+                   
+                    <input type="radio" id="male" name="gender" value="MALE">
+                        <label class="a1" for="male">Male</label><br>
+                   
+                
+	<br/>
+	<br/>
+
+    <label class="a1" for="psw"><b>Password:</b></label>
+    <input type="password" placeholder="Enter Password" id="password"  name="password" required>
+	</br>
+	</br>
+	<label class="a1" for="apsw"><b>Re-enter Password:</b></label>
+    <input type="password" placeholder="Re-enter Password" id="repassword" name="password" required>
+	</br>
+	</br>
+	</br>
+	</br>
+    <input type="submit" name="register" value="Register"/>
+   
+    <button type="button" class="cancelbtn">Cancel</button>
+     </form>
+  </div>
+
+ 
+    
+  
+</body>
+</html>
