@@ -5,7 +5,7 @@ $(document).ready(function() {
 function allReservations() {
 	$.ajax({
 		type : "GET",
-		url : "rest/reservations/hostReservations",
+		url : "rest/reservations/userReservations",
 		success : function(result) {
 			var table = $("#allApartmentsTable");
 			table.empty();

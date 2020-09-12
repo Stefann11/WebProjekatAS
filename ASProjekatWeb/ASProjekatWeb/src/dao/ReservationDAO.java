@@ -70,16 +70,35 @@ public class ReservationDAO {
 	}
 	
 	public Collection<Reservation> getUserReservations(User user) {
-		return user.getListOfReservations();
+		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
+		for (Reservation reservation: reservations.values()) {
+			if (reservation.getGuest()!=null) {
+				if (reservation.getGuest().getUsername().equals(user.getUsername())) {
+					reservationsToReturn.add(reservation);
+				}
+			}
+		}
+		
+		return reservationsToReturn;
 	}
 	
 	public Collection<Reservation> getHostReservations(User host) {
 		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
-		if (host.getApartmentsForRent()!=null) {
-			for (Apartment apartment: host.getApartmentsForRent()) {
-				if (apartment.getReservations()!=null) {
-					for (Reservation res: apartment.getReservations()) {
-						reservationsToReturn.add(res);
+//		if (host.getApartmentsForRent()!=null) {
+//			for (Apartment apartment: host.getApartmentsForRent()) {
+//				if (apartment.getReservations()!=null) {
+//					for (Reservation res: apartment.getReservations()) {
+//						reservationsToReturn.add(res);
+//					}
+//				}
+//			}
+//		}
+		
+		for (Reservation reservation: reservations.values()) {
+			if (reservation.getApartment()!=null) {
+				if (reservation.getApartment().getHost()!=null) {
+					if (reservation.getApartment().getHost().getUsername().equals(host.getUsername())) {
+						reservationsToReturn.add(reservation);
 					}
 				}
 			}
