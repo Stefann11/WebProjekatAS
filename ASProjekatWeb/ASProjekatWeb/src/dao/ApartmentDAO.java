@@ -5,8 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -508,6 +513,8 @@ private Map<String, Apartment> apartments = new HashMap<>();
 	
 	public Apartment printApartments(String contextPath, Apartment apartment) {
 		ObjectMapper mapper = new ObjectMapper();
+		DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		mapper.setDateFormat(DATE_FORMAT);
 		String path = contextPath + "/apartments.json";
 		apartments.put(Long.toString(apartment.getId()), apartment);
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -581,6 +588,89 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		printApartments(contextPath, apartment);
 		
 		return apartment;
+	}
+
+	public Apartment addDatesToApartment(String contextPath, Reservation reservation) {
+		Apartment apartment = apartments.get(Long.toString(reservation.getApartment().getId()));
+		
+		apartments.remove(Long.toString(apartment.getId()));
+			
+		List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
+		
+		for (Date oneDate : pickedDates) {
+			apartment.getReleaseDates().add(oneDate);
+		}
+		
+		return printApartments(contextPath, apartment);
+		
+	}
+	
+	private List<Date> addDays(Date startDate, int days) {
+		
+		List<Date> datesToReturn = new ArrayList<Date>();
+		
+		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = DATE_FORMAT.format(startDate);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		Calendar c = Calendar.getInstance();
+		
+	    try {
+	    	
+			c.setTime(sdf.parse(dateString));
+			
+		} catch (java.text.ParseException e) {
+
+			e.printStackTrace();
+		}
+	    
+	    c.add(Calendar.DAY_OF_MONTH, 0);
+    	
+    	String newDate2 = sdf.format(c.getTime());
+    	
+    	Date returnDate2 = new Date();
+		try {
+			returnDate2 = DATE_FORMAT.parse(newDate2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		datesToReturn.add(returnDate2);
+	    
+		
+	    for (int i = 0; i<days-1;i++) {
+	    	c.add(Calendar.DAY_OF_MONTH, 1);
+	    	
+	    	String newDate = sdf.format(c.getTime());
+	    	
+	    	Date returnDate = new Date();
+			try {
+				returnDate = DATE_FORMAT.parse(newDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			datesToReturn.add(returnDate);
+			
+	    }
+	    
+//		c.add(Calendar.DAY_OF_MONTH, days);  
+//		String newDate = sdf.format(c.getTime());  
+//		System.out.println("Date Incremented by One: "+newDate);
+//		Date returnDate = new Date();
+//		try {
+//			returnDate = DATE_FORMAT.parse(newDate);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println("NEWDATE: " + newDate);
+//		System.out.println(returnDate.toString());
+		
+		return datesToReturn;
 	}
 	
 	

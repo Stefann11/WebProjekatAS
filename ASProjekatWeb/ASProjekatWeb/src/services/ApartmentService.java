@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 import beans.AmentiesHelp;
 import beans.Apartment;
 import beans.CommentForApartment;
+import beans.Reservation;
 import beans.SearchFields;
 import beans.User;
 import beans.newCommentHelp;
@@ -186,5 +187,15 @@ public class ApartmentService {
 		Long idApartment = Long.parseLong(amenitiesHelp.getIdApartment());
 		Apartment apartment = dao.findApartment(idApartment);
 		return dao.saveAmenitiesToApartment(apartment, amenitiesHelp, path);
+	}
+	
+	@POST
+	@Path("/addDatesToApartment")
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addDatesToApartment(Reservation reservation){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		dao.addDatesToApartment(path, reservation);
+		return Response.ok().entity("allActiveApartments.html").build();
 	}
 }

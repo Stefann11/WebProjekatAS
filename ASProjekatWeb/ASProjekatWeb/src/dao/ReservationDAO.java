@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -146,6 +148,8 @@ public class ReservationDAO {
 	
 	public Reservation printReservations(String contextPath, Reservation reservation) {
 		ObjectMapper mapper = new ObjectMapper();
+		DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		mapper.setDateFormat(DATE_FORMAT);
 		String path = contextPath + "/reservations.json";
 		reservations.put(Long.toString(reservation.getId()), reservation);
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);

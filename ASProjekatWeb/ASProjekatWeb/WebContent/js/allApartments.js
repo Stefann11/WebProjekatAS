@@ -275,6 +275,8 @@ function allApartments() {
 					var resLoc = "Širina: " + res1Loc + ", dužina: " + res2Loc + ", ulica i broj: " + res3Loc + ", mesto: " + res4Loc + ", poštanski broj: " + res5Loc;
 					
 					apartment.append("<td>" + resLoc + "</td>");
+					
+					alert(item["releaseDates"]);
 						
 					getAllDates(item["releaseDates"], apartment);
 					getAllDates(item["availableDates"], apartment);					

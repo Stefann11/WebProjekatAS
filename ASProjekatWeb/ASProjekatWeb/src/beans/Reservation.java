@@ -10,7 +10,7 @@ public class Reservation{
 	 */
 	protected long id;
 	protected Apartment apartment;
-	@JsonDeserialize(contentUsing = DateHandler.class)
+	@JsonDeserialize(using = DateHandler.class)
 	protected Date startDate;
 	protected int numberOfOvernights;
 	protected double totalPrice;
