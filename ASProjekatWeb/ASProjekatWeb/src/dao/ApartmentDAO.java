@@ -448,6 +448,9 @@ private Map<String, Apartment> apartments = new HashMap<>();
 	public Apartment findApartment(long id) {	
 		return apartments.get(Long.toString(id));
 	}
+	public Apartment findOne(Apartment apartment) {	
+		return apartments.get(Long.toString(apartment.getId()));
+	}
 	
 	private void loadApartments(String contextPath) {
 		BufferedReader in = null;

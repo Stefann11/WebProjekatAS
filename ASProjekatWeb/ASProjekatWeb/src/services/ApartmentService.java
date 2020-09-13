@@ -17,14 +17,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import beans.Amenties;
 import beans.AmentiesHelp;
 import beans.Apartment;
 import beans.CommentForApartment;
 import beans.SearchFields;
 import beans.User;
 import beans.newCommentHelp;
-import dao.AmentiesDAO;
 import dao.ApartmentDAO;
 
 @Path("/apartments")
@@ -98,6 +96,14 @@ public class ApartmentService {
 	public Apartment findUser(@PathParam("id") long id) {
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		return dao.findApartment(id);
+	}
+	
+	@POST
+	@Path("/findOne")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Apartment findUser(Apartment apartment) {
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		return dao.findOne(apartment);
 	}
 	
 	@PUT
