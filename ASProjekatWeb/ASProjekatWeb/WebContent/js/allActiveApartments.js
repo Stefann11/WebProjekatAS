@@ -116,7 +116,7 @@ function searchActiveApartments(){
 					$('#allActiveApartmentsTable').hide();
 				} else {
 					$('#allActiveApartmentsTable').show();
-					table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Sadržaj</th></thead></tr>");
+					table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Detaljniji prikaz</th></thead></tr>");
 					var body = $("<tbody></tbody>");
 					result.forEach(function(item, index) {
 						var apartment = $("<tr></tr>");
@@ -204,10 +204,9 @@ function searchActiveApartments(){
 
 						var status = item["status"];
 						
-						var amenities = item["listOfAmenities"];	
-						var amenitiesStr = JSON.stringify(amenities);
-					
-						apartment.append("<td>" + amenitiesStr + "</td>");				
+						var id = item["id"];
+						apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartman.html?id=" + id + "\'\" value=\"Detaljno\"></td>");
+			
 	
 						body.append(apartment);
 					});
@@ -230,7 +229,7 @@ function allActiveApartments() {
 				$('#allActiveApartmentsTable').hide();
 			} else {
 				$('#allActiveApartmentsTable').show();
-				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Sadržaj</th></thead></tr>");
+				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Detaljniji prikaz</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var apartment = $("<tr></tr>");
@@ -307,12 +306,11 @@ function allActiveApartments() {
 					apartment.append("<td>" + item["checkOutTime"] + "h" + "</td>");
 					
 					apartment.append("<td>" + item["status"] + "</td>");
-					
-					var amenities = item["listOfAmenities"];	
-					var amenitiesStr = JSON.stringify(amenities);
-					
-					apartment.append("<td>" + amenitiesStr + "</td>");					
-					
+				
+					var id = item["id"];
+					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartman.html?id=" + id + "\'\" value=\"Detaljno\"></td>");
+			
+							
 					//user.append("<td>" + apartmentsForRentStr + "</td>");
 
 					body.append(apartment);

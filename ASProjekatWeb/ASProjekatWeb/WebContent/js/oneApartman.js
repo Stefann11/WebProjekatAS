@@ -68,7 +68,7 @@ window.onload = function () {
 				
 				
 				
-				if (result["listOfAmenities"] != null){
+				if ((result["listOfAmenities"] != null)&&(result["listOfAmenities"].length != 0)){
 				result["listOfAmenities"].forEach(function(item, index) {
 					
 					
