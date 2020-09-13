@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Apartment;
 import beans.Reservation;
+import beans.Status;
 import beans.User;
 
 
@@ -70,16 +71,35 @@ public class ReservationDAO {
 	}
 	
 	public Collection<Reservation> getUserReservations(User user) {
-		return user.getListOfReservations();
+		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
+		for (Reservation reservation: reservations.values()) {
+			if (reservation.getGuest()!=null) {
+				if (reservation.getGuest().getUsername().equals(user.getUsername())) {
+					reservationsToReturn.add(reservation);
+				}
+			}
+		}
+		
+		return reservationsToReturn;
 	}
 	
 	public Collection<Reservation> getHostReservations(User host) {
 		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
-		if (host.getApartmentsForRent()!=null) {
-			for (Apartment apartment: host.getApartmentsForRent()) {
-				if (apartment.getReservations()!=null) {
-					for (Reservation res: apartment.getReservations()) {
-						reservationsToReturn.add(res);
+//		if (host.getApartmentsForRent()!=null) {
+//			for (Apartment apartment: host.getApartmentsForRent()) {
+//				if (apartment.getReservations()!=null) {
+//					for (Reservation res: apartment.getReservations()) {
+//						reservationsToReturn.add(res);
+//					}
+//				}
+//			}
+//		}
+		
+		for (Reservation reservation: reservations.values()) {
+			if (reservation.getApartment()!=null) {
+				if (reservation.getApartment().getHost()!=null) {
+					if (reservation.getApartment().getHost().getUsername().equals(host.getUsername())) {
+						reservationsToReturn.add(reservation);
 					}
 				}
 			}
@@ -171,6 +191,78 @@ public class ReservationDAO {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+	}
+
+	public boolean whithdrawalReservation(String contextPath, Reservation reservation) {
+		Reservation reservationToAdd = reservations.get(Long.toString(reservation.getId()));
+		
+		if (reservationToAdd !=null) {
+		
+			reservations.remove(Long.toString(reservation.getId()));
+			
+			reservationToAdd.setStatus(Status.WHITHDRAWAL);
+			
+			printReservations(contextPath, reservationToAdd);
+			
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	public boolean acceptReservation(String contextPath, Reservation reservation) {
+		Reservation reservationToAdd = reservations.get(Long.toString(reservation.getId()));
+		
+		if (reservationToAdd !=null) {
+		
+			reservations.remove(Long.toString(reservation.getId()));
+			
+			reservationToAdd.setStatus(Status.ACCEPTED);
+			
+			printReservations(contextPath, reservationToAdd);
+			
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	public boolean rejectReservation(String contextPath, Reservation reservation) {
+		Reservation reservationToAdd = reservations.get(Long.toString(reservation.getId()));
+		
+		if (reservationToAdd !=null) {
+		
+			reservations.remove(Long.toString(reservation.getId()));
+			
+			reservationToAdd.setStatus(Status.REJECTED);
+			
+			printReservations(contextPath, reservationToAdd);
+			
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	public boolean completeReservation(String contextPath, Reservation reservation) {
+		Reservation reservationToAdd = reservations.get(Long.toString(reservation.getId()));
+		
+		if (reservationToAdd !=null) {
+		
+			reservations.remove(Long.toString(reservation.getId()));
+			
+			reservationToAdd.setStatus(Status.COMPLETED);
+			
+			printReservations(contextPath, reservationToAdd);
+			
+			return true;
+		} else {
+			return false;
 		}
 		
 	}

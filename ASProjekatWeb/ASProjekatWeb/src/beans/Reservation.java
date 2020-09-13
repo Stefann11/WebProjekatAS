@@ -2,12 +2,15 @@ package beans;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 public class Reservation{
 	/**
 	 * 
 	 */
 	protected long id;
 	protected Apartment apartment;
+	@JsonDeserialize(contentUsing = DateHandler.class)
 	protected Date startDate;
 	protected int numberOfOvernights;
 	protected double totalPrice;
@@ -40,6 +43,13 @@ public class Reservation{
 		this.status = status;
 	}
 	
+	public Reservation(long id, int numberOfOvernights, String message) {
+		super();
+		this.id = id;
+		this.numberOfOvernights = numberOfOvernights;
+		this.message = message;
+	}
+	
 	public Reservation(long id, int numberOfOvernights, double totalPrice, String message) {
 		super();
 		this.id = id;		
@@ -64,6 +74,7 @@ public class Reservation{
 		this.apartment = apartment;
 	}
 
+	@JsonDeserialize(contentUsing = DateHandler.class)
 	public Date getStartDate() {
 		return startDate;
 	}

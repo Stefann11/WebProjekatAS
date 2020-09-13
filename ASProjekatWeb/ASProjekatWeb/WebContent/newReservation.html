@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="js/toastr.min.js"></script>
+	<script src="js/newReservation.js"></script>
+	<title>New Reservation</title>
+<link rel="stylesheet" href="css/stilZaLogin.css">
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Datepicker - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+	    $( "#datepicker" ).datepicker();
+	    $( "#datepicker" ).datepicker( "option", "dateFormat", 'dd-mm-yy' );
+	    
+	  } );
+  </script>
+
+<style>
+body{background-image: url('images/registration.jpg');}
+</style>
+</head>
+<body>
+	<h3 style="color:white;">New Apartment</h3>
+	</br>
+	</br>
+	</br>	
+	<div class="container">
+	<form action="rest/reservations/save" method="POST" id="apartmentForm">
+    <label class="a1" for="id"><b>Id:</b></label>
+    <input type="text" placeholder="Enter id" name="id" id="id" required>
+	
+	</br>
+	</br>
+	
+	<label class="a1" for="idApartment"><b>Id of apartment:</b></label>
+    <input type="text" placeholder="Enter ID of apartment" id="idApartment" name="idApartment" required>
+	</br>
+	</br>
+	<label class="a1" for="datepicker"><b>Start date:</b></label>
+    <input type="text" placeholder="Enter Date" id="datepicker"  name="datepicker" required>
+	</br>
+	</br>
+    <label class="a1" for="numberOfOvernights"><b>Number of overnights:</b></label>
+    <input type="text" placeholder="Enter Number Of Overnights" id="numberOfOvernights"  name="numberOfOvernights" required>
+	</br>
+	</br>
+	<label class="a1" for="message"><b>Message:</b></label>
+    <input type="text" placeholder="Enter Message" id="message"  name="message" required>
+	</br>
+	</br>
+	
+    <input type="submit" name="create" value="Create"/>
+   
+    <button type="button" class="cancelbtn">Cancel</button>
+     </form>
+  </div>
+	
+
+ 
+    
+  
+</body>
+</html>

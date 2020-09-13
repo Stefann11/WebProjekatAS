@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import beans.Apartment;
 import beans.Reservation;
@@ -47,6 +48,15 @@ public class ReservationService {
 		}
 	}
 	
+	private ApartmentDAO getApartmani() { 
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		if (apartmentDAO == null) {
+			String contextPath = ctx.getRealPath("");
+			ctx.setAttribute("apartmentDAO", new ApartmentDAO(contextPath));
+		}
+		return apartmentDAO;
+	}
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -57,12 +67,19 @@ public class ReservationService {
 	
 	@POST
 	@Path("/save")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Reservation newReservation(Reservation reservation){
+	public Response saveReservation(Reservation reservation, @Context HttpServletRequest request){
 		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
-		return dao.printReservations(path, reservation);
-		//return dao.save(reservation);
+		User user = (User) request.getSession().getAttribute("user");
+		reservation.setGuest(user);
+		ApartmentDAO apartmentDAO = getApartmani();
+		Apartment apartment = apartmentDAO.findApartment(reservation.getApartment().getId());
+		reservation.setApartment(apartment);
+		double totalPrice = apartment.getPriceForOneNight()*reservation.getNumberOfOvernights();
+		reservation.setTotalPrice(totalPrice);
+		dao.printReservations(path, reservation);
+		return Response.ok().entity("allActiveApartments.html").build();
 	}
 	
 	@GET
@@ -98,5 +115,37 @@ public class ReservationService {
 		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
 		User host = (User) request.getSession().getAttribute("user");
 		return dao.getHostReservations(host);
+	}
+	
+	@POST
+	@Path("/whithdrawal")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean whithdrawalReservation(Reservation reservation){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.whithdrawalReservation(path, reservation);
+	}
+	
+	@POST
+	@Path("/accept")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean acceptReservation(Reservation reservation){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.acceptReservation(path, reservation);
+	}
+	
+	@POST
+	@Path("/reject")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean rejectReservation(Reservation reservation){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.rejectReservation(path, reservation);
+	}
+	
+	@POST
+	@Path("/complete")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean completeReservation(Reservation reservation){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.completeReservation(path, reservation);
 	}
 }
