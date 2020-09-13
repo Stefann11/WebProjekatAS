@@ -116,4 +116,36 @@ public class ReservationService {
 		User host = (User) request.getSession().getAttribute("user");
 		return dao.getHostReservations(host);
 	}
+	
+	@POST
+	@Path("/whithdrawal")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean whithdrawalReservation(Reservation reservation){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.whithdrawalReservation(path, reservation);
+	}
+	
+	@POST
+	@Path("/accept")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean acceptReservation(Reservation reservation){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.acceptReservation(path, reservation);
+	}
+	
+	@POST
+	@Path("/reject")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean rejectReservation(Reservation reservation){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.rejectReservation(path, reservation);
+	}
+	
+	@POST
+	@Path("/complete")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean completeReservation(Reservation reservation){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.completeReservation(path, reservation);
+	}
 }

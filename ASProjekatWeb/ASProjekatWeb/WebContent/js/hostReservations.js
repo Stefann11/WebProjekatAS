@@ -13,7 +13,7 @@ function allReservations() {
 				$('#allApartmentsTable').hide();
 			} else {
 				$('#allApartmentsTable').show();
-				table.append("<thead><tr><th>Id</th><th>Apartman</th><th>Početni datum</th><th>Broj noćenja</th><th>Ukupna cena</th><th>Poruka</th><th>Gost</th><th>Status</th></thead></tr>");
+				table.append("<thead><tr><th>Id</th><th>Apartman</th><th>Početni datum</th><th>Broj noćenja</th><th>Ukupna cena</th><th>Poruka</th><th>Gost</th><th>Status</th><th>Prihvati</th><th>Odbij</th><th>Završi</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var apartment = $("<tr></tr>");
@@ -33,9 +33,13 @@ function allReservations() {
 					
 					apartment.append("<td>" + str + "</td>");
 					
-					getAllDates(item["startDate"], apartment);	
+					var dateObj = item["startDate"];
+					
+					getOneDate(item["startDate"], apartment);	
 					
 					apartment.append("<td>" + item["numberOfOvernights"] + "</td>");
+					
+					var numberOfOvernights = item["numberOfOvernights"];
 					
 					apartment.append("<td>" + item["totalPrice"] + "</td>");
 					
@@ -53,6 +57,33 @@ function allReservations() {
 					
 					var status = item["status"];
 					
+					if (status == "CREATED"){
+						apartment.append("<td><button onclick=\"accept( " + id + ")\">Prihvati</button></td>");
+					} else {
+						apartment.append("<td></td>");
+					}
+					
+					if (status == "CREATED" || status=="ACCEPTED"){
+						apartment.append("<td><button onclick=\"reject( " + id + ")\">Odbij</button></td>");
+					} else {
+						apartment.append("<td></td>");
+					}
+					
+					var strJSON = JSON.stringify(dateObj);
+	
+					var date = new Date(parseInt(strJSON));
+					
+					var lastDate = addDays(date, numberOfOvernights);
+					
+					
+					
+					var todayDate = new Date();
+					
+					if (todayDate>lastDate && status!="COMPLETED"){
+						apartment.append("<td><button onclick=\"complete( " + id + ")\">Odbij</button></td>");
+					}else {
+						apartment.append("<td></td>");
+					}
 
 					body.append(apartment);
 				});
@@ -63,20 +94,78 @@ function allReservations() {
 	});
 }
 
-function getAllDates(obj, apartment){
-	var strJSON = JSON.stringify(obj);
-	var strJS = strJSON.substring(1, strJSON.length-1);
-	var arrayDates = strJS.split(",");
-	var str = "";
-	for (var i = 0; i < arrayDates.length; i++) {
-		var date = new Date(parseInt(arrayDates[i]));
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
 
-		var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
-		str += fdate;
-		if (i<arrayDates.length-1){
-			str += ", ";
-		}
-	}
+function complete(id){
+	$.ajax({
+		type : "POST",
+		url: "rest/reservations/complete",
+		contentType : "application/json",
+		data: JSON.stringify({id: id}),
+		success: function(result) {
+					toastr["success"]("Uspešno ste izmenili rezervaciju!");
+					setTimeout(function() {
+						location.href = "hostReservations.html";
+					}, 1000);
+				},
+				error: function(jqXHR, textStatus, errorThrown)  {
+					toastr["error"](jqXHR.responseText);
+				}
+	});
+}
+
+function reject(id){
+	$.ajax({
+		type : "POST",
+		url: "rest/reservations/reject",
+		contentType : "application/json",
+		data: JSON.stringify({id: id}),
+		success: function(result) {
+					toastr["success"]("Uspešno ste izmenili rezervaciju!");
+					setTimeout(function() {
+						location.href = "hostReservations.html";
+					}, 1000);
+				},
+				error: function(jqXHR, textStatus, errorThrown)  {
+					toastr["error"](jqXHR.responseText);
+				}
+	});
+}
+
+function accept(id){
+	$.ajax({
+		type : "POST",
+		url: "rest/reservations/accept",
+		contentType : "application/json",
+		data: JSON.stringify({id: id}),
+		success: function(result) {
+					toastr["success"]("Uspešno ste izmenili rezervaciju!");
+					setTimeout(function() {
+						location.href = "hostReservations.html";
+					}, 1000);
+				},
+				error: function(jqXHR, textStatus, errorThrown)  {
+					toastr["error"](jqXHR.responseText);
+				}
+	});
+}
+
+function getOneDate(obj, apartment){
+	var strJSON = JSON.stringify(obj);
+
+	var str = "";
+	
+	var date = new Date(parseInt(strJSON));
+
+	var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
+	str += fdate;
+	
+		
+	
 	apartment.append("<td>" + str + "</td>");
 }
 

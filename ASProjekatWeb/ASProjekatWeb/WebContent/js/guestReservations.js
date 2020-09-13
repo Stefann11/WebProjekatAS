@@ -13,7 +13,7 @@ function allReservations() {
 				$('#allApartmentsTable').hide();
 			} else {
 				$('#allApartmentsTable').show();
-				table.append("<thead><tr><th>Id</th><th>Apartman</th><th>Početni datum</th><th>Broj noćenja</th><th>Ukupna cena</th><th>Poruka</th><th>Gost</th><th>Status</th></thead></tr>");
+				table.append("<thead><tr><th>Id</th><th>Apartman</th><th>Početni datum</th><th>Broj noćenja</th><th>Ukupna cena</th><th>Poruka</th><th>Gost</th><th>Status</th><th>Odustanak</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var apartment = $("<tr></tr>");
@@ -33,7 +33,7 @@ function allReservations() {
 					
 					apartment.append("<td>" + str + "</td>");
 					
-					getAllDates(item["startDate"], apartment);	
+					getOneDate(item["startDate"], apartment);	
 					
 					apartment.append("<td>" + item["numberOfOvernights"] + "</td>");
 					
@@ -53,7 +53,12 @@ function allReservations() {
 					
 					var status = item["status"];
 					
-
+					if (status == "CREATED" || status == "ACCEPTED"){
+						apartment.append("<td><button onclick=\"whithdrawal( " + id + ")\">Odustani</button></td>");
+					} else {
+						apartment.append("<td></td>");
+					}
+					
 					body.append(apartment);
 				});
 				table.append(body);
@@ -63,20 +68,36 @@ function allReservations() {
 	});
 }
 
-function getAllDates(obj, apartment){
-	var strJSON = JSON.stringify(obj);
-	var strJS = strJSON.substring(1, strJSON.length-1);
-	var arrayDates = strJS.split(",");
-	var str = "";
-	for (var i = 0; i < arrayDates.length; i++) {
-		var date = new Date(parseInt(arrayDates[i]));
+function whithdrawal(id){
+	$.ajax({
+		type : "POST",
+		url: "rest/reservations/whithdrawal",
+		contentType : "application/json",
+		data: JSON.stringify({id: id}),
+		success: function(result) {
+					toastr["success"]("Uspešno ste izmenili rezervaciju!");
+					setTimeout(function() {
+						location.href = "guestReservations.html";
+					}, 1000);
+				},
+				error: function(jqXHR, textStatus, errorThrown)  {
+					toastr["error"](jqXHR.responseText);
+				}
+	});
+}
 
-		var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
-		str += fdate;
-		if (i<arrayDates.length-1){
-			str += ", ";
-		}
-	}
+function getOneDate(obj, apartment){
+	var strJSON = JSON.stringify(obj);
+
+	var str = "";
+	
+	var date = new Date(parseInt(strJSON));
+
+	var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
+	str += fdate;
+	
+		
+	
 	apartment.append("<td>" + str + "</td>");
 }
 

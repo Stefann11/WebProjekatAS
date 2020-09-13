@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Apartment;
 import beans.Reservation;
+import beans.Status;
 import beans.User;
 
 
@@ -190,6 +191,78 @@ public class ReservationDAO {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+	}
+
+	public boolean whithdrawalReservation(String contextPath, Reservation reservation) {
+		Reservation reservationToAdd = reservations.get(Long.toString(reservation.getId()));
+		
+		if (reservationToAdd !=null) {
+		
+			reservations.remove(Long.toString(reservation.getId()));
+			
+			reservationToAdd.setStatus(Status.WHITHDRAWAL);
+			
+			printReservations(contextPath, reservationToAdd);
+			
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	public boolean acceptReservation(String contextPath, Reservation reservation) {
+		Reservation reservationToAdd = reservations.get(Long.toString(reservation.getId()));
+		
+		if (reservationToAdd !=null) {
+		
+			reservations.remove(Long.toString(reservation.getId()));
+			
+			reservationToAdd.setStatus(Status.ACCEPTED);
+			
+			printReservations(contextPath, reservationToAdd);
+			
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	public boolean rejectReservation(String contextPath, Reservation reservation) {
+		Reservation reservationToAdd = reservations.get(Long.toString(reservation.getId()));
+		
+		if (reservationToAdd !=null) {
+		
+			reservations.remove(Long.toString(reservation.getId()));
+			
+			reservationToAdd.setStatus(Status.REJECTED);
+			
+			printReservations(contextPath, reservationToAdd);
+			
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	public boolean completeReservation(String contextPath, Reservation reservation) {
+		Reservation reservationToAdd = reservations.get(Long.toString(reservation.getId()));
+		
+		if (reservationToAdd !=null) {
+		
+			reservations.remove(Long.toString(reservation.getId()));
+			
+			reservationToAdd.setStatus(Status.COMPLETED);
+			
+			printReservations(contextPath, reservationToAdd);
+			
+			return true;
+		} else {
+			return false;
 		}
 		
 	}

@@ -33,7 +33,7 @@ function allReservations() {
 					
 					apartment.append("<td>" + str + "</td>");
 					
-					getAllDates(item["startDate"], apartment);	
+					getOneDate(item["startDate"], apartment);	
 					
 					apartment.append("<td>" + item["numberOfOvernights"] + "</td>");
 					
@@ -63,20 +63,18 @@ function allReservations() {
 	});
 }
 
-function getAllDates(obj, apartment){
+function getOneDate(obj, apartment){
 	var strJSON = JSON.stringify(obj);
-	var strJS = strJSON.substring(1, strJSON.length-1);
-	var arrayDates = strJS.split(",");
-	var str = "";
-	for (var i = 0; i < arrayDates.length; i++) {
-		var date = new Date(parseInt(arrayDates[i]));
 
-		var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
-		str += fdate;
-		if (i<arrayDates.length-1){
-			str += ", ";
-		}
-	}
+	var str = "";
+	
+	var date = new Date(parseInt(strJSON));
+
+	var fdate =date.getDate() + '/' + (date.getMonth() + 1) +'/'+date.getFullYear()
+	str += fdate;
+	
+		
+	
 	apartment.append("<td>" + str + "</td>");
 }
 
