@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -25,6 +26,7 @@ import beans.SearchFields;
 import beans.User;
 import beans.newCommentHelp;
 import dao.ApartmentDAO;
+import dao.ReservationDAO;
 
 @Path("/apartments")
 public class ApartmentService {
@@ -50,6 +52,15 @@ public class ApartmentService {
 	    	path = contextPath;
 			ctx.setAttribute("apartmentDAO", new ApartmentDAO(contextPath));
 		}
+	}
+	
+	private ReservationDAO getReservations() { 
+		ReservationDAO reservationDAO = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		if (reservationDAO == null) {
+			String contextPath = ctx.getRealPath("");
+			ctx.setAttribute("reservationDAO", new ReservationDAO(contextPath));
+		}
+		return reservationDAO;
 	}
 	
 	@GET
@@ -197,5 +208,27 @@ public class ApartmentService {
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		dao.addDatesToApartment(path, reservation);
 		return Response.ok().entity("allActiveApartments.html").build();
+	}
+	
+	@POST
+	@Path("/getAllDatesForApartment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<String> getAllDatesForApartment(Apartment apartment){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		return dao.getAllDatesForApartment(apartment);
+	}
+	
+	@POST
+	@Path("/whithdrawal")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public boolean whithdrawalReservation(Reservation reservation){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		ReservationDAO reservationDAO = getReservations();
+		
+		Reservation foundReservation = reservationDAO.find(Long.toString(reservation.getId()));
+		
+		return dao.whithdrawalReservation(path, foundReservation);
 	}
 }

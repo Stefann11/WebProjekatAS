@@ -656,22 +656,52 @@ private Map<String, Apartment> apartments = new HashMap<>();
 			
 	    }
 	    
-//		c.add(Calendar.DAY_OF_MONTH, days);  
-//		String newDate = sdf.format(c.getTime());  
-//		System.out.println("Date Incremented by One: "+newDate);
-//		Date returnDate = new Date();
-//		try {
-//			returnDate = DATE_FORMAT.parse(newDate);
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		System.out.println("NEWDATE: " + newDate);
-//		System.out.println(returnDate.toString());
 		
 		return datesToReturn;
 	}
+
+	public Collection<String> getAllDatesForApartment(Apartment apartment) {
+		List<String> datesToReturn = new ArrayList<String>();
+		
+		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+        
+		
+		if (apartment!=null) {
+			
+			Apartment foundApartment = apartments.get(Long.toString(apartment.getId()));
+			if (foundApartment!=null) {
+				for (Date date: foundApartment.getReleaseDates()) {
+					String dateString = DATE_FORMAT.format(date);
+					datesToReturn.add(dateString);
+				}
+				
+				System.out.println("dosao" + apartment.getId());
+			}
+		}
+		
+		return datesToReturn;
+	}
+
+	public boolean whithdrawalReservation(String contextPath, Reservation reservation) {
+		
+		Apartment apartment = apartments.get(Long.toString(reservation.getApartment().getId()));
+		
+		apartments.remove(Long.toString(apartment.getId()));
+			
+		List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
+		
+		for (Date oneDate : pickedDates) {
+			apartment.getReleaseDates().remove(oneDate);
+		}
+		
+		printApartments(contextPath, apartment);
+	    
+		
+		return true;
+	}
+	
+		
+	
 	
 	
 }
