@@ -3,6 +3,40 @@ $(document).ready(function() {
 	addDatesToApartment();
 });
 
+
+/*availableDates = ['24-09-2020','25-09-2020'];
+
+function initDatePicker(){
+	$("#datePicker").datepicker({
+    beforeShowDay: function(d) {
+        var dmy = (d.getMonth()+1); 
+        if(d.getMonth()<9) 
+            dmy="0"+dmy; 
+        dmy+= "-"; 
+        
+        if(d.getDate()<10) dmy+="0"; 
+            dmy+=d.getDate() + "-" + d.getFullYear(); 
+        
+        console.log(dmy+' : '+($.inArray(dmy, availableDates)));
+        
+        if ($.inArray(dmy, availableDates) != -1) {
+            return [true, "","Available"]; 
+        } else{
+             return [false,"","unAvailable"]; 
+        }
+    }
+    });
+
+//$("#dateRetrait").datepicker({buttonImage: "../../../Images/boutons/btn_calendier.png"});
+//$("#dateRetrait").datepicker({showButtonPanel: true });
+//$("#dateRetrait").datepicker({beforeShow: function() {setTimeout(function() {$(".ui-datepicker").css("z-index", 9999999999);}, 10);}});
+
+}*/
+
+
+
+
+
 function createApartment(){
 	$('#apartmentForm').submit(function(e) {
 		e.preventDefault();

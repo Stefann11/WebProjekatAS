@@ -69,9 +69,28 @@ function allReservations() {
 }
 
 function whithdrawal(id){
+	whithdrawalForApartment(id);
 	$.ajax({
 		type : "POST",
 		url: "rest/reservations/whithdrawal",
+		contentType : "application/json",
+		data: JSON.stringify({id: id}),
+		success: function(result) {
+					toastr["success"]("Uspešno ste izmenili rezervaciju!");
+					setTimeout(function() {
+						location.href = "guestReservations.html";
+					}, 1000);
+				},
+				error: function(jqXHR, textStatus, errorThrown)  {
+					toastr["error"](jqXHR.responseText);
+				}
+	});
+}
+
+function whithdrawalForApartment(id){
+	$.ajax({
+		type : "POST",
+		url: "rest/apartments/whithdrawal",
 		contentType : "application/json",
 		data: JSON.stringify({id: id}),
 		success: function(result) {
