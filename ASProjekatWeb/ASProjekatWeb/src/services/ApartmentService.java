@@ -1,7 +1,12 @@
 package services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -206,8 +211,86 @@ public class ApartmentService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addDatesToApartment(Reservation reservation){
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		dao.addDatesToApartment(path, reservation);
-		return Response.ok().entity("allActiveApartments.html").build();
+		
+		Apartment apartment = dao.findApartment(reservation.getApartment().getId());
+		
+		List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
+		
+		int flag = 0;
+		
+		if (apartment.getReleaseDates()!=null) {
+			for (Date oneDate: pickedDates) {
+				for (Date releaseDate: apartment.getReleaseDates()) {
+					if (oneDate.equals(releaseDate)) {
+						flag = 1;
+						break;
+					}
+				}
+			}
+		}
+		
+		if (flag == 0) {
+		
+			dao.addDatesToApartment(path, reservation);
+			return Response.ok().entity("allActiveApartments.html").build();
+		} else {
+			return Response.serverError().entity("Odabrani datumi za rezervaciju su vec zauzeti").build();
+		}
+	}
+	
+	private List<Date> addDays(Date startDate, int days) {
+		
+		List<Date> datesToReturn = new ArrayList<Date>();
+		
+		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = DATE_FORMAT.format(startDate);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		Calendar c = Calendar.getInstance();
+		
+	    try {
+	    	
+			c.setTime(sdf.parse(dateString));
+			
+		} catch (java.text.ParseException e) {
+
+			e.printStackTrace();
+		}
+	    
+	    c.add(Calendar.DAY_OF_MONTH, 0);
+    	
+    	String newDate2 = sdf.format(c.getTime());
+    	
+    	Date returnDate2 = new Date();
+		try {
+			returnDate2 = DATE_FORMAT.parse(newDate2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		datesToReturn.add(returnDate2);
+	    
+		
+	    for (int i = 0; i<days-1;i++) {
+	    	c.add(Calendar.DAY_OF_MONTH, 1);
+	    	
+	    	String newDate = sdf.format(c.getTime());
+	    	
+	    	Date returnDate = new Date();
+			try {
+				returnDate = DATE_FORMAT.parse(newDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			datesToReturn.add(returnDate);
+			
+	    }
+	    
+		
+		return datesToReturn;
 	}
 	
 	@POST

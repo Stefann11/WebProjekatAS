@@ -671,11 +671,11 @@ private Map<String, Apartment> apartments = new HashMap<>();
 			Apartment foundApartment = apartments.get(Long.toString(apartment.getId()));
 			if (foundApartment!=null) {
 				for (Date date: foundApartment.getReleaseDates()) {
-					String dateString = DATE_FORMAT.format(date);
-					datesToReturn.add(dateString);
+					if (date!=null) {
+						String dateString = DATE_FORMAT.format(date);
+						datesToReturn.add(dateString);
+					}
 				}
-				
-				System.out.println("dosao" + apartment.getId());
 			}
 		}
 		

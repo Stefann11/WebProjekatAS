@@ -2,10 +2,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<script src="js/fillNewReservation.js"></script>
 	<script src="jquery-3.3.1.min.js"></script>
 	<script src="js/toastr.min.js"></script>
+	<script src="js/fillNewReservation.js"></script>
+	<script src="js/getAllDatesForApartment.js"></script>
 	<script src="js/newReservation.js"></script>
+	<!-- <script src="js/datepicker.js"></script> -->
 	
 	<title>New Reservation</title>
 <link rel="stylesheet" href="css/stilZaLogin.css">
@@ -16,26 +18,6 @@
   <script src="js/jquery-1.12.4.js"></script>
   <script src="js/jquery-ui.js"></script>
   
-  <script>
-  var dateToday = new Date();
-  var datesToReturn = getAllDatesForApartment();
-  alert("Dosao");
-  alert(datesToReturn);
-  $( function() {
-	    $( "#datepicker" ).datepicker({
-	    dateFormat: "dd-mm-yy",
-	    minDate: "0",
-	    beforeShowDay : function (date) {
-            var dayOfWeek = date.getDay ();
-            // 0 : Sunday, 1 : Monday, ...
-            if (dayOfWeek == 0 || dayOfWeek == 6) return [false];
-            else return [true];
-         }
-	    
-	    });
-	  });
-  
-  </script>
 
 <style>
 body{background-image: url('images/registration.jpg');}
