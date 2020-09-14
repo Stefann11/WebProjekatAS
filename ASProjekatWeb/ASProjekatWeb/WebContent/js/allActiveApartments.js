@@ -1,16 +1,27 @@
 $(document).ready(function() {
 	allActiveApartments();
 	searchActiveApartments();
-	sort();
-	sortO();
+	sortiraj();
 
 });
-
-
-
-function sortO(){
-	$('#sortOForm').submit(function(e) {
+function sortiraj(){
+	$('#sortirajForm').submit(function(e) {
 		e.preventDefault();
+			
+		var e1 = document.getElementById("sortiraj");
+		var kojiSort = e1.options[e1.selectedIndex].value;
+		if(kojiSort == "PO_CENI_RASTUCE"){
+			sortCenaR();
+		}
+		if(kojiSort == "PO_CENI_OPADAJUCE"){
+			sortCenaO();
+		}			
+		});
+}
+
+
+function sortCenaO(){
+	
 		 var table, rows, switching, i, x, y, shouldSwitch;
 		  table = document.getElementById("allActiveApartmentsTable");
 		  switching = true;
@@ -24,8 +35,8 @@ function sortO(){
 		    
 		      shouldSwitch = false;
 		     
-		      x = rows[i].getElementsByTagName("TD")[9];
-		      y = rows[i + 1].getElementsByTagName("TD")[9];
+		      x = rows[i].getElementsByTagName("TD")[8];
+		      y = rows[i + 1].getElementsByTagName("TD")[8];
 		     
 		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
 		        
@@ -39,11 +50,10 @@ function sortO(){
 		      switching = true;
 		    }
 		  }
-	});
+	
 }
-function sort(){
-	$('#sortForm').submit(function(e) {
-		e.preventDefault();
+function sortCenaR(){
+	
 		 var table, rows, switching, i, x, y, shouldSwitch;
 		  table = document.getElementById("allActiveApartmentsTable");
 		  switching = true;
@@ -57,8 +67,8 @@ function sort(){
 		     
 		      shouldSwitch = false;
 		      
-		      x = rows[i].getElementsByTagName("TD")[9];
-		      y = rows[i + 1].getElementsByTagName("TD")[9];
+		      x = rows[i].getElementsByTagName("TD")[8];
+		      y = rows[i + 1].getElementsByTagName("TD")[8];
 		     
 		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
 		        
@@ -72,7 +82,7 @@ function sort(){
 		      switching = true;
 		    }
 		  }
-		});
+		
 }
 function searchActiveApartments(){
 	$('#searchForm').submit(function(e) {
@@ -199,10 +209,13 @@ function searchActiveApartments(){
 
 						var checkInTime = item["checkInTime"];
 						var checkOutTime = item["checkOutTime"];
-
-						apartment.append("<td>" + item["status"] + "</td>");	
-
-						var status = item["status"];
+						
+						if(item["status"] == true){
+						apartment.append("<td>" + "AKTIVAN" + "</td>");	
+						}else{
+						apartment.append("<td>" + "NEAKTIVAN" + "</td>");		
+						}
+						var status = item["status"];	
 						
 						var id = item["id"];
 						apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartman.html?id=" + id + "\'\" value=\"Detaljno\"></td>");
@@ -305,7 +318,12 @@ function allActiveApartments() {
 					apartment.append("<td>" + item["checkInTime"] + "h" + "</td>");
 					apartment.append("<td>" + item["checkOutTime"] + "h" + "</td>");
 					
-					apartment.append("<td>" + item["status"] + "</td>");
+						if(item["status"] == true){
+						apartment.append("<td>" + "AKTIVAN" + "</td>");	
+						}else{
+						apartment.append("<td>" + "NEAKTIVAN" + "</td>");		
+						}
+						var status = item["status"];	
 				
 					var id = item["id"];
 					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartman.html?id=" + id + "\'\" value=\"Detaljno\"></td>");

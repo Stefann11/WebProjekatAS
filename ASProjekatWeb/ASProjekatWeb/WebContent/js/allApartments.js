@@ -1,12 +1,24 @@
 $(document).ready(function() {
 	allApartments();
 	searchApartments();
-	sort();
-	sortO();
+	sortiraj();
 });
-function sortO(){
-	$('#sortOForm').submit(function(e) {
+function sortiraj(){
+	$('#sortirajForm').submit(function(e) {
 		e.preventDefault();
+			
+		var e1 = document.getElementById("sortiraj");
+		var kojiSort = e1.options[e1.selectedIndex].value;
+		if(kojiSort == "PO_CENI_RASTUCE"){
+			sortCenaR();
+		}
+		if(kojiSort == "PO_CENI_OPADAJUCE"){
+			sortCenaO();
+		}			
+		});
+}
+function sortCenaO(){
+	
 		 var table, rows, switching, i, x, y, shouldSwitch;
 		  table = document.getElementById("allApartmentsTable");
 		  switching = true;
@@ -20,8 +32,8 @@ function sortO(){
 		    
 		      shouldSwitch = false;
 		     
-		      x = rows[i].getElementsByTagName("TD")[9];
-		      y = rows[i + 1].getElementsByTagName("TD")[9];
+		      x = rows[i].getElementsByTagName("TD")[8];
+		      y = rows[i + 1].getElementsByTagName("TD")[8];
 		     
 		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
 		        
@@ -35,11 +47,10 @@ function sortO(){
 		      switching = true;
 		    }
 		  }
-	});
+	
 }
-function sort(){
-	$('#sortForm').submit(function(e) {
-		e.preventDefault();
+function sortCenaR(){
+	
 		 var table, rows, switching, i, x, y, shouldSwitch;
 		  table = document.getElementById("allApartmentsTable");
 		  switching = true;
@@ -53,8 +64,8 @@ function sort(){
 		     
 		      shouldSwitch = false;
 		      
-		      x = rows[i].getElementsByTagName("TD")[9];
-		      y = rows[i + 1].getElementsByTagName("TD")[9];
+		      x = rows[i].getElementsByTagName("TD")[8];
+		      y = rows[i + 1].getElementsByTagName("TD")[8];
 		     
 		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
 		        
@@ -68,7 +79,6 @@ function sort(){
 		      switching = true;
 		    }
 		  }
-		});
 }
 function searchApartments(){
 	$('#searchForm').submit(function(e) {
@@ -196,9 +206,14 @@ function searchApartments(){
 						var checkInTime = item["checkInTime"];
 						var checkOutTime = item["checkOutTime"];
 
-						apartment.append("<td>" + item["status"] + "</td>");	
+						if(item["status"] == true){
+						apartment.append("<td>" + "AKTIVAN" + "</td>");	
+						}else{
+						apartment.append("<td>" + "NEAKTIVAN" + "</td>");		
+						}
+						var status = item["status"];		
 
-						var status = item["status"];				
+									
 						
 
 						apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/editApartment.html?id=" + id + ";numberOfRooms=" + numberOfRooms + ";numberOfGuests=" + numberOfGuests + ";longitude=" + res2Loc + ";latitude=" + res1Loc + ";streetAndNumber=" + res3Loc + ";place=" + res4Loc + ";postcode=" + res5Loc + ";priceForOneNight=" + priceForOneNight + ";checkInTime=" + checkInTime + ";checkOutTime=" + checkOutTime + ";status=" + status + "\'\" value=\"Izmeni\"></td>");
@@ -314,9 +329,12 @@ function allApartments() {
 					var checkInTime = item["checkInTime"];
 					var checkOutTime = item["checkOutTime"];
 					
-					apartment.append("<td>" + item["status"] + "</td>");	
-					
-					var status = item["status"];
+					if(item["status"] == true){
+						apartment.append("<td>" + "AKTIVAN" + "</td>");	
+						}else{
+						apartment.append("<td>" + "NEAKTIVAN" + "</td>");		
+						}
+						var status = item["status"];	
 					
 					
 					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/editApartment.html?id=" + id + ";numberOfRooms=" + numberOfRooms + ";numberOfGuests=" + numberOfGuests + ";longitude=" + res2Loc + ";latitude=" + res1Loc + ";streetAndNumber=" + res3Loc + ";place=" + res4Loc + ";postcode=" + res5Loc + ";priceForOneNight=" + priceForOneNight + ";checkInTime=" + checkInTime + ";checkOutTime=" + checkOutTime + ";status=" + status + "\'\" value=\"Izmeni\"></td>");

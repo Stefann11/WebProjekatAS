@@ -1,13 +1,361 @@
 $(document).ready(function() {
 	allApartments();
 	searchApartments();
-	sort();
-	sortO();
+	sortiraj();
 });
 
-function sortO(){
-	$('#sortOForm').submit(function(e) {
+function sortiraj(){
+	$('#sortirajForm').submit(function(e) {
 		e.preventDefault();
+			
+		var e1 = document.getElementById("sortiraj");
+		var kojiSort = e1.options[e1.selectedIndex].value;
+		if(kojiSort == "PO_CENI_RASTUCE"){
+			sortCenaR();
+		}
+		if(kojiSort == "PO_CENI_OPADAJUCE"){
+			sortCenaO();
+		}
+		if(kojiSort == "PO_ID_RASTUCE"){
+			sortIdR();
+		}
+		if(kojiSort == "PO_ID_OPADAJUCE"){
+			sortIdO();
+		}
+		if(kojiSort == "PO_BS_RASTUCE"){
+			sortBsR();
+		}
+		if(kojiSort == "PO_BS_OPADAJUCE"){
+			sortBsO();
+		}
+		if(kojiSort == "PO_BG_RASTUCE"){
+			sortBgR();
+		}
+		if(kojiSort == "PO_BG_OPADAJUCE"){
+			sortBgO();
+		}
+		if(kojiSort == "PO_TIPU_RASTUCE"){
+			sortTipR();
+		}
+		if(kojiSort == "PO_TIPU_OPADAJUCE"){
+			sortTipO();
+		}
+		if(kojiSort == "PO_VP_RASTUCE"){
+			sortVpR();
+		}
+		if(kojiSort == "PO_VP_OPADAJUCE"){
+			sortVpO();
+		}
+		if(kojiSort == "PO_VO_RASTUCE"){
+			sortVoR();
+		}
+		if(kojiSort == "PO_VO_OPADAJUCE"){
+			sortVoO();
+		}
+			
+		});
+}
+function sortCenaO(){		
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		    
+		    switching = false;
+		    rows = table.rows;
+		   
+		    for (i = 1; i < (rows.length - 1); i++) {
+		    
+		      shouldSwitch = false;
+		     
+		      x = rows[i].getElementsByTagName("TD")[8];
+		      y = rows[i + 1].getElementsByTagName("TD")[8];
+		     
+		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		     
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortCenaR(){	
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		   
+		    switching = false;
+		    rows = table.rows;
+		  
+		    for (i = 1; i < (rows.length - 1); i++) {
+		     
+		      shouldSwitch = false;
+		      
+		      x = rows[i].getElementsByTagName("TD")[8];
+		      y = rows[i + 1].getElementsByTagName("TD")[8];
+		     
+		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		    
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortIdO(){		
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		    
+		    switching = false;
+		    rows = table.rows;
+		   
+		    for (i = 1; i < (rows.length - 1); i++) {
+		    
+		      shouldSwitch = false;
+		     
+		      x = rows[i].getElementsByTagName("TD")[0];
+		      y = rows[i + 1].getElementsByTagName("TD")[0];
+		     
+		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		     
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortIdR(){	
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		   
+		    switching = false;
+		    rows = table.rows;
+		  
+		    for (i = 1; i < (rows.length - 1); i++) {
+		     
+		      shouldSwitch = false;
+		      
+		      x = rows[i].getElementsByTagName("TD")[0];
+		      y = rows[i + 1].getElementsByTagName("TD")[0];
+		     
+		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		    
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortBsO(){		
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		    
+		    switching = false;
+		    rows = table.rows;
+		   
+		    for (i = 1; i < (rows.length - 1); i++) {
+		    
+		      shouldSwitch = false;
+		     
+		      x = rows[i].getElementsByTagName("TD")[2];
+		      y = rows[i + 1].getElementsByTagName("TD")[2];
+		     
+		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		     
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortBsR(){	
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		   
+		    switching = false;
+		    rows = table.rows;
+		  
+		    for (i = 1; i < (rows.length - 1); i++) {
+		     
+		      shouldSwitch = false;
+		      
+		      x = rows[i].getElementsByTagName("TD")[2];
+		      y = rows[i + 1].getElementsByTagName("TD")[2];
+		     
+		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		    
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortBgO(){		
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		    
+		    switching = false;
+		    rows = table.rows;
+		   
+		    for (i = 1; i < (rows.length - 1); i++) {
+		    
+		      shouldSwitch = false;
+		     
+		      x = rows[i].getElementsByTagName("TD")[3];
+		      y = rows[i + 1].getElementsByTagName("TD")[3];
+		     
+		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		     
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortBgR(){	
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		   
+		    switching = false;
+		    rows = table.rows;
+		  
+		    for (i = 1; i < (rows.length - 1); i++) {
+		     
+		      shouldSwitch = false;
+		      
+		      x = rows[i].getElementsByTagName("TD")[3];
+		      y = rows[i + 1].getElementsByTagName("TD")[3];
+		     
+		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		    
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortTipO(){		
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		    
+		    switching = false;
+		    rows = table.rows;
+		   
+		    for (i = 1; i < (rows.length - 1); i++) {
+		    
+		      shouldSwitch = false;
+		     
+		      x = rows[i].getElementsByTagName("TD")[1];
+		      y = rows[i + 1].getElementsByTagName("TD")[1];
+		     
+		      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		     
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortTipR(){	
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		   
+		    switching = false;
+		    rows = table.rows;
+		  
+		    for (i = 1; i < (rows.length - 1); i++) {
+		     
+		      shouldSwitch = false;
+		      
+		      x = rows[i].getElementsByTagName("TD")[1];
+		      y = rows[i + 1].getElementsByTagName("TD")[1];
+		     
+		      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		    
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortVpO(){		
 		 var table, rows, switching, i, x, y, shouldSwitch;
 		  table = document.getElementById("allApartmentsTable");
 		  switching = true;
@@ -24,7 +372,7 @@ function sortO(){
 		      x = rows[i].getElementsByTagName("TD")[9];
 		      y = rows[i + 1].getElementsByTagName("TD")[9];
 		     
-		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
+		      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
 		        
 		        shouldSwitch = true;
 		        break;
@@ -35,12 +383,9 @@ function sortO(){
 		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
 		      switching = true;
 		    }
-		  }
-	});
+		  }	
 }
-function sort(){
-	$('#sortForm').submit(function(e) {
-		e.preventDefault();
+function sortVpR(){	
 		 var table, rows, switching, i, x, y, shouldSwitch;
 		  table = document.getElementById("allApartmentsTable");
 		  switching = true;
@@ -57,7 +402,7 @@ function sort(){
 		      x = rows[i].getElementsByTagName("TD")[9];
 		      y = rows[i + 1].getElementsByTagName("TD")[9];
 		     
-		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
+		      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 		        
 		        shouldSwitch = true;
 		        break;
@@ -68,10 +413,68 @@ function sort(){
 		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
 		      switching = true;
 		    }
-		  }
-		});
+		  }	
 }
-
+function sortVoO(){		
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		    
+		    switching = false;
+		    rows = table.rows;
+		   
+		    for (i = 1; i < (rows.length - 1); i++) {
+		    
+		      shouldSwitch = false;
+		     
+		      x = rows[i].getElementsByTagName("TD")[10];
+		      y = rows[i + 1].getElementsByTagName("TD")[10];
+		     
+		      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		     
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
+function sortVoR(){	
+		 var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("allApartmentsTable");
+		  switching = true;
+		  
+		  while (switching) {
+		   
+		    switching = false;
+		    rows = table.rows;
+		  
+		    for (i = 1; i < (rows.length - 1); i++) {
+		     
+		      shouldSwitch = false;
+		      
+		      x = rows[i].getElementsByTagName("TD")[10];
+		      y = rows[i + 1].getElementsByTagName("TD")[10];
+		     
+		      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+		        
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		    
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }	
+}
 function searchApartments(){
 	$('#searchForm').submit(function(e) {
 		e.preventDefault();
@@ -198,8 +601,11 @@ function searchApartments(){
 						var checkInTime = item["checkInTime"];
 						var checkOutTime = item["checkOutTime"];
 
-						apartment.append("<td>" + item["status"] + "</td>");	
-
+						if(item["status"] == true){
+						apartment.append("<td>" + "AKTIVAN" + "</td>");	
+						}else{
+						apartment.append("<td>" + "NEAKTIVAN" + "</td>");		
+						}
 						var status = item["status"];	
 						
 								
@@ -316,9 +722,13 @@ function allApartments() {
 					var checkInTime = item["checkInTime"];
 					var checkOutTime = item["checkOutTime"];
 					
-					apartment.append("<td>" + item["status"] + "</td>");	
 					
-					var status = item["status"];
+					
+					if(item["status"] == true){
+						apartment.append("<td>" + "AKTIVAN" + "</td>");	
+						}else{
+						apartment.append("<td>" + "NEAKTIVAN" + "</td>");		
+						}
 					
 						
 									

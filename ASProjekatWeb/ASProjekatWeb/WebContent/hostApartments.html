@@ -56,25 +56,33 @@ body{background-image: url('images/registration.jpg');}
 	
 	<h2>Sortiraj</h2>
 
-	<form id="sortForm" accept-charset="UTF-8">
+	<form id="sortirajForm" accept-charset="UTF-8">
 	<div style="margin-left:10px">
 		<table style="width:15%"  >
 			<tr>
-				<th style="background-color:#FFFFFF00"><input type="submit" value="Rastuce po ceni"></th>					
+			<label class="a1" for="sortiraj">Sortiraj po:</label>
+			<select name="sortiraj" id="sortiraj">
+ 			<option value="PO_CENI_RASTUCE">Ceni rastuce</option>
+  	 		<option value="PO_CENI_OPADAJUCE">Ceni opadajuce</option>
+  	 		<option value="PO_ID_OPADAJUCE">Id opadajuce</option>
+  	 		<option value="PO_ID_RASTUCE">Id rastuce</option>
+  	 		<option value="PO_BS_OPADAJUCE">Broju soba opadajuce</option>
+  	 		<option value="PO_BS_RASTUCE">Broju soba rastuce</option>
+  	 		<option value="PO_BG_OPADAJUCE">Broju gostiju opadajuce</option>
+  	 		<option value="PO_BG_RASTUCE">Broju gostiju rastuce</option>
+  	 		<option value="PO_TIPU_OPADAJUCE">Tipu opadajuce</option>
+  	 		<option value="PO_TIPU_RASTUCE">Tipu rastuce</option>
+  	 		<option value="PO_VP_OPADAJUCE">Vremenu za prijavu opadajuce</option>
+  	 		<option value="PO_VP_RASTUCE">Vremenu za prijavu rastuce</option>
+  	 		<option value="PO_VO_OPADAJUCE">Vremenu za odjavu opadajuce</option>
+  	 		<option value="PO_VO_RASTUCE">Vremenu za odjavu rastuce</option>
+			</select>
+			<th style="background-color:#FFFFFF00"><input type="submit" value="Sortiraj"></th>					
 			</tr>			
 		</table>
 	</div>
 	</form>
-	<form id="sortOForm" accept-charset="UTF-8">
-		<div style="margin-left:10px">
-		<table style="width:15%" >
-			<tr>
-				<th style="background-color:#FFFFFF00"><input type="submit" value="Opadajuce po ceni"></th>					
-			</tr>			
-		</table>
-		</div>
-	</form>
-
+	
 	<h2>Svi apartmani</h2>
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for ids..">
 	

@@ -55,23 +55,19 @@ body{background-image: url('images/registration.jpg');}
 	
 	<h2>Sortiraj</h2>
 
-	<form id="sortForm" accept-charset="UTF-8">
+	<form id="sortirajForm" accept-charset="UTF-8">
 	<div style="margin-left:10px">
 		<table style="width:15%"  >
 			<tr>
-				<th style="background-color:#FFFFFF00"><input type="submit" value="Rastuce po ceni"></th>					
+			<label class="a1" for="sortiraj">Sortiraj po:</label>
+			<select name="sortiraj" id="sortiraj">
+ 			<option value="PO_CENI_RASTUCE">Ceni rastuce</option>
+  	 		<option value="PO_CENI_OPADAJUCE">Ceni opadajuce</option>
+			</select>
+			<th style="background-color:#FFFFFF00"><input type="submit" value="Sortiraj"></th>					
 			</tr>			
 		</table>
 	</div>
-	</form>
-	<form id="sortOForm" accept-charset="UTF-8">
-		<div style="margin-left:10px">
-		<table style="width:15%" >
-			<tr>
-				<th style="background-color:#FFFFFF00"><input type="submit" value="Opadajuce po ceni"></th>					
-			</tr>			
-		</table>
-		</div>
 	</form>
 	
 	<h2>Svi aktivni apartmani</h2>
