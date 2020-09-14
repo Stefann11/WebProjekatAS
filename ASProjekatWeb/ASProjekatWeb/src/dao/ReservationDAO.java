@@ -172,6 +172,8 @@ public class ReservationDAO {
 	
 	public void readReservations(String contextPath) {
 		ObjectMapper mapper = new ObjectMapper();
+		DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		mapper.setDateFormat(DATE_FORMAT);
 		
 		BufferedReader in = null;
 		
