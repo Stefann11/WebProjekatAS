@@ -26,6 +26,24 @@ body{background-image: url('images/registration.jpg');}
 
 	<h2>Sve rezervacije</h2>
 	
+	<br>
+	<br>
+
+	<form id="sortirajForm" accept-charset="UTF-8">
+	<div style="margin-left:10px">
+		<table style="width:15%"  >
+			<tr>
+			<label class="a1" for="sortiraj">Sortiraj po:</label>
+			<select name="sortiraj" id="sortiraj">
+ 			<option value="PO_CENI_RASTUCE">Ceni rastuce</option>
+  	 		<option value="PO_CENI_OPADAJUCE">Ceni opadajuce</option>
+			</select>
+			<th style="background-color:#FFFFFF00"><input type="submit" value="Sortiraj"></th>					
+			</tr>			
+		</table>
+	</div>
+	</form>
+	
 	<table border="1" id="allApartmentsTable"></table>
 	
 

@@ -291,7 +291,7 @@ function allApartments() {
 					
 					apartment.append("<td>" + resLoc + "</td>");
 					
-					alert(item["releaseDates"]);
+					
 						
 					getAllDates(item["releaseDates"], apartment);
 					getAllDates(item["availableDates"], apartment);					
