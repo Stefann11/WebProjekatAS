@@ -76,7 +76,10 @@ public class ReservationService {
 		ApartmentDAO apartmentDAO = getApartmani();
 		Apartment apartment = apartmentDAO.findApartment(reservation.getApartment().getId());
 		reservation.setApartment(apartment);
-		double totalPrice = apartment.getPriceForOneNight()*reservation.getNumberOfOvernights();
+		double totalPrice = 0;
+		if (apartment!=null) {
+			totalPrice = apartment.getPriceForOneNight()*reservation.getNumberOfOvernights();
+		}
 		reservation.setTotalPrice(totalPrice);
 		dao.printReservations(path, reservation);
 		return Response.ok().entity("allActiveApartments.html").build();
