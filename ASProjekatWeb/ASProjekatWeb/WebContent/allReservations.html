@@ -24,6 +24,22 @@ body{background-image: url('images/registration.jpg');}
     <a href="http://localhost:8080/ASProjekatWeb/login.html" class="right">Logout</a>
 </div>
 
+	<h2>Pretraga</h2>
+
+	<form id="searchForm" accept-charset="UTF-8">
+		<table>
+			
+			<tr>
+				<th>Korisničko ime gosta:</th> <th><input type="text" name="username" id="username"></th>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="submit" value="Pretraži"></th>
+			</tr>
+		</table>
+	</form>
+	
+	
+
 	<h2>Sve rezervacije</h2>
 	
 	<br>
@@ -46,6 +62,32 @@ body{background-image: url('images/registration.jpg');}
 	
 	<table border="1" id="allApartmentsTable"></table>
 	
+	<h2>Filtriraj</h2>
+
+	<form id="filterForm" accept-charset="UTF-8">
+		<table>	
+			<tr>
+				<th><label for="status">Status </label></th>
+                    <th><input type="radio" id="created" name="status" value="CREATED" checked>
+                        <label for="created">Created</label><br></th>
+                        
+                    	<th><input type="radio" id="rejected" name="status" value="REJECTED">
+                        <label for="rejected">Rejected</label><br></th>
+                        
+                        <th><input type="radio" id="whithdrawal" name="status" value="WHITHDRAWAL">
+                        <label for="created">Whithdrawal</label><br></th>
+                        
+                        <th><input type="radio" id="accepted" name="status" value="ACCEPTED">
+                        <label for="accepted">Accepted</label><br></th>
+                
+                   <th> <input type="radio" id="completed" name="status" value="COMPLETED">
+                        <label for="completed">Completed</label><br></th>
+			</tr>
+			<tr>
+				<th colspan="6"><input type="submit" value="Pretraži"></th>
+			</tr>
+		</table>
+	</form>
 
 
 </body>

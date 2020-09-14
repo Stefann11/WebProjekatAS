@@ -23,10 +23,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.Apartment;
+import beans.FilterUser;
 import beans.Reservation;
 import beans.User;
 import dao.ApartmentDAO;
 import dao.ReservationDAO;
+import dao.UserDAO;
 
 @Path("/reservations")
 public class ReservationService {
@@ -237,4 +239,43 @@ public class ReservationService {
 		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
 		return dao.completeReservation(path, reservation);
 	}
+	
+	@POST
+	@Path("/searchReservations")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Reservation> searchReservations(FilterUser filterUser) {
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.searchReservation(filterUser);
+	}
+	
+	@POST
+	@Path("/filterReservations")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Reservation> filterReservations(Reservation reservation) {
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		return dao.filterhReservation(reservation);
+	}
+	
+	@POST
+	@Path("/searchHostReservations")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Reservation> searchHostReservations(FilterUser filterUser) {
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.searchHostReservation(filterUser, host);
+	}
+	
+	@POST
+	@Path("/filterHostReservations")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Reservation> filterHostReservations(Reservation reservation) {
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.filterHostReservation(reservation, host);
+	}
+	
 }

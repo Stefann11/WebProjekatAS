@@ -210,7 +210,7 @@ function printHost(obj) {
             printHost(obj[k]);
         } else {
 			i++;
-			if (i<=2){
+			if (i==2){
 				continue;
 			}
 			if (i>=4){

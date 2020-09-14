@@ -1,7 +1,217 @@
 $(document).ready(function() {
 	allReservations();
 	sortiraj();
+	searchReservations();
+	filterReservations();
 });
+
+function filterReservations(){
+	$('#filterForm').submit(function(e) {
+		e.preventDefault();
+		let status = $('input[name=status]:checked').val();
+
+			var $inputs = $('#filterForm input:not([type="submit"])');
+			var values = {};
+			$inputs.each(function() {
+				values[this.name] = $(this).val();
+			});
+		$.ajax({
+			type : "POST",
+			url : "rest/reservations/filterHostReservations",
+			contentType : "application/json",
+			data: JSON.stringify({status: status}),
+			success : function(result) {
+			var table = $("#allApartmentsTable");
+			table.empty();
+			if (result == null) {
+				$('#allApartmentsTable').hide();
+			} else {
+				$('#allApartmentsTable').show();
+				table.append("<thead><tr><th>Id</th><th>Apartman</th><th>Početni datum</th><th>Broj noćenja</th><th>Ukupna cena</th><th>Poruka</th><th>Gost</th><th>Status</th><th>Prihvati</th><th>Odbij</th><th>Završi</th></thead></tr>");
+				var body = $("<tbody></tbody>");
+				result.forEach(function(item, index) {
+					var apartment = $("<tr></tr>");
+
+					apartment.append("<td>" + item["id"] + "</td>");
+				
+					var id = item["id"];
+					
+					var apartment2 = item["apartment"];
+					var apartmentStr = JSON.stringify(apartment2);
+					
+					var pos = apartmentStr.indexOf("type");
+					
+					var res = apartmentStr.substring(6, pos-2);
+					
+					var str = "Id apartmana: " + res;
+					
+					apartment.append("<td>" + str + "</td>");
+					
+					var dateObj = item["startDate"];
+					
+					getOneDate(item["startDate"], apartment);	
+					
+					apartment.append("<td>" + item["numberOfOvernights"] + "</td>");
+					
+					var numberOfOvernights = item["numberOfOvernights"];
+					
+					apartment.append("<td>" + item["totalPrice"] + "</td>");
+					
+					apartment.append("<td>" + item["message"] + "</td>");							
+					
+					var host = item["guest"];	
+					var hostStr = JSON.stringify(host);
+					
+					var prnt = printHost(host);
+								
+					apartment.append("<td>" + prnt + "</td>");
+					
+					
+					apartment.append("<td>" + item["status"] + "</td>");	
+					
+					var status = item["status"];
+					
+					if (status == "CREATED"){
+						apartment.append("<td><button onclick=\"accept( " + id + ")\">Prihvati</button></td>");
+					} else {
+						apartment.append("<td></td>");
+					}
+					
+					if (status == "CREATED" || status=="ACCEPTED"){
+						apartment.append("<td><button onclick=\"reject( " + id + ")\">Odbij</button></td>");
+					} else {
+						apartment.append("<td></td>");
+					}
+					
+					var strJSON = JSON.stringify(dateObj);
+	
+					var date = new Date(parseInt(strJSON));
+					
+					var lastDate = addDays(date, numberOfOvernights);
+					
+					
+					
+					var todayDate = new Date();
+					
+					if (todayDate>lastDate && status!="COMPLETED"){
+						apartment.append("<td><button onclick=\"complete( " + id + ")\">Završi</button></td>");
+					}else {
+						apartment.append("<td></td>");
+					}
+
+					body.append(apartment);
+				});
+				table.append(body);
+				
+			}
+		}
+		});
+	});
+}
+
+function searchReservations(){
+	$('#searchForm').submit(function(e) {
+		e.preventDefault();
+		let username = $("input[name=username]").val();
+
+			var $inputs = $('#searchForm input:not([type="submit"])');
+			var values = {};
+			$inputs.each(function() {
+				values[this.name] = $(this).val();
+			});
+		$.ajax({
+			type : "POST",
+			url : "rest/reservations/searchHostReservations",
+			contentType : "application/json",
+			data: JSON.stringify({username: username}),
+			success : function(result) {
+			var table = $("#allApartmentsTable");
+			table.empty();
+			if (result == null) {
+				$('#allApartmentsTable').hide();
+			} else {
+				$('#allApartmentsTable').show();
+				table.append("<thead><tr><th>Id</th><th>Apartman</th><th>Početni datum</th><th>Broj noćenja</th><th>Ukupna cena</th><th>Poruka</th><th>Gost</th><th>Status</th><th>Prihvati</th><th>Odbij</th><th>Završi</th></thead></tr>");
+				var body = $("<tbody></tbody>");
+				result.forEach(function(item, index) {
+					var apartment = $("<tr></tr>");
+
+					apartment.append("<td>" + item["id"] + "</td>");
+				
+					var id = item["id"];
+					
+					var apartment2 = item["apartment"];
+					var apartmentStr = JSON.stringify(apartment2);
+					
+					var pos = apartmentStr.indexOf("type");
+					
+					var res = apartmentStr.substring(6, pos-2);
+					
+					var str = "Id apartmana: " + res;
+					
+					apartment.append("<td>" + str + "</td>");
+					
+					var dateObj = item["startDate"];
+					
+					getOneDate(item["startDate"], apartment);	
+					
+					apartment.append("<td>" + item["numberOfOvernights"] + "</td>");
+					
+					var numberOfOvernights = item["numberOfOvernights"];
+					
+					apartment.append("<td>" + item["totalPrice"] + "</td>");
+					
+					apartment.append("<td>" + item["message"] + "</td>");							
+					
+					var host = item["guest"];	
+					var hostStr = JSON.stringify(host);
+					
+					var prnt = printHost(host);
+								
+					apartment.append("<td>" + prnt + "</td>");
+					
+					
+					apartment.append("<td>" + item["status"] + "</td>");	
+					
+					var status = item["status"];
+					
+					if (status == "CREATED"){
+						apartment.append("<td><button onclick=\"accept( " + id + ")\">Prihvati</button></td>");
+					} else {
+						apartment.append("<td></td>");
+					}
+					
+					if (status == "CREATED" || status=="ACCEPTED"){
+						apartment.append("<td><button onclick=\"reject( " + id + ")\">Odbij</button></td>");
+					} else {
+						apartment.append("<td></td>");
+					}
+					
+					var strJSON = JSON.stringify(dateObj);
+	
+					var date = new Date(parseInt(strJSON));
+					
+					var lastDate = addDays(date, numberOfOvernights);
+					
+					
+					
+					var todayDate = new Date();
+					
+					if (todayDate>lastDate && status!="COMPLETED"){
+						apartment.append("<td><button onclick=\"complete( " + id + ")\">Završi</button></td>");
+					}else {
+						apartment.append("<td></td>");
+					}
+
+					body.append(apartment);
+				});
+				table.append(body);
+				
+			}
+		}
+		});
+	});
+}
 
 function sortiraj(){
 	$('#sortirajForm').submit(function(e) {
@@ -201,9 +411,28 @@ function complete(id){
 }
 
 function reject(id){
+	rejectForApartment(id);
 	$.ajax({
 		type : "POST",
 		url: "rest/reservations/reject",
+		contentType : "application/json",
+		data: JSON.stringify({id: id}),
+		success: function(result) {
+					toastr["success"]("Uspešno ste izmenili rezervaciju!");
+					setTimeout(function() {
+						location.href = "hostReservations.html";
+					}, 1000);
+				},
+				error: function(jqXHR, textStatus, errorThrown)  {
+					toastr["error"](jqXHR.responseText);
+				}
+	});
+}
+
+function rejectForApartment(id){
+	$.ajax({
+		type : "POST",
+		url: "rest/apartments/reject",
 		contentType : "application/json",
 		data: JSON.stringify({id: id}),
 		success: function(result) {
@@ -259,7 +488,7 @@ function printHost(obj) {
             printHost(obj[k]);
         } else {
 			i++;
-			if (i<=2){
+			if (i==2){
 				continue;
 			}
 			if (i>=4){

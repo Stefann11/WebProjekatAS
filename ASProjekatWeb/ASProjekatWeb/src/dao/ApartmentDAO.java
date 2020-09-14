@@ -699,6 +699,23 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		
 		return true;
 	}
+
+	public boolean rejectReservation(String contextPath, Reservation reservation) {
+		Apartment apartment = apartments.get(Long.toString(reservation.getApartment().getId()));
+		
+		apartments.remove(Long.toString(apartment.getId()));
+			
+		List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
+		
+		for (Date oneDate : pickedDates) {
+			apartment.getReleaseDates().remove(oneDate);
+		}
+		
+		printApartments(contextPath, apartment);
+	    
+		
+		return true;
+	}
 	
 		
 	

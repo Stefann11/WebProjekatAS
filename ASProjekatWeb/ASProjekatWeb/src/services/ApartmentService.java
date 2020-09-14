@@ -314,4 +314,18 @@ public class ApartmentService {
 		
 		return dao.whithdrawalReservation(path, foundReservation);
 	}
+	
+	@POST
+	@Path("/reject")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public boolean rejectReservation(Reservation reservation){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		ReservationDAO reservationDAO = getReservations();
+		
+		Reservation foundReservation = reservationDAO.find(Long.toString(reservation.getId()));
+		
+		return dao.rejectReservation(path, foundReservation);
+	}
+	
 }

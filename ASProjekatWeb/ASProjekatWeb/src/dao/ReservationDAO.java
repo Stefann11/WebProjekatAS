@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Apartment;
+import beans.FilterUser;
 import beans.Reservation;
 import beans.Status;
 import beans.User;
@@ -271,6 +272,102 @@ public class ReservationDAO {
 			return false;
 		}
 		
+	}
+
+	public Collection<Reservation> searchReservation(FilterUser filterUser) {
+		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
+		
+		int flag = 0;
+		int max = 1;
+		
+		for (Reservation reservation: reservations.values()) {
+			flag = 0;
+			max = 1;
+			
+			if (filterUser.getUsername().equals("")) {
+				max--;
+			} else {
+				if (reservation.getGuest()!=null) {
+					if (reservation.getGuest().getUsername().equals(filterUser.getUsername())) {
+						flag++;
+					}
+				}
+			}
+			
+			if (flag == max) {
+				reservationsToReturn.add(reservation);
+			}
+			
+		}
+		
+		return reservationsToReturn;
+	}
+
+	public Collection<Reservation> searchHostReservation(FilterUser filterUser, User host) {
+		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
+		int flag = 0;
+		int max = 1;
+		
+		for (Reservation reservation: reservations.values()) {
+			flag = 0;
+			max = 1;
+			if (reservation.getApartment()!=null) {
+				if (reservation.getApartment().getHost()!=null) {
+					if (reservation.getApartment().getHost().getUsername().equals(host.getUsername())) {
+						if (filterUser.getUsername().equals("")) {
+							max--;
+						} else {
+							if (reservation.getGuest()!=null) {
+								if (reservation.getGuest().getUsername().equals(filterUser.getUsername())) {
+									flag++;
+								}
+							}
+						}
+						
+						if (flag == max) {
+							reservationsToReturn.add(reservation);
+						}
+					}
+				}
+			}
+		}
+		
+		return reservationsToReturn;
+		
+	}
+
+	public Collection<Reservation> filterhReservation(Reservation reservation) {
+		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
+		
+		
+		
+		for (Reservation oneReservation: reservations.values()) {
+			if (oneReservation.getStatus().equals(reservation.getStatus())) {
+				reservationsToReturn.add(oneReservation);
+			}
+			
+		}
+		
+		return reservationsToReturn;
+	}
+
+	public Collection<Reservation> filterHostReservation(Reservation oneReservation, User host) {
+		List<Reservation> reservationsToReturn = new ArrayList<Reservation>();
+
+		
+		for (Reservation reservation: reservations.values()) {
+			if (reservation.getApartment()!=null) {
+				if (reservation.getApartment().getHost()!=null) {
+					if (reservation.getApartment().getHost().getUsername().equals(host.getUsername())) {
+						if (reservation.getStatus().equals(oneReservation.getStatus())) {
+							reservationsToReturn.add(reservation);
+						}
+					}
+				}
+			}
+		}
+		
+		return reservationsToReturn;
 	}
 	
 }
