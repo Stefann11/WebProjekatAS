@@ -7,21 +7,32 @@
 <script src="js/toastr.min.js"></script>
 <script type="js/bootstrap.bundle.min.js"></script>
 <script src="js/allActiveApartments.js"></script>
+<script src="js/getLoggedUser.js"></script>
+	<script src="js/logout.js"></script>
 <link rel="stylesheet" href="css/stilovi.css">
   <link rel="stylesheet" href="css/stilZaLogin.css">
+  <link rel="stylesheet" href="css/stilZaIndeks.css">
 <style>
 body{background-image: url('images/registration.jpg');}
 </style>
 </head>
 <body>
 	<div class="navbar">
-  <a href="#" class="active">Home</a>
-  <a href="#">Reservations</a>
-  <a href="http://localhost:8080/ASProjekatWeb/listUsers.html">All users</a>
-  <a href="#">All apartments</a>
-  <a href="#">Comments</a>
-    <a href="http://localhost:8080/ASProjekatWeb/login.html" class="right">Logout</a>
+  <a href="http://localhost:8080/ASProjekatWeb/guestIndex.html">Home</a>
+  <a href="http://localhost:8080/ASProjekatWeb/guestReservations.html">Reservations</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allActiveApartments.html" class="active">All active apartments</a>
+  <a href="http://localhost:8080/ASProjekatWeb/newComment.html">New comment</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allApprovedComments.html">All comments</a>
+  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Edit account</a>
+  
+  <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
+  <a onclick=logout(this) href="#" class="right">Logout</a>
 </div>
+
+<script>
+document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
+</script>
+
 
 	<h2>Pretraga</h2>
 

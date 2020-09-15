@@ -7,10 +7,12 @@
 	<script src="js/fillNewReservation.js"></script>
 	<script src="js/getAllDatesForApartment.js"></script>
 	<script src="js/newReservation.js"></script>
-	<!-- <script src="js/datepicker.js"></script> -->
+	<script src="js/getLoggedUser.js"></script>
+	<script src="js/logout.js"></script>
 	
 	<title>New Reservation</title>
 <link rel="stylesheet" href="css/stilZaLogin.css">
+<link rel="stylesheet" href="css/stilZaIndeks.css">
 
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +26,22 @@ body{background-image: url('images/registration.jpg');}
 </style>
 </head>
 <body>
+	<div class="navbar">
+  <a href="http://localhost:8080/ASProjekatWeb/guestIndex.html">Home</a>
+  <a href="http://localhost:8080/ASProjekatWeb/guestReservations.html" class="active">Reservations</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allActiveApartments.html" >All active apartments</a>
+  <a href="http://localhost:8080/ASProjekatWeb/newComment.html">New comment</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allApprovedComments.html">All comments</a>
+  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Edit account</a>
+  
+  <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
+  <a onclick=logout(this) href="#" class="right">Logout</a>
+</div>
+
+<script>
+document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
+</script>
+
 	<h3 style="color:white;">New Apartment</h3>
 	</br>
 	</br>

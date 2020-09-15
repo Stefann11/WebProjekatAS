@@ -5,13 +5,34 @@
 	<script src="jquery-3.3.1.min.js"></script>
 	<script src="js/hostRegistration.js"></script>
 	<script src="js/toastr.min.js"></script>
+	<script src="js/getLoggedUser.js"></script>
+	<script src="js/logout.js"></script>
 <title>Registration</title>
 <link rel="stylesheet" href="css/stilZaLogin.css">
+<link rel="stylesheet" href="css/stilZaIndeks.css">
 <style>
 body{background-image: url('images/registration.jpg');}
 </style>
 </head>
 <body>
+<div class="navbar">
+  <a href="http://localhost:8080/ASProjekatWeb/adminIndex.html">Home</a>
+  <a href="http://localhost:8080/ASProjekatWeb/listUsers.html">All users</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allApartments.html" >All apartments</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allComments.html">All comments</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allReservations.html">All reservations</a>
+  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Edit account</a>
+  <a href="http://localhost:8080/ASProjekatWeb/hostRegistration.html" class="active">Create host account</a>
+  <a href="http://localhost:8080/ASProjekatWeb/tableAmenities.html">All amenities</a>
+
+  <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
+  <a onclick=logout(this) href="#" class="right">Logout</a>
+</div>
+
+<script>
+document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
+</script>
+
 	<h3 style="color:white;">REGISTRATION</h3>
 	</br>
 	</br>
