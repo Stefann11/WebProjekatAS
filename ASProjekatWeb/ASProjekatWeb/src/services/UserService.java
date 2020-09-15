@@ -65,9 +65,8 @@ public class UserService {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
 		for (User oneUser : dao.findAll()) {
 			if (oneUser.getUsername().equals(user.getUsername())) {
-				Response.status(Response.Status.BAD_REQUEST)
+				return Response.status(Response.Status.BAD_REQUEST)
 						.entity("Mora biti jedinstveni username.").build();
-				return null;
 			}
 		}
 		
