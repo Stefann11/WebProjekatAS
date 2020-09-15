@@ -95,7 +95,7 @@ function allReservations() {
 				$('#allApartmentsTable').hide();
 			} else {
 				$('#allApartmentsTable').show();
-				table.append("<thead><tr><th>Id</th><th>Apartman</th><th>Početni datum</th><th>Broj noćenja</th><th>Ukupna cena</th><th>Poruka</th><th>Gost</th><th>Status</th><th>Odustanak</th></thead></tr>");
+				table.append("<thead><tr><th>Id</th><th>Apartman</th><th>Početni datum</th><th>Broj noćenja</th><th>Ukupna cena</th><th>Poruka</th><th>Gost</th><th>Status</th><th>Odustanak</th><th>Ostavi komentar</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var apartment = $("<tr></tr>");
@@ -138,9 +138,16 @@ function allReservations() {
 					if (status == "CREATED" || status == "ACCEPTED"){
 						apartment.append("<td><button onclick=\"whithdrawal( " + id + ")\">Odustani</button></td>");
 					} else {
-						apartment.append("<td></td>");
+						apartment.append("<td>Ne možete odustati</td>");
 					}
 					
+					if (status == "REJECTED" || status=="COMPLETED"){
+					
+						apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/newComment.html?id=" + res + "\'\" value=\"Ostavi komentar\"></td>");
+					
+					} else {
+						apartment.append("<td> Ne možete ostaviti komentar </td>");
+					}
 					body.append(apartment);
 				});
 				table.append(body);

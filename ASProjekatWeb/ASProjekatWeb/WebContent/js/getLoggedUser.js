@@ -13,9 +13,10 @@ function getLoggedUser() {
 				$('#lblUsername').hide();
 			} else {
 				$('#lblUsername').show();
-				username.append(result["username"]);
+				//username.append(result["username"]);
+				document.getElementById('lblUsername').innerHTML = result["username"];
 			}
-			return username;
+			//return username;
 		}
 	});
 	
