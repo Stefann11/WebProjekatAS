@@ -88,6 +88,36 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 	
 	<table border="1" id="allApartmentsTable"></table>
 	
+	<form id="filterForm" accept-charset="UTF-8">
+		<table>	
+			<tr>
+				<th><label for="type">Tip aprtamana: </label>
+                  <input type="radio" id="room" name="type" value="ROOM" checked>
+                        <label for="room">Room</label>
+                        
+                    	<input type="radio" id="suite" name="type" value="SUITE">
+                        <label for="suite">Suite</label>
+		
+				<input type="submit" value="Pretraži"></th>
+			</tr>
+		</table>
+	</form>
+	
+	<form id="filterFormStatus" accept-charset="UTF-8">
+		<table>	
+			<tr>
+				<th><label for="status">Status: </label>
+                    <input type="radio" id="true" name="status" value="true" checked>
+                        <label for="true">Aktivan</label>
+                        
+                    	<input type="radio" id="false" name="status" value="false">
+                        <label for="false">Neaktivan</label>
+		
+				<input type="submit" value="Pretraži"></th>
+			</tr>
+		</table>
+	</form>
+	
 <script>
 	function myFunction() {
 	  // Declare variables

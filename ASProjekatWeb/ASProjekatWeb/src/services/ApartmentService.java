@@ -386,6 +386,7 @@ public class ApartmentService {
 		
 		return dao.editAmenitie(path, oldAmenitie, amenitie);
 	}
+	
 	@POST
 	@Path("/filterActiveApartmentsType")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -393,6 +394,44 @@ public class ApartmentService {
 	public Collection<Apartment> filterActiveApartmentsType(Apartment apartment){
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		return dao.filterActiveApartmentsType(apartment);
+	}
+	
+	@POST
+	@Path("/filterApartmentsType")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> filterApartmentsType(Apartment apartment){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		return dao.filterApartmentsType(apartment);
+	}
+	
+	@POST
+	@Path("/filterApartmentsStatus")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> filterApartmentsStatus(Apartment apartment){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		return dao.filterApartmentsStatus(apartment);
+	}
+	
+	@POST
+	@Path("/filterHostApartmentsStatus")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> filterHostApartmentsStatus(Apartment apartment){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.filterHostApartmentsStatus(apartment, host);
+	}
+	
+	@POST
+	@Path("/filterHostApartmentsType")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> filterHostApartmentsType(Apartment apartment){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.filterHostApartmentsType(apartment, host);
 	}
 	
 	

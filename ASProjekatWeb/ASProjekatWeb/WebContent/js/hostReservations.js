@@ -178,13 +178,13 @@ function searchReservations(){
 					if (status == "CREATED"){
 						apartment.append("<td><button onclick=\"accept( " + id + ")\">Prihvati</button></td>");
 					} else {
-						apartment.append("<td></td>");
+						apartment.append("<td>Ne možete prihvatiti</td>");
 					}
 					
 					if (status == "CREATED" || status=="ACCEPTED"){
 						apartment.append("<td><button onclick=\"reject( " + id + ")\">Odbij</button></td>");
 					} else {
-						apartment.append("<td></td>");
+						apartment.append("<td>Ne možete odbiti</td>");
 					}
 					
 					var strJSON = JSON.stringify(dateObj);
@@ -200,7 +200,7 @@ function searchReservations(){
 					if (todayDate>lastDate && status!="COMPLETED"){
 						apartment.append("<td><button onclick=\"complete( " + id + ")\">Završi</button></td>");
 					}else {
-						apartment.append("<td></td>");
+						apartment.append("<td>Ne možete završiti</td>");
 					}
 
 					body.append(apartment);
@@ -352,13 +352,13 @@ function allReservations() {
 					if (status == "CREATED"){
 						apartment.append("<td><button onclick=\"accept( " + id + ")\">Prihvati</button></td>");
 					} else {
-						apartment.append("<td></td>");
+						apartment.append("<td>Ne možete prihvatiti</td>");
 					}
 					
 					if (status == "CREATED" || status=="ACCEPTED"){
 						apartment.append("<td><button onclick=\"reject( " + id + ")\">Odbij</button></td>");
 					} else {
-						apartment.append("<td></td>");
+						apartment.append("<td>Ne možete odbiti</td>");
 					}
 					
 					var strJSON = JSON.stringify(dateObj);
@@ -374,7 +374,7 @@ function allReservations() {
 					if (todayDate>lastDate && status!="COMPLETED"){
 						apartment.append("<td><button onclick=\"complete( " + id + ")\">Završi</button></td>");
 					}else {
-						apartment.append("<td></td>");
+						apartment.append("<td>Ne možete završiti</td>");
 					}
 
 					body.append(apartment);

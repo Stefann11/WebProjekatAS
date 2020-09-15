@@ -788,6 +788,56 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		
 		return apartmentsToReturn;
 	}
+
+	public Collection<Apartment> filterApartmentsType(Apartment sentApartment) {
+		List<Apartment> apartmentsToReturn = new ArrayList<Apartment>();
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.getType().equals(sentApartment.getType())) {
+				apartmentsToReturn.add(apartment);
+			}
+		}
+		
+		return apartmentsToReturn;
+	}
+
+	public Collection<Apartment> filterApartmentsStatus(Apartment sentApartment) {
+		List<Apartment> apartmentsToReturn = new ArrayList<Apartment>();
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.isStatus()==sentApartment.isStatus()) {
+				apartmentsToReturn.add(apartment);
+			}
+		}
+		
+		return apartmentsToReturn;
+	}
+
+	public Collection<Apartment> filterHostApartmentsStatus(Apartment sentApartment, User host) {
+		Collection<Apartment> toReturn = new ArrayList<Apartment>();
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.getHost()!=null) {
+				if (apartment.getHost().getUsername().equals(host.getUsername())) {
+					if (apartment.isStatus()==sentApartment.isStatus()) {
+						toReturn.add(apartment);
+					}
+				}		
+			}
+		}
+		return toReturn;
+	}
+
+	public Collection<Apartment> filterHostApartmentsType(Apartment sentApartment, User host) {
+		Collection<Apartment> toReturn = new ArrayList<Apartment>();
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.getHost()!=null) {
+				if (apartment.getHost().getUsername().equals(host.getUsername())) {
+					if (apartment.getType().equals(sentApartment.getType())) {
+						toReturn.add(apartment);
+					}
+				}		
+			}
+		}
+		return toReturn;
+	}
 	
 		
 	
