@@ -386,5 +386,15 @@ public class ApartmentService {
 		
 		return dao.editAmenitie(path, oldAmenitie, amenitie);
 	}
+	@POST
+	@Path("/filterActiveApartmentsType")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Apartment> filterActiveApartmentsType(Apartment apartment){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		return dao.filterActiveApartmentsType(apartment);
+	}
+	
+	
 	
 }

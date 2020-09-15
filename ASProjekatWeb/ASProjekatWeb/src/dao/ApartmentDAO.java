@@ -775,6 +775,19 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		
 		return true;
 	}
+
+	public Collection<Apartment> filterActiveApartmentsType(Apartment sentApartment) {
+		List<Apartment> apartmentsToReturn = new ArrayList<Apartment>();
+		for (Apartment apartment: apartments.values()) {
+			if (apartment.isStatus()) {
+				if (apartment.getType().equals(sentApartment.getType())) {
+					apartmentsToReturn.add(apartment);
+				}
+			}
+		}
+		
+		return apartmentsToReturn;
+	}
 	
 		
 	
