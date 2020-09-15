@@ -4,7 +4,7 @@ $(document).ready(function() {
 function prikazApartmana(){
 	$.ajax({
 				type: "GET",
-				url: "rest/apartments/getAllActive",
+				url: "rest/apartments/getHostActive",
 				contentType : "application/json",
 				success: function(result){
 					var apartmani = "";

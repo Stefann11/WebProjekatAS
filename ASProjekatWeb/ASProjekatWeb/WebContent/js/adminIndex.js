@@ -4,13 +4,13 @@ $(document).ready(function() {
 function prikazApartmana(){
 	$.ajax({
 				type: "GET",
-				url: "rest/apartments/getAllActive",
+				url: "rest/apartments/",
 				contentType : "application/json",
 				success: function(result){
 					var apartmani = "";
 					result.forEach(function(item, index) {						
 					apartmani +="<div class='poCetri'>";
-					apartmani +="<div class='kartica' style='max-width: 550px; max-hight: 550px;'><img src='";
+					apartmani +="<div class='kartica ' style='max-width: 550px; max-hight: 500px;'><img src='";
 					apartmani += item["images"][0];
 					apartmani += "' width='250' heigth='250'>";
 					apartmani +="<div class='kartica'>";
