@@ -83,7 +83,19 @@ window.onload = function () {
 					document.getElementById('amenities').innerHTML = "Nema sadržaja u ovom apartmanu!";
 				}
 			
+				var slikePrikaz = "";
+				for(var i = 0; i<result["images"].length; i++){
+					slikePrikaz +="<div class='poCetri'>";
+					slikePrikaz +="<div class='kartica ' style='max-width: 450px; max-hight: 450px;'><img src='";
+					slikePrikaz += result["images"][i];
+					slikePrikaz += "' width='350' heigth='350'>";
+					slikePrikaz +="</div></div>";
+				}
+				$("#prikazi").append(slikePrikaz);
+				
 				}	
+				
+				
 				},
 				error: function(jqXHR, textStatus, errorThrown)  {
 					toastr["error"](jqXHR.responseText);
