@@ -517,7 +517,7 @@ function searchApartments(){
 					$('#allApartmentsTable').hide();
 				} else {
 					$('#allApartmentsTable').show();
-					table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Izmena</th><th>Detaljniji prikaz</th></thead></tr>");
+					table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Izmena</th><th>Detaljniji prikaz</th><th>Obriši</th></thead></tr>");
 					var body = $("<tbody></tbody>");
 					result.forEach(function(item, index) {
 						var apartment = $("<tr></tr>");
@@ -614,6 +614,8 @@ function searchApartments(){
 
 						apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartman.html?id=" + id + "\'\" value=\"Detaljno\"></td>");
 			
+						apartment.append("<td><button onclick=\"deleteApartment( " + id + ")\">Obriši</button></td>");
+					
 						
 						body.append(apartment);
 					});
@@ -636,7 +638,7 @@ function allApartments() {
 				$('#allApartmentsTable').hide();
 			} else {
 				$('#allApartmentsTable').show();
-				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Izmena</th><th>Detaljniji prikaz</th></thead></tr>");
+				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Izmena</th><th>Detaljniji prikaz</th><th>Obriši</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var apartment = $("<tr></tr>");
@@ -735,7 +737,8 @@ function allApartments() {
 					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/editApartment.html?id=" + id + ";numberOfRooms=" + numberOfRooms + ";numberOfGuests=" + numberOfGuests + ";longitude=" + res2Loc + ";latitude=" + res1Loc + ";streetAndNumber=" + res3Loc + ";place=" + res4Loc + ";postcode=" + res5Loc + ";priceForOneNight=" + priceForOneNight + ";checkInTime=" + checkInTime + ";checkOutTime=" + checkOutTime + ";status=" + status + "\'\" value=\"Izmeni\"></td>");
 
 					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartman.html?id=" + id + "\'\" value=\"Detaljno\"></td>");
-			
+					
+					apartment.append("<td><button onclick=\"deleteApartment( " + id + ")\">Obriši</button></td>");
 					
 					body.append(apartment);
 				});
@@ -743,6 +746,24 @@ function allApartments() {
 				
 			}
 		}
+	});
+}
+
+function deleteApartment(id){
+	$.ajax({
+		type : "DELETE",
+		url: "rest/apartments/delete",
+		contentType : "application/json",
+		data: JSON.stringify({idString: id}),
+		success: function(result) {
+					toastr["success"]("Uspešno ste obrisali apartman!");
+					setTimeout(function() {
+						location.href = "hostApartments.html";
+					}, 1000);
+				},
+				error: function(jqXHR, textStatus, errorThrown)  {
+					toastr["error"](jqXHR.responseText);
+				}
 	});
 }
 
