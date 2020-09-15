@@ -26,11 +26,11 @@ function allAmenities() {
 	
 						apartment.append("<td>" + item["name"] + "</td>");
 					
-						var name = item["name"];				
+						nameString = item["name"];				
 						
-						apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/editAmenities.html?id=" + id + ";name=" + name  +  "\'\" value=\"Izmeni\"></td>");
+						apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/editAmenities.html?id=" + id + ";name=" + nameString  +  "\'\" value=\"Izmeni\"></td>");
 	
-						apartment.append("<td><button onclick=\"deleteAmenitie( " + id + ")\">Obriši</button></td>");
+						apartment.append("<td><button onclick=\"deleteAmenitieInApartment( " + id + ")\">Obriši</button></td>");
 	
 						body.append(apartment);
 					}
@@ -42,6 +42,9 @@ function allAmenities() {
 	});
 }
 
+function callback(id){
+	deleteAmenitie(id);
+}
 function deleteAmenitie(id){
 	$.ajax({
 		type : "DELETE",
@@ -50,6 +53,25 @@ function deleteAmenitie(id){
 		data: JSON.stringify({id: id}),
 		success: function(result) {
 					toastr["success"]("Uspešno ste obrisali sadržaj!");
+					
+					setTimeout(function() {
+						location.href = "tableAmenities.html";
+					}, 1000);
+				},
+				error: function(jqXHR, textStatus, errorThrown)  {
+					toastr["error"](jqXHR.responseText);
+				}
+	});
+}
+
+function deleteAmenitieInApartment(id){
+	$.ajax({
+		type : "POST",
+		url: "rest/apartments/deleteAmenitie",
+		contentType : "application/json",
+		data: JSON.stringify({id: id}),
+		success: function(result) {
+					callback(id);
 					setTimeout(function() {
 						location.href = "tableAmenities.html";
 					}, 1000);

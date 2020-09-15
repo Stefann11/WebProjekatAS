@@ -23,6 +23,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.Amenties;
 import beans.AmentiesHelp;
 import beans.Apartment;
 import beans.CommentForApartment;
@@ -30,6 +31,7 @@ import beans.Reservation;
 import beans.SearchFields;
 import beans.User;
 import beans.newCommentHelp;
+import dao.AmentiesDAO;
 import dao.ApartmentDAO;
 import dao.ReservationDAO;
 
@@ -68,6 +70,15 @@ public class ApartmentService {
 		return reservationDAO;
 	}
 	
+	private AmentiesDAO getAmenties() { 
+		AmentiesDAO amentiesDAO = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
+		if (amentiesDAO == null) {
+			String contextPath = ctx.getRealPath("");
+			ctx.setAttribute("amentiesDAO", new AmentiesDAO(contextPath));
+		}
+		return amentiesDAO;
+	}
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -102,6 +113,14 @@ public class ApartmentService {
 		User host = (User) request.getSession().getAttribute("user");
 		apartment.setHost(host);
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		
+		for (Apartment oneApartment: dao.findAll()) {
+			if (oneApartment.getId() == apartment.getId()) {
+				return Response.status(Response.Status.BAD_REQUEST)
+						.entity("Mora biti jedinstveni id.").build();
+			}
+		}
+		
 		dao.printApartments(path, apartment);
 		return Response.ok().entity("allAmenities.html?idApartment=" + apartment.getId()).build();
 		//return dao.save(apartment);
@@ -326,6 +345,46 @@ public class ApartmentService {
 		Reservation foundReservation = reservationDAO.find(Long.toString(reservation.getId()));
 		
 		return dao.rejectReservation(path, foundReservation);
+	}
+	
+	@POST
+	@Path("/deleteAmenitie")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public boolean deleteAmenitie(Amenties amenitie){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		
+		AmentiesDAO amenitieDAO = getAmenties();
+		Amenties foundAmenitie = new Amenties();
+		Collection<Amenties> foundAmenities = amenitieDAO.findAll();
+		for (Amenties oneAmenitie: foundAmenities) {
+			if (oneAmenitie.getId()==amenitie.getId()) {
+				foundAmenitie = oneAmenitie;
+				break;
+			}
+		}
+		
+		return dao.deleteAmenitie(path, foundAmenitie);
+	}
+	
+	@POST
+	@Path("/editAmenitie")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public boolean editAmenitie(Amenties amenitie){
+		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		
+		AmentiesDAO amenitieDAO = getAmenties();
+		Amenties oldAmenitie = new Amenties();
+		Collection<Amenties> foundAmenities = amenitieDAO.findAll();
+		for (Amenties oneAmenitie: foundAmenities) {
+			if (oneAmenitie.getId()==amenitie.getId()) {
+				oldAmenitie = oneAmenitie;
+				break;
+			}
+		}
+		
+		return dao.editAmenitie(path, oldAmenitie, amenitie);
 	}
 	
 }

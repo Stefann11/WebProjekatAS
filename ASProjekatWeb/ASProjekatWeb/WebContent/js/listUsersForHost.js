@@ -17,7 +17,7 @@ function searchUsers(){
 			});
 		$.ajax({
 			type : "POST",
-			url : "rest/users/searchUsersForHost",
+			url : "rest/reservations/searchUsersForHost",
 			contentType : "application/json",
 			data: JSON.stringify({gender: gender, role: role, username: username}),
 			success : function(result) {
@@ -72,7 +72,7 @@ function searchUsers(){
 function listUsers() {
 	$.ajax({
 		type : "GET",
-		url : "rest/users/listUsersForHost",
+		url : "rest/reservations/listUsersForHost",
 		success : function(result) {
 			var table = $("#allUsersTable");
 			table.empty();

@@ -84,6 +84,13 @@ public class ReservationService {
 		ApartmentDAO apartmentDAO = getApartmani();
 		Apartment apartment = apartmentDAO.findApartment(reservation.getApartment().getId());
 		
+		for (Reservation oneReservation: dao.findAll()) {
+			if (oneReservation.getId() == reservation.getId()) {
+				return Response.status(Response.Status.BAD_REQUEST)
+						.entity("Mora biti jedinstven id").build();
+			}
+		}
+		
 		List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
 		
 		int flag = 0;
@@ -114,7 +121,8 @@ public class ReservationService {
 	
 			return Response.ok().entity("allActiveApartments.html").build();
 		}else {
-			return Response.serverError().entity("Odabrani datumi za rezervaciju su vec zauzeti").build();
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("Odabrani datumi za rezervaciju su vec zauzeti").build();
 		}
 	}
 	
@@ -276,6 +284,16 @@ public class ReservationService {
 		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
 		User host = (User) request.getSession().getAttribute("user");
 		return dao.filterHostReservation(reservation, host);
+	}
+	
+	@GET
+	@Path("/listUsersForHost")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public  Collection<User> listUsersForHost(@Context HttpServletRequest request){
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		User host = (User) request.getSession().getAttribute("user");
+		return dao.listUsersForHost(host);
 	}
 	
 }

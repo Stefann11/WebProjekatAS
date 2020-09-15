@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import beans.Apartment;
 import beans.CommentForApartment;
@@ -69,13 +70,21 @@ public class CommentService {
 	
 	@POST
 	@Path("/save")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CommentForApartment newComment(newCommentHelp comment){
+	public Response newComment(newCommentHelp comment){
 		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
 		
 		ApartmentDAO dao2 =  (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		Apartment apartment = new Apartment();
+		
+		for (CommentForApartment oneComment: dao.findAll()) {
+			if (oneComment.getId() == comment.getId()) {
+				return Response.status(Response.Status.BAD_REQUEST)
+						.entity("Mora biti jedinstveni id.").build();
+			}
+		}
+		
 		User user = (User) request.getSession().getAttribute("user");
 		Collection<Apartment> apartments = dao2.findAll();
 		for(Apartment ap : apartments) {
@@ -85,7 +94,8 @@ public class CommentService {
 			}
 		}
 		CommentForApartment com = new CommentForApartment(comment.getId(), user, apartment, comment.getText(), comment.getGrade());		
-		return dao.printComment(path, com, user);		
+		dao.printComment(path, com, user);
+		return Response.ok().entity("guestIndex.html").build();
 		//return dao.save(reservation);
 	}
 	

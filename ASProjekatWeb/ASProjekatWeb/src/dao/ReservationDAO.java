@@ -369,5 +369,27 @@ public class ReservationDAO {
 		
 		return reservationsToReturn;
 	}
+
+	public Collection<User> listUsersForHost(User host) {
+		Map<String, User> usersToReturnMap = new HashMap<>();
+		List<User> usersToReturn = new ArrayList<User>();
+		for (Apartment apartment: host.getApartmentsForRent()) {
+			for (Reservation reservation: reservations.values()) {
+				if (reservation.getApartment()!=null) {
+					if (reservation.getApartment().getId()==apartment.getId()) {
+						if (reservation.getGuest()!=null) {
+							if (!usersToReturnMap.containsKey(reservation.getGuest().getUsername())) {
+								usersToReturnMap.put(reservation.getGuest().getUsername(), reservation.getGuest());
+								usersToReturn.add(reservation.getGuest());
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return usersToReturn;
+		
+	}
 	
 }

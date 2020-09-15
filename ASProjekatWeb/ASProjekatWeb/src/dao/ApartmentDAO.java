@@ -716,6 +716,65 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		
 		return true;
 	}
+
+	public boolean deleteAmenitie(String contextPath, Amenties amenitie) {
+		List<Apartment> apartmentsToDelete = new ArrayList<Apartment>();
+		List<Apartment> apartmentsToAdd = new ArrayList<Apartment>();
+		for (Apartment apartment: apartments.values()) {
+			apartmentsToDelete.add(apartment);
+			if (apartment.getListOfAmenities()!=null) {
+				for (Amenties oneAmenitie: apartment.getListOfAmenities()) {
+					if (oneAmenitie.getName().equals(amenitie.getName())) {
+						apartment.getListOfAmenities().remove(oneAmenitie);
+						break;
+					}
+				}
+			}
+			
+			apartmentsToAdd.add(apartment);
+			
+		}
+		
+		for (Apartment apartmentToDelete: apartmentsToDelete) {
+			apartments.remove(Long.toString(apartmentToDelete.getId()));
+		}
+		
+		for (Apartment apartmentToAdd: apartmentsToAdd) {
+			printApartments(contextPath, apartmentToAdd);
+		}
+		
+		return true;
+	}
+
+	public boolean editAmenitie(String contextPath, Amenties oldAmenitie, Amenties amenitie) {
+		List<Apartment> apartmentsToDelete = new ArrayList<Apartment>();
+		List<Apartment> apartmentsToAdd = new ArrayList<Apartment>();
+		for (Apartment apartment: apartments.values()) {
+			apartmentsToDelete.add(apartment);
+			if (apartment.getListOfAmenities()!=null) {
+				for (Amenties oneAmenitie: apartment.getListOfAmenities()) {
+					if (oneAmenitie.getName().equals(oldAmenitie.getName())) {
+						apartment.getListOfAmenities().remove(oneAmenitie);
+						apartment.getListOfAmenities().add(amenitie);
+						break;
+					}
+				}
+			}
+			
+			apartmentsToAdd.add(apartment);
+			
+		}
+		
+		for (Apartment apartmentToDelete: apartmentsToDelete) {
+			apartments.remove(Long.toString(apartmentToDelete.getId()));
+		}
+		
+		for (Apartment apartmentToAdd: apartmentsToAdd) {
+			printApartments(contextPath, apartmentToAdd);
+		}
+		
+		return true;
+	}
 	
 		
 	

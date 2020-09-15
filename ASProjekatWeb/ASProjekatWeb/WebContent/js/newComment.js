@@ -21,10 +21,10 @@ function createComment(){
 				url: "rest/comments/save",
 				contentType : "application/json",
 				data: JSON.stringify({id: id, apartment: apartment, text: text, grade: grade }),
-				success: function(result) {
+				success: function(data, textStatus, XmlHttpRequest){
 					toastr["success"]("Uspešno kreiranje!");
 					setTimeout(function() {
-						location.href = "guestIndex.html";
+						window.location.assign( XmlHttpRequest.responseText);
 						$('#commentForm')[0].reset();
 					}, 1000);
 				},

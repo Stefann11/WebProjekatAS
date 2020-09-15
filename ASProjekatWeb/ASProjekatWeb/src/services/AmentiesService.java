@@ -70,6 +70,15 @@ public class AmentiesService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response newAmenties(Amenties amen){
 		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
+		
+		
+		for (Amenties amenitie: dao.findAll()) {
+			if (amenitie.getId()==amen.getId()){
+				return Response.status(Response.Status.BAD_REQUEST)
+						.entity("Mora biti jedinstveni id.").build();
+			}
+		}
+		
 		dao.printAmenties(path, amen);
 		
 		return Response.ok().entity("adminIndex.html").build();
