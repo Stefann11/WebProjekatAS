@@ -2,43 +2,6 @@ $(document).ready(function() {
 	allAmenities();
 });
 
-/*function createAmenities(){
-	$('#amenitiesForm').submit(function(e) {
-		e.preventDefault();
-		
-		
-		var amenitiesArray = [];
-		$("input:checkbox[name=amenities]:checked").each(function(){
-    		amenitiesArray.push($(this).val());
-		});
-		
-		alert(amenitiesArray[0]);
-		
-			var $inputs = $('#amenitiesForm input:not([type="submit"])');
-			var values = {};
-			$inputs.each(function() {
-				values[this.name] = $(this).val();
-			});
-					
-			$.ajax({
-				type: "POST",
-				url: "rest/users/save",
-				contentType : "application/json",
-				data: JSON.stringify({username: username, password: password, name: name, surname: surname, gender: gender}),
-				success: function(result) {
-					toastr["success"]("Uspešno ste se registrovali!");
-					setTimeout(function() {
-						location.href = "login.html";
-						$('#registrationForm')[0].reset();
-					}, 1000);
-				},
-				error: function(jqXHR, textStatus, errorThrown)  {
-					toastr["error"](jqXHR.responseText);
-				}
-		});
-	});
-}*/
-
 function allAmenities() {
 	
 	const queryString2 = window.location.search;

@@ -142,13 +142,14 @@ public class ApartmentService {
 		return dao.findOne(apartment);
 	}
 	
-	@PUT
+	@POST
 	@Path("/edit")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Apartment editApartment(Apartment apartment) {
+	public Response editApartment(Apartment apartment) {		
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		return dao.editApartment(path, apartment);
+		dao.editApartment(path, apartment);
+		return Response.ok().entity("editAmenitiesInApartment.html?idApartment=" + apartment.getId()).build();
 	}
 	
 	@DELETE
