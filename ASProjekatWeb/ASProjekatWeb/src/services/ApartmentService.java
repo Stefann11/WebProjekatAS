@@ -317,8 +317,12 @@ public class ApartmentService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Collection<String> getAllDatesForApartment(Apartment apartment){
-		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		return dao.getAllDatesForApartment(apartment);
+		if (apartment!=null) {
+			ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+			return dao.getAllDatesForApartment(apartment);
+		} else {
+			return new ArrayList<String>();
+		}
 	}
 	
 	@POST

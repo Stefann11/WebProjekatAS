@@ -1,4 +1,14 @@
 $(document).ready(function() {
+	
+	$('#id').focusout(function() {
+		var idProv = $('#id');
+		var idProvVal = idProv.val();
+		if (idProvVal && !(idProvVal.match('^[0-9]*$'))) {
+			toastr["error"]("Id mora biti ceo broj.");
+			idProv.val("");
+		}
+	});
+	
 	$('#amenitiesForm').submit(function(e) {
 		e.preventDefault();
 		let id = $("input[name=id]").val();
