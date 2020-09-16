@@ -55,6 +55,18 @@ table {
         td { 
             font-weight: lighter; 
         } 
+.t1 td{
+	 
+          
+          
+            background-color: #ffffff00 !important;
+            border: 0px solid white !important; 
+           
+             
+        }   
+           
+       
+ 
 .kartica{
 	
 	background-color: #ffe6cc;

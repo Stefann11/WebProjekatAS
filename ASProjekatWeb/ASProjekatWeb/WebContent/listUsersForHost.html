@@ -18,6 +18,7 @@
 	
 <style>
 body{background-image: url('images/registration.jpg');}
+th{background-color: #ffffff00}
 </style>
 </head>
 <body>
@@ -42,7 +43,7 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 	<form id="searchForm" accept-charset="UTF-8">
 		<table>
 			<tr>
-				<th><label for="role">Uloga: </label></th> 
+				<th ><label for="role">Uloga: </label></th> 
 				
 				<th><input type="radio" id="guest" name="role" value="GUEST">
                         <label for="guest">Gost</label><br>
@@ -76,7 +77,7 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 
 
 	<h2>Svi korisnici</h2>
-	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for usernames..">
+	
 	
 	<table border="1" id="allUsersTable"></table>
 	
