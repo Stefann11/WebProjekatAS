@@ -46,7 +46,7 @@ function prikazApartmana(){
 					apartmani +="<label class = 'a1'>"+resLoc+"</label><br><br>";
 					apartmani +="<label class = 'a1'>Cena: </label>";
 					apartmani +="<label class = 'a1'>"+item["priceForOneNight"]+"</label><br>";
-					apartmani +="<input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartman.html?id=" + item["id"] + "\'\" value=\"Detaljno\">";
+					apartmani +="<input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartmanGuest.html?id=" + item["id"] + "\'\" value=\"Detaljno\">";
 					apartmani +="</div></div></div>";
 					
 					});
