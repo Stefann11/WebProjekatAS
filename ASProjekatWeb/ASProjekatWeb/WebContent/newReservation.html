@@ -28,12 +28,11 @@ body{background-image: url('images/registration.jpg');}
 </head>
 <body>
 	<div class="navbar">
-  <a href="http://localhost:8080/ASProjekatWeb/guestIndex.html">Home</a>
-  <a href="http://localhost:8080/ASProjekatWeb/guestReservations.html" class="active">Reservations</a>
-  <a href="http://localhost:8080/ASProjekatWeb/allActiveApartments.html" >All active apartments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/newComment.html">New comment</a>
-  <a href="http://localhost:8080/ASProjekatWeb/allApprovedComments.html">All comments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Edit account</a>
+  <a href="http://localhost:8080/ASProjekatWeb/guestIndex.html">Početna</a>
+  <a href="http://localhost:8080/ASProjekatWeb/guestReservations.html" class="active">Rezervacije</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allActiveApartments.html" >Aktivni apartmani</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allApprovedComments.html">Komentari</a>
+  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Izmeni podatke</a>
   
   <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
   <a onclick=logout(this) href="#" class="right">Logout</a>
@@ -43,7 +42,7 @@ body{background-image: url('images/registration.jpg');}
 document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 </script>
 
-	<h3 style="color:white;">New Apartment</h3>
+	<h3 style="color:white;">Kreiraj rezervaciju</h3>
 	</br>
 	</br>
 	</br>	
@@ -55,26 +54,26 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 	</br>
 	</br>
 	
-	<label class="a1" for="idApartment"><b>Id of apartment:</b></label>
+	<label class="a1" for="idApartment"><b>Id apartmana:</b></label>
     <input type="text" placeholder="Enter ID of apartment" id="idApartment" name="idApartment" disabled required>
 	</br>
 	</br>
-	<label class="a1" for="datepicker"><b>Start date:</b></label>
+	<label class="a1" for="datepicker"><b>Početni datum:</b></label>
     <input type="text" placeholder="Enter Date" id="datepicker"  name="datepicker" required>
 	</br>
 	</br>
-    <label class="a1" for="numberOfOvernights"><b>Number of overnights:</b></label>
+    <label class="a1" for="numberOfOvernights"><b>Broj noćenja:</b></label>
     <input type="text" placeholder="Enter Number Of Overnights" id="numberOfOvernights"  name="numberOfOvernights" required>
 	</br>
 	</br>
-	<label class="a1" for="message"><b>Message:</b></label>
+	<label class="a1" for="message"><b>Poruka:</b></label>
     <input type="text" placeholder="Enter Message" id="message"  name="message" required>
 	</br>
 	</br>
 	
-    <input type="submit" name="create" value="Create"/>
+    <input type="submit" name="create" value="Kreiraj"/>
    
-    <button type="button" class="cancelbtn">Cancel</button>
+    <button type="button" class="cancelbtn">Otkaži</button>
      </form>
   </div>
 	

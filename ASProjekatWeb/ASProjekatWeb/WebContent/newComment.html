@@ -18,12 +18,11 @@ body{background-image: url('images/registration.jpg');}
 </head>
 <body>
 	<div class="navbar">
-  <a href="http://localhost:8080/ASProjekatWeb/guestIndex.html">Home</a>
-  <a href="http://localhost:8080/ASProjekatWeb/guestReservations.html">Reservations</a>
-  <a href="http://localhost:8080/ASProjekatWeb/allActiveApartments.html" >All active apartments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/newComment.html">New comment</a>
-  <a href="http://localhost:8080/ASProjekatWeb/allApprovedComments.html">All comments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Edit account</a>
+  <a href="http://localhost:8080/ASProjekatWeb/guestIndex.html">Početna</a>
+  <a href="http://localhost:8080/ASProjekatWeb/guestReservations.html">Rezervacije</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allActiveApartments.html" >Aktivni apartmani</a>
+  <a href="http://localhost:8080/ASProjekatWeb/allApprovedComments.html">Komentari</a>
+  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Izmeni podatke</a>
   
   <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
   <a onclick=logout(this) href="#" class="right">Logout</a>
@@ -33,7 +32,7 @@ body{background-image: url('images/registration.jpg');}
 document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 </script>
 
-	<h3 style="color:white;">NEW COMMENT</h3>
+	<h3 style="color:white;">Kreiraj komentar</h3>
 	</br>
 	</br>
 	</br>	
@@ -59,9 +58,9 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 	</br>
 	</br>
 	
-    <input type="submit" name="create" value="Create"/>
+    <input type="submit" name="create" value="Kreiraj"/>
    
-    <button type="button" class="cancelbtn">Cancel</button>
+    <button type="button" class="cancelbtn">Otkaži</button>
      </form>
   </div>
 

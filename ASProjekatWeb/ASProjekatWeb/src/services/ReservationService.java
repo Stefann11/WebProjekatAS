@@ -296,4 +296,13 @@ public class ReservationService {
 		return dao.listUsersForHost(host);
 	}
 	
+	@PUT
+	@Path("/editUserInReservation")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void editUserInReservation(User user) {
+		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
+		dao.editUserInReservation(path, user);
+	}
+	
 }

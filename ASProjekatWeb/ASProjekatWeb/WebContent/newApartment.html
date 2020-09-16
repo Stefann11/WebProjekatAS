@@ -18,12 +18,12 @@ body{background-image: url('images/registration.jpg');}
 <body>
 	
 	<div class="navbar">
-  <a href="http://localhost:8080/ASProjekatWeb/hostIndex.html">Home</a>
-  <a href="http://localhost:8080/ASProjekatWeb/hostReservations.html">All reservations</a>
-  <a href="http://localhost:8080/ASProjekatWeb/listUsersForHost.html">All users</a>
-  <a href="http://localhost:8080/ASProjekatWeb/hostApartments.html" >All host apartments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/commentsForHost.html" >Comments for my Appartments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Edit account</a>
+  <a href="http://localhost:8080/ASProjekatWeb/hostIndex.html">Početna</a>
+  <a href="http://localhost:8080/ASProjekatWeb/hostReservations.html">Rezervacije</a>
+  <a href="http://localhost:8080/ASProjekatWeb/listUsersForHost.html">Korisnici</a>
+  <a href="http://localhost:8080/ASProjekatWeb/hostApartments.html" >Moji apartmani</a>
+  <a href="http://localhost:8080/ASProjekatWeb/commentsForHost.html" >Komentari</a>
+  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Izmeni podatke</a>
 
   <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
   <a onclick=logout(this) href="#" class="right">Logout</a>
@@ -33,7 +33,7 @@ body{background-image: url('images/registration.jpg');}
 document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 </script>
 
-	<h3 style="color:white;">New Apartment</h3>
+	<h3 style="color:white;">Kreiraj apartman</h3>
 	</br>
 	</br>
 	</br>	
@@ -45,7 +45,7 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 	</br>
 	</br>
 	
-	<label class="a1" for="type">Type: </label>
+	<label class="a1" for="type">Tip: </label>
 	
                     <input type="radio" id="room" name="type" value="ROOM" checked>
                         <label class="a1" for="room">Room</label><br>
@@ -60,56 +60,56 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 	<br/>
 	<br/>
 	
-	<label class="a1" for="numberOfRooms"><b>Number of rooms:</b></label>
+	<label class="a1" for="numberOfRooms"><b>Broj soba:</b></label>
     <input type="text" placeholder="Enter Number Of Rooms" id="numberOfRooms" name="numberOfRooms" required>
 	</br>
 	</br>
-    <label class="a1" for="numberOfGuests"><b>Number of guests:</b></label>
+    <label class="a1" for="numberOfGuests"><b>Broj gostiju:</b></label>
     <input type="text" placeholder="Enter Number Of Guests" id="numberOfGuests"  name="numberOfGuests" required>
 	</br>
 	</br>
-	<label class="a1" for="longitude"><b>Longitude:</b></label>
+	<label class="a1" for="longitude"><b>Geografska dužina:</b></label>
     <input type="text" placeholder="Enter Longitude" id="longitude"  name="longitude" required>
 	</br>
 	</br>
-	<label class="a1" for="latitude"><b>Latitude:</b></label>
+	<label class="a1" for="latitude"><b>Geografska širina:</b></label>
     <input type="text" placeholder="Enter Latitude" id="latitude"  name="latitude" required>
 	</br>
 	</br>
-	<label class="a1" for="streetAndNumber"><b>Street and number:</b></label>
+	<label class="a1" for="streetAndNumber"><b>Ulica i broj:</b></label>
     <input type="text" placeholder="Enter Street And Number" id="streetAndNumber"  name="streetAndNumber" required>
 	</br>
 	</br>
-	<label class="a1" for="place"><b>Place:</b></label>
+	<label class="a1" for="place"><b>Mesto:</b></label>
     <input type="text" placeholder="Enter Place" id="place"  name="place" required>
 	</br>
 	</br>
-	<label class="a1" for="postcode"><b>Postcode:</b></label>
+	<label class="a1" for="postcode"><b>Poštanski broj:</b></label>
     <input type="text" placeholder="Enter Postcode" id="postcode"  name="postcode" required>
 	</br>
 	</br>
-	<label class="a1" for="priceForOneNight"><b>Price for one night:</b></label>
+	<label class="a1" for="priceForOneNight"><b>Cena za jednu noć:</b></label>
     <input type="text" placeholder="Price For One Night" id="priceForOneNight" name="priceForOneNight" required>
 	</br>
 	</br>
-	<label class="a1" for="checkInTime"><b>Check in time:</b></label>
+	<label class="a1" for="checkInTime"><b>Vreme za prijavu:</b></label>
     <input type="text" placeholder="Check In Time (14h)" id="checkInTime" name="checkInTime" required>h
 	</br>
 	</br>
-	<label class="a1" for="checkOutTime"><b>Check out time:</b></label>
+	<label class="a1" for="checkOutTime"><b>Vreme za odjavu:</b></label>
     <input type="text" placeholder="Check Out Time (10h)" id="checkOutTime" name="checkOutTime" required>h
 	</br>
 	</br>
 	<label class="a1" for="status"><b>Status:</b></label>
-	<input type="radio" id="true" name="status" value="true"  checked>
-  	<label for="true">True</label>
-  	<input type="radio" id="false" name="status" value="false">
-  	<label for="false">False</label><br>
+	<input type="radio" id="true" name="status" value="true">
+  	<label for="true">Aktivan</label>
+  	<input type="radio" id="false" name="status" value="false" checked>
+  	<label for="false">Neaktivan</label><br>
 	</br>
 	</br>
-    <input type="submit" name="create" value="Create"/>
+    <input type="submit" name="create" value="Kreiraj"/>
    
-    <button type="button" class="cancelbtn">Cancel</button>
+    <button type="button" class="cancelbtn">Otkaži</button>
      </form>
   </div>
 

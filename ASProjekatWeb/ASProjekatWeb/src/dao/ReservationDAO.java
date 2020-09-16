@@ -391,5 +391,29 @@ public class ReservationDAO {
 		return usersToReturn;
 		
 	}
+
+	public void editUserInReservation(String contextPath, User user) {
+		List<Reservation> reservationsToDelete = new ArrayList<Reservation>();
+		List<Reservation> reservationsToAdd = new ArrayList<Reservation>();
+		for (Reservation reservation: reservations.values()) {
+			if (reservation.getGuest()!=null) {
+				if (reservation.getGuest().getUsername().equals(user.getUsername())) {
+					reservationsToDelete.add(reservation);
+					reservation.setGuest(user);
+					reservationsToAdd.add(reservation);
+				}
+			}
+		}
+		
+		for (Reservation reservationToDelete: reservationsToDelete) {
+			reservations.remove(Long.toString(reservationToDelete.getId()));
+		}
+		
+		for (Reservation reservationToAdd: reservationsToAdd) {
+			printReservations(contextPath, reservationToAdd);
+		}
+		
+		
+	}
 	
 }

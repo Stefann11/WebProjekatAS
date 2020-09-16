@@ -19,20 +19,13 @@ body{background-image: url('images/registration.jpg');}
 </head>
 <body>
 	<div class="navbar">
-  <a href="http://localhost:8080/ASProjekatWeb/guestIndex.html">Home</a>
-  <a href="http://localhost:8080/ASProjekatWeb/guestReservations.html">Reservations</a>
-  <a href="http://localhost:8080/ASProjekatWeb/allActiveApartments.html" class="active">All active apartments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/newComment.html">New comment</a>
-  <a href="http://localhost:8080/ASProjekatWeb/allApprovedComments.html">All comments</a>
-  <a href="http://localhost:8080/ASProjekatWeb/editUser.html">Edit account</a>
+  <a href="http://localhost:8080/ASProjekatWeb/index.html" >Početna</a>
+    <a href="http://localhost:8080/ASProjekatWeb/allIndexApartments.html" class="active">Apartmani</a>
+  <a href="http://localhost:8080/ASProjekatWeb/registration.html" class="right">Registracija</a>
+  <a href="http://localhost:8080/ASProjekatWeb/login.html" class="right">Login</a>
   
-  <label id="lblUsername" class="right">Ovaj tekst se treba promeniti</label>
-  <a onclick=logout(this) href="#" class="right">Logout</a>
 </div>
 
-<script>
-document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
-</script>
 
 
 	<h2>Pretraga</h2>
