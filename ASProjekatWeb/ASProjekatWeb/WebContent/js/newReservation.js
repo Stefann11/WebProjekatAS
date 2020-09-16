@@ -1,7 +1,37 @@
 $(document).ready(function() {
 	createApartment();
 	addDatesToApartment();
-});s
+	
+	$('#id').focusout(function() {
+		var id = $('#id');
+		var idVal = id.val();
+		if (idVal && !(idVal.match('^[0-9]*$'))) {
+			toastr["error"]("Id morate uneti kao ceo broj.");
+			id.val("");
+		}
+	});
+	
+	$('#numberOfOvernights').focusout(function() {
+		var numberOfOvernights = $('#numberOfOvernights');
+		var numberOfOvernightsVal = numberOfOvernights.val();
+		if (numberOfOvernightsVal && !(numberOfOvernightsVal.match('^[0-9]*$'))) {
+			toastr["error"]("Broj noćenja morate uneti kao ceo broj.");
+			numberOfOvernights.val("");
+		}
+	});
+	
+	/*$('#datepicker').focusout(function() {
+		var datepicker = $('#datepicker');
+		var datepickerVal = datepicker.val();
+		if (datepickerVal && !(datepickerVal.match('^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$'))) {
+			toastr["error"]("Datum morate uneti u formatu dd-mm-yyyy.");
+			datepicker.val("");
+		}
+	});*/
+	
+	
+	
+});
 
 
 

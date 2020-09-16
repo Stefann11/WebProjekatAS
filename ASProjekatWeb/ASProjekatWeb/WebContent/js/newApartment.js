@@ -1,6 +1,61 @@
 $(document).ready(function() {
 	createApartment();
 	addApartmentToHost();
+	
+	$('#longitude').focusout(function() {
+		var longitude = $('#longitude');
+		var longitudeVal = longitude.val();
+		if (longitudeVal && !(longitudeVal.match('^[0-9]+(?:\.[0-9]+)?$'))) {
+			toastr["error"]("Geografsku dužinu morate uneti kao ceo ili decimalan broj veći ili jednak 0.");
+			longitude.val("");
+		}
+	});
+	
+	$('#latitude').focusout(function() {
+		var latitude = $('#latitude');
+		var latitudeVal = latitude.val();
+		if (latitudeVal && !(latitudeVal.match('^[0-9]+(?:\.[0-9]+)?$'))) {
+			toastr["error"]("Geografsku širinu morate uneti kao ceo ili decimalan broj veći ili jednak 0.");
+			latitude.val("");
+		}
+	});
+	
+	$('#postcode').focusout(function() {
+		var postcode = $('#postcode');
+		var postcodeVal = postcode.val();
+		if (postcodeVal && !(postcodeVal.match('^[0-9]*$'))) {
+			toastr["error"]("Poštanski broj morate uneti kao ceo broj.");
+			postcode.val("");
+		}
+	});
+	
+	$('#priceForOneNight').focusout(function() {
+		var priceForOneNight = $('#priceForOneNight');
+		var priceForOneNightVal = priceForOneNight.val();
+		if (priceForOneNightVal && !(priceForOneNightVal.match('^[0-9]+(?:\.[0-9]+)?$'))) {
+			toastr["error"]("Cena za jednu noć morate uneti kao ceo ili decimalan broj veći ili jednak 0.");
+			priceForOneNight.val("");
+		}
+	});
+	
+	$('#checkInTime').focusout(function() {
+		var checkInTime = $('#checkInTime');
+		var checkInTimeVal = checkInTime.val();
+		if (checkInTimeVal && !(checkInTimeVal.match('^[0-9]*$'))) {
+			toastr["error"]("Vreme za prijavu morate uneti kao ceo broj.");
+			checkInTime.val("");
+		}
+	});
+	
+	$('#checkOutTime').focusout(function() {
+		var checkOutTime = $('#checkOutTime');
+		var checkOutTimeVal = checkOutTime.val();
+		if (checkOutTimeVal && !(checkOutTimeVal.match('^[0-9]*$'))) {
+			toastr["error"]("Vreme za odjavu morate uneti kao ceo broj.");
+			checkOutTime.val("");
+		}
+	});
+	
 });
 
 function createApartment(){
