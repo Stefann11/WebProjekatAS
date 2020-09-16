@@ -127,6 +127,19 @@ function createApartment(){
 			event.preventDefault();
 			return;
 		}
+		var images = [];
+		var files = $("#files")[0].files;
+		for (var i = 0; i < files.length; i++)
+		{
+		var imgStr = "images/" + files[i].name;
+ 			images.push(imgStr);
+		}
+		/*var files = $("input[name=img]").val();
+		var filesStr = JSON.stringify(files);
+		var pos1 = filesStr.lastIndexOf("\\");
+		var fileStr19 = filesStr.substring(pos1+1, filesStr.length-1);
+		var imgStr = "images/" + fileStr19;
+		var images = [imgStr];*/
 		
 			var $inputs = $('#apartmentForm input:not([type="submit"])');
 			var values = {};
@@ -138,7 +151,7 @@ function createApartment(){
 				type: "POST",
 				url: "rest/apartments/save",
 				contentType : "application/json",
-				data: JSON.stringify({id: id, type: type, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
+				data: JSON.stringify({id: id, type: type, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, images: images, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
 				success: function(data, textStatus, XmlHttpRequest){
 					toastr["success"]("Uspešno kreiranje!");
 					setTimeout(function() {
@@ -194,6 +207,21 @@ function addApartmentToHost(){
 			event.preventDefault();
 			return;
 		}
+		var images = [];
+		var files = $("#files")[0].files;
+		for (var i = 0; i < files.length; i++)
+		{
+		var imgStr = "images/" + files[i].name;
+ 			images.push(imgStr);
+		}
+		
+		
+		/*var files = $("input[name=img]").val();
+		var filesStr = JSON.stringify(files);
+		var pos1 = filesStr.lastIndexOf("\\");
+		var fileStr19 = filesStr.substring(pos1+1, filesStr.length-1);
+		var imgStr = "images/" + fileStr19;
+		var images = [imgStr];*/
 		
 			var $inputs = $('#apartmentForm input:not([type="submit"])');
 			var values = {};
@@ -205,7 +233,7 @@ function addApartmentToHost(){
 				type: "POST",
 				url: "rest/users/addApartmentToHost",
 				contentType : "application/json",
-				data: JSON.stringify({id: id, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
+				data: JSON.stringify({id: id, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, images: images, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
 				success: function(data, textStatus, XmlHttpRequest){
 					setTimeout(function() {
 						window.location.assign( XmlHttpRequest.responseText);

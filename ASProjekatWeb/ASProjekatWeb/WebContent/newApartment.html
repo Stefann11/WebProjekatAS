@@ -93,11 +93,11 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
 	</br>
 	</br>
 	<label class="a1" for="checkInTime"><b>Vreme za prijavu:</b></label>
-    <input type="text" placeholder="Check In Time (14h)" id="checkInTime" name="checkInTime" required>h
+    <input type="text" placeholder="Check In Time (14h)" id="checkInTime" name="checkInTime" required><label class="a1" ><b>h</b></label>
 	</br>
 	</br>
 	<label class="a1" for="checkOutTime"><b>Vreme za odjavu:</b></label>
-    <input type="text" placeholder="Check Out Time (10h)" id="checkOutTime" name="checkOutTime" required>h
+    <input type="text" placeholder="Check Out Time (10h)" id="checkOutTime" name="checkOutTime" required><label class="a1" ><b>h</b></label>
 	</br>
 	</br>
 	<label class="a1" for="status"><b>Status:</b></label>
@@ -107,6 +107,9 @@ document.getElementById('lblUsername').innerHTML = getLoggedUser(this);
   	<label for="false">Neaktivan</label><br>
 	</br>
 	</br>
+	<input type="file" id="files" name="files" accept="image/*" multiple>
+	<br>
+	<br>
     <input type="submit" name="create" value="Kreiraj"/>
    
     <button type="button" class="cancelbtn">Otkaži</button>
