@@ -1,13 +1,11 @@
 $(document).ready(function() {
 	allAmenities();
-	createAmenities();
 });
 
-function createAmenities(){
+/*function createAmenities(){
 	$('#amenitiesForm').submit(function(e) {
 		e.preventDefault();
 		
-		alert("dosao");
 		
 		var amenitiesArray = [];
 		$("input:checkbox[name=amenities]:checked").each(function(){
@@ -39,7 +37,7 @@ function createAmenities(){
 				}
 		});
 	});
-}
+}*/
 
 function allAmenities() {
 	

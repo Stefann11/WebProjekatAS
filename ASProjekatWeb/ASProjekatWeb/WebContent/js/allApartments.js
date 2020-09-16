@@ -4,6 +4,61 @@ $(document).ready(function() {
 	sortiraj();
 	filterApartments();
 	filterStatusApartments();
+	
+	$('#cenaOd').focusout(function() {
+		var cenaOd = $('#cenaOd');
+		var cenaOdVal = cenaOd.val();
+		if (cenaOdVal && !(cenaOdVal.match('^[0-9]+(?:\.[0-9]+)?$'))) {
+			toastr["error"]("Minimalnu cenu morate uneti kao ceo ili decimalan broj veći ili jednak 0.");
+			cenaOd.val("");
+		}
+	});
+	
+	$('#cenaDo').focusout(function() {
+		var cenaDo = $('#cenaDo');
+		var cenaDoVal = cenaDo.val();
+		if (cenaDoVal && !(cenaDoVal.match('^[0-9]+(?:\.[0-9]+)?$'))) {
+			toastr["error"]("Maksimalnu cenu morate uneti kao ceo ili decimalan broj veći ili jednak 0.");
+			cenaDo.val("");
+		}
+	});
+	
+	$('#brojSobaOd').focusout(function() {
+		var brojSobaOd = $('#brojSobaOd');
+		var brojSobaOdVal = brojSobaOd.val();
+		if (!(brojSobaOdVal.match('^[0-9]*$'))) {
+			toastr["error"]("Broj soba od mora biti pozitivan ceo broj.");
+			brojSobaOd.val("");
+		}
+	});
+	
+	$('#brojSobaDo').focusout(function() {
+		var brojSobaDo = $('#brojSobaDo');
+		var brojSobaDoVal = brojSobaDo.val();
+		if (!(brojSobaDoVal.match('^[0-9]*$'))) {
+			toastr["error"]("Broj soba do mora biti pozitivan ceo broj.");
+			brojSobaDo.val("");
+		}
+	});
+	
+	$('#brojOsobaOd').focusout(function() {
+		var brojOsobaOd = $('#brojOsobaOd');
+		var brojOsobaOdVal = brojOsobaOd.val();
+		if (!(brojOsobaOdVal.match('^[0-9]*$'))) {
+			toastr["error"]("Broj osoba od mora biti pozitivan ceo broj.");
+			brojOsobaOd.val("");
+		}
+	});
+	
+	$('#brojOsobaDo').focusout(function() {
+		var brojOsobaDo = $('#brojOsobaDo');
+		var brojOsobaDoVal = brojOsobaDo.val();
+		if (!(brojOsobaDoVal.match('^[0-9]*$'))) {
+			toastr["error"]("Broj osoba do mora biti pozitivan ceo broj.");
+			brojOsobaDo.val("");
+		}
+	});
+	
 });
 
 function filterStatusApartments(){
