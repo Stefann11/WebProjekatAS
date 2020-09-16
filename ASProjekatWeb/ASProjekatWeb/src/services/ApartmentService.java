@@ -28,6 +28,7 @@ import beans.AmentiesHelp;
 import beans.Apartment;
 import beans.CommentForApartment;
 import beans.Reservation;
+import beans.Role;
 import beans.SearchFields;
 import beans.User;
 import beans.newCommentHelp;
@@ -111,18 +112,29 @@ public class ApartmentService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response saveApartment(Apartment apartment, @Context HttpServletRequest request) {
 		User host = (User) request.getSession().getAttribute("user");
-		apartment.setHost(host);
-		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		if (host!=null) {
 		
-		for (Apartment oneApartment: dao.findAll()) {
-			if (oneApartment.getId() == apartment.getId()) {
-				return Response.status(Response.Status.BAD_REQUEST)
-						.entity("Mora biti jedinstveni id.").build();
+			if (host.getRole()!=Role.HOST) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti domacin.").build();
+			} else {
+				apartment.setHost(host);
+				ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+				
+				for (Apartment oneApartment: dao.findAll()) {
+					if (oneApartment.getId() == apartment.getId()) {
+						return Response.status(Response.Status.BAD_REQUEST)
+								.entity("Mora biti jedinstveni id.").build();
+					}
+				}
+				
+				dao.printApartments(path, apartment);
+				return Response.ok().entity("allAmenities.html?idApartment=" + apartment.getId()).build();
 			}
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti domacin.").build();
 		}
-		
-		dao.printApartments(path, apartment);
-		return Response.ok().entity("allAmenities.html?idApartment=" + apartment.getId()).build();
 		//return dao.save(apartment);
 	}
 	
@@ -146,19 +158,46 @@ public class ApartmentService {
 	@Path("/edit")
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response editApartment(Apartment apartment) {		
-		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		dao.editApartment(path, apartment);
-		return Response.ok().entity("editAmenitiesInApartment.html?idApartment=" + apartment.getId()).build();
+	public Response editApartment(Apartment apartment) {
+		User host = (User) request.getSession().getAttribute("user");
+		if (host!=null) {
+			if (host.getRole()==Role.GUEST) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti domacin ili amdinistrator.").build();
+			} else {
+				ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+				dao.editApartment(path, apartment);
+				return Response.ok().entity("editAmenitiesInApartment.html?idApartment=" + apartment.getId()).build();
+			}
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti domacin ili amdinistrator.").build();
+		}
 	}
 	
 	@DELETE
 	@Path("/delete")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean removeApartment(String idString) {
-		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		return dao.removeApartment(path, idString);
+	public Response removeApartment(String idString) {
+		User host = (User) request.getSession().getAttribute("user");
+		if (host!=null) {
+			if (host.getRole()==Role.GUEST) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti domacin ili amdinistrator.").build();
+			} else {			
+				ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+				dao.removeApartment(path, idString);
+				if (host.getRole()==Role.HOST) {
+					return Response.ok().entity("hostApartments.html").build();
+				} else {
+					return Response.ok().entity("allApartments.html").build();
+				}
+			}
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti domacin ili amdinistrator.").build();
+		}
 	}
 	
 	@PUT
@@ -216,13 +255,30 @@ public class ApartmentService {
 	
 	@POST
 	@Path("/saveToApartment")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Apartment saveToApartment(AmentiesHelp amenitiesHelp){
+	public Response saveToApartment(AmentiesHelp amenitiesHelp){	
+		User host = (User) request.getSession().getAttribute("user");
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");	
-		Long idApartment = Long.parseLong(amenitiesHelp.getIdApartment());
-		Apartment apartment = dao.findApartment(idApartment);
-		return dao.saveAmenitiesToApartment(apartment, amenitiesHelp, path);
+		if (host!=null) {
+			if (host.getRole()==Role.GUEST) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti domacin ili amdinistrator.").build();
+			} else {			
+				Long idApartment = Long.parseLong(amenitiesHelp.getIdApartment());
+				Apartment apartment = dao.findApartment(idApartment);
+				dao.saveAmenitiesToApartment(apartment, amenitiesHelp, path);
+				if (host.getRole()==Role.HOST) {
+					return Response.ok().entity("hostIndex.html").build();
+				} else {
+					return Response.ok().entity("adminIndex.html").build();
+				}
+			}
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti domacin ili amdinistrator.").build();
+		}
+		
 	}
 	
 	@POST
@@ -231,30 +287,40 @@ public class ApartmentService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addDatesToApartment(Reservation reservation){
 		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		
-		Apartment apartment = dao.findApartment(reservation.getApartment().getId());
-		
-		List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
-		
-		int flag = 0;
-		
-		if (apartment.getReleaseDates()!=null) {
-			for (Date oneDate: pickedDates) {
-				for (Date releaseDate: apartment.getReleaseDates()) {
-					if (oneDate.equals(releaseDate)) {
-						flag = 1;
-						break;
+		User host = (User) request.getSession().getAttribute("user");
+		if (host!=null) {
+			if (host.getRole()!=Role.GUEST) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti gost.").build();
+			} else {
+				Apartment apartment = dao.findApartment(reservation.getApartment().getId());
+				
+				List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
+				
+				int flag = 0;
+				
+				if (apartment.getReleaseDates()!=null) {
+					for (Date oneDate: pickedDates) {
+						for (Date releaseDate: apartment.getReleaseDates()) {
+							if (oneDate.equals(releaseDate)) {
+								flag = 1;
+								break;
+							}
+						}
 					}
 				}
+				
+				if (flag == 0) {
+				
+					dao.addDatesToApartment(path, reservation);
+					return Response.ok().entity("allActiveApartments.html").build();
+				} else {
+					return Response.serverError().entity("Odabrani datumi za rezervaciju su vec zauzeti").build();
+				}
 			}
-		}
-		
-		if (flag == 0) {
-		
-			dao.addDatesToApartment(path, reservation);
-			return Response.ok().entity("allActiveApartments.html").build();
 		} else {
-			return Response.serverError().entity("Odabrani datumi za rezervaciju su vec zauzeti").build();
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti gost.").build();
 		}
 	}
 	
@@ -354,42 +420,69 @@ public class ApartmentService {
 	
 	@POST
 	@Path("/deleteAmenitie")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean deleteAmenitie(Amenties amenitie){
-		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+	public Response deleteAmenitie(Amenties amenitie){
 		
-		AmentiesDAO amenitieDAO = getAmenties();
-		Amenties foundAmenitie = new Amenties();
-		Collection<Amenties> foundAmenities = amenitieDAO.findAll();
-		for (Amenties oneAmenitie: foundAmenities) {
-			if (oneAmenitie.getId()==amenitie.getId()) {
-				foundAmenitie = oneAmenitie;
-				break;
+		User host = (User) request.getSession().getAttribute("user");
+		if (host!=null) {
+			if (host.getRole()!=Role.ADMINISTRATOR) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti amdinistrator.").build();
+			} else {
+				ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+				
+				AmentiesDAO amenitieDAO = getAmenties();
+				Amenties foundAmenitie = new Amenties();
+				Collection<Amenties> foundAmenities = amenitieDAO.findAll();
+				for (Amenties oneAmenitie: foundAmenities) {
+					if (oneAmenitie.getId()==amenitie.getId()) {
+						foundAmenitie = oneAmenitie;
+						break;
+					}
+				}
+				
+				dao.deleteAmenitie(path, foundAmenitie);
+				return Response.ok().entity("tableAmenities.html").build();
 			}
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti amdinistrator.").build();
 		}
 		
-		return dao.deleteAmenitie(path, foundAmenitie);
 	}
 	
 	@POST
 	@Path("/editAmenitie")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean editAmenitie(Amenties amenitie){
-		ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+	public Response editAmenitie(Amenties amenitie){
 		
-		AmentiesDAO amenitieDAO = getAmenties();
-		Amenties oldAmenitie = new Amenties();
-		Collection<Amenties> foundAmenities = amenitieDAO.findAll();
-		for (Amenties oneAmenitie: foundAmenities) {
-			if (oneAmenitie.getId()==amenitie.getId()) {
-				oldAmenitie = oneAmenitie;
-				break;
+		User host = (User) request.getSession().getAttribute("user");
+		if (host!=null) {
+			if (host.getRole()!=Role.ADMINISTRATOR) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti amdinistrator.").build();
+			} else {
+				ApartmentDAO dao = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+				
+				AmentiesDAO amenitieDAO = getAmenties();
+				Amenties oldAmenitie = new Amenties();
+				Collection<Amenties> foundAmenities = amenitieDAO.findAll();
+				for (Amenties oneAmenitie: foundAmenities) {
+					if (oneAmenitie.getId()==amenitie.getId()) {
+						oldAmenitie = oneAmenitie;
+						break;
+					}
+				}
+				
+				dao.editAmenitie(path, oldAmenitie, amenitie);
+				return Response.ok().entity("tableAmenities.html").build();
 			}
-		}
-		
-		return dao.editAmenitie(path, oldAmenitie, amenitie);
+		}else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti amdinistrator.").build();
+			}
 	}
 	
 	@POST

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,6 +20,8 @@ import javax.ws.rs.core.Response;
 import beans.Amenties;
 import beans.AmentiesHelp;
 import beans.Apartment;
+import beans.Role;
+import beans.User;
 import dao.AmentiesDAO;
 import dao.ApartmentDAO;
 
@@ -28,6 +31,9 @@ public class AmentiesService {
 
 	@Context
 	ServletContext ctx;
+	
+	@Context
+	HttpServletRequest request;
 	
 	private static String path="";
 	
@@ -69,20 +75,30 @@ public class AmentiesService {
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response newAmenties(Amenties amen){
-		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
-		
-		
-		for (Amenties amenitie: dao.findAll()) {
-			if (amenitie.getId()==amen.getId()){
-				return Response.status(Response.Status.BAD_REQUEST)
-						.entity("Mora biti jedinstveni id.").build();
+		User host = (User) request.getSession().getAttribute("user");
+		if (host!=null) {
+			if (host.getRole()!=Role.ADMINISTRATOR) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti amdinistrator.").build();
+			} else {
+				AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
+				
+				
+				for (Amenties amenitie: dao.findAll()) {
+					if (amenitie.getId()==amen.getId()){
+						return Response.status(Response.Status.BAD_REQUEST)
+								.entity("Mora biti jedinstveni id.").build();
+					}
+				}
+				
+				dao.printAmenties(path, amen);
+				
+				return Response.ok().entity("adminIndex.html").build();
 			}
+		}else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti amdinistrator.").build();
 		}
-		
-		dao.printAmenties(path, amen);
-		
-		return Response.ok().entity("adminIndex.html").build();
-		//return dao.save(reservation);
 	}
 	
 	@GET
@@ -95,20 +111,45 @@ public class AmentiesService {
 	
 	@PUT
 	@Path("/edit")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Amenties editAmenties(Amenties amen) {
-		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
-		return dao.editAmenties(path, amen);
+	public Response editAmenties(Amenties amen) {
+		User host = (User) request.getSession().getAttribute("user");
+		if (host!=null) {
+			if (host.getRole()!=Role.ADMINISTRATOR) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti amdinistrator.").build();
+			} else {
+				AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
+				dao.editAmenties(path, amen);
+				return Response.ok().entity("tableAmenities.html").build();
+			}
+		}else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti amdinistrator.").build();
+		}
 	}
 	
 	@DELETE
 	@Path("/delete")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean removeAmenities(Amenties amenities) {
-		AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
-		return dao.delete(path, amenities);
+	public Response removeAmenities(Amenties amenities) {
+		User host = (User) request.getSession().getAttribute("user");
+		if (host!=null) {
+			if (host.getRole()!=Role.ADMINISTRATOR) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti amdinistrator.").build();
+			} else {
+				AmentiesDAO dao = (AmentiesDAO) ctx.getAttribute("amentiesDAO");
+				dao.delete(path, amenities);
+				return Response.ok().entity("tableAmenities.html").build();
+			}
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti amdinistrator.").build();
+		}
+					
 	}
 	
 }

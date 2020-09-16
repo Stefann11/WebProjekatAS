@@ -26,10 +26,10 @@ function listAmenities(){
 				url: "rest/apartments/saveToApartment",
 				contentType : "application/json",
 				data: JSON.stringify({idApartment: idApartment, amenities: amenities}),
-				success: function(result) {
+				success: function(data, textStatus, XmlHttpRequest){
 					toastr["success"]("Uspešno ste dodali sadržaj!");
 					setTimeout(function() {
-						location.href = "hostIndex.html";
+						window.location.assign( XmlHttpRequest.responseText);
 						$('#registrationForm')[0].reset();
 					}, 1000);
 				},

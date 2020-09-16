@@ -3,6 +3,33 @@ $(document).ready(function() {
 	//editApartmentInUser();
 	//editApartmentInComment();
 	
+	$('#id').focusout(function() {
+		var id = $('#id');
+		var idVal = id.val();
+		if (idVal && !(idVal.match('^[0-9]*$'))) {
+			toastr["error"]("Id morate uneti kao ceo broj veći ili jednak 0.");
+			id.val("");
+		}
+	});
+	
+	$('#numberOfRooms').focusout(function() {
+		var numberOfRooms = $('#numberOfRooms');
+		var numberOfRoomsVal = numberOfRooms.val();
+		if (numberOfRoomsVal && !(numberOfRoomsVal.match('^[0-9]*$'))) {
+			toastr["error"]("Broj soba morate uneti kao ceo broj veći ili jednak 0.");
+			numberOfRooms.val("");
+		}
+	});
+	
+	$('#numberOfGuests').focusout(function() {
+		var numberOfGuests = $('#numberOfGuests');
+		var numberOfGuestsVal = numberOfGuests.val();
+		if (numberOfGuestsVal && !(numberOfGuestsVal.match('^[0-9]*$'))) {
+			toastr["error"]("Broj osoba morate uneti kao ceo broj veći ili jednak 0.");
+			numberOfGuests.val("");
+		}
+	});
+	
 	$('#longitude').focusout(function() {
 		var longitude = $('#longitude');
 		var longitudeVal = longitude.val();

@@ -684,10 +684,11 @@ function deleteApartment(id){
 		url: "rest/apartments/delete",
 		contentType : "application/json",
 		data: JSON.stringify({idString: id}),
-		success: function(result) {
-					toastr["success"]("Uspešno ste obrisali apartman!");
+		success: function(data, textStatus, XmlHttpRequest){
+					toastr["success"]("Uspešno brisanje!");
 					setTimeout(function() {
-						location.href = "allApartments.html";
+						window.location.assign( XmlHttpRequest.responseText);
+						$('#apartmentForm')[0].reset();
 					}, 1000);
 				},
 				error: function(jqXHR, textStatus, errorThrown)  {

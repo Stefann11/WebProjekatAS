@@ -1,11 +1,9 @@
 $(document).ready(function() {
-	editAmenities();
 	editAmenitiesInApartment();
 });
 
 function editAmenities(){
-	$('#amenitiesForm').submit(function(e) {
-		e.preventDefault();
+
 		let id = $("input[name=id]").val();	
 		let name = $("input[name=name]").val();	
 		
@@ -20,10 +18,10 @@ function editAmenities(){
 				url: "rest/amenties/edit",
 				contentType : "application/json",
 				data: JSON.stringify({id: id, name: name}),
-				success: function(result) {
-					toastr["success"]("Uspešno ste izmenili sadržaj!");
+				success: function(data, textStatus, XmlHttpRequest){
+					toastr["success"]("Uspešno ste izmenili!");
 					setTimeout(function() {
-						location.href = "tableAmenities.html";
+						window.location.assign( XmlHttpRequest.responseText);
 						$('#apartmentForm')[0].reset();
 					}, 1000);
 				},
@@ -31,7 +29,11 @@ function editAmenities(){
 					toastr["error"](jqXHR.responseText);
 				}
 		});
-	});
+	
+}
+
+function callback(id){
+	editAmenities();
 }
 
 function editAmenitiesInApartment(){
@@ -51,11 +53,9 @@ function editAmenitiesInApartment(){
 				url: "rest/apartments/editAmenitie",
 				contentType : "application/json",
 				data: JSON.stringify({id: id, name: name}),
-				success: function(result) {
-					toastr["success"]("Uspešno ste izmenili sadržaj!");
+				success: function(data, textStatus, XmlHttpRequest){
+					callback(id);
 					setTimeout(function() {
-						location.href = "tableAmenities.html";
-						$('#apartmentForm')[0].reset();
 					}, 1000);
 				},
 				error: function(jqXHR, textStatus, errorThrown)  {

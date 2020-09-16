@@ -51,11 +51,10 @@ function deleteAmenitie(id){
 		url: "rest/amenties/delete",
 		contentType : "application/json",
 		data: JSON.stringify({id: id}),
-		success: function(result) {
-					toastr["success"]("Uspešno ste obrisali sadržaj!");
-					
+		success: function(data, textStatus, XmlHttpRequest){
+					toastr["success"]("Uspešno brisanje!");
 					setTimeout(function() {
-						location.href = "tableAmenities.html";
+						window.location.assign( XmlHttpRequest.responseText);
 					}, 1000);
 				},
 				error: function(jqXHR, textStatus, errorThrown)  {
@@ -73,7 +72,7 @@ function deleteAmenitieInApartment(id){
 		success: function(result) {
 					callback(id);
 					setTimeout(function() {
-						location.href = "tableAmenities.html";
+						
 					}, 1000);
 				},
 				error: function(jqXHR, textStatus, errorThrown)  {
