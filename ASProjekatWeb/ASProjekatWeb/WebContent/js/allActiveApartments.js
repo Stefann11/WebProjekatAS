@@ -512,7 +512,7 @@ function allActiveApartments() {
 						var status = item["status"];	
 				
 					var id = item["id"];
-					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartman.html?id=" + id + "\'\" value=\"Detaljno\"></td>");
+					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/oneApartmanGuest.html?id=" + id + "\'\" value=\"Detaljno\"></td>");
 					
 					apartment.append("<td><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/newReservation.html?id=" + id + "\'\" value=\"Rezerviši\"></td>");
 							

@@ -6,13 +6,14 @@
 <script src="jquery-3.3.1.min.js"></script>
 <script src="js/toastr.js"></script>
 <script type="js/bootstrap.bundle.min.js"></script>
-<script src="js/oneApartman.js"></script>
+<script src="js/oneApartmanGuest.js"></script>
 <link rel="stylesheet" href="css/stilovi.css"> 
 <link rel="stylesheet" href="css/stilZaLogin.css"> 
 <link rel="stylesheet" href="css/stilZaIndeks.css">
 <link rel="stylesheet" href="css/toastr.css">
 <style>
-body{background-image: url('images/registration.jpg');}
+body{background-image: url('images/registration.jpg');
+table{border-style: ridge;}
 </style>
 </head>
 <body>
@@ -20,9 +21,12 @@ body{background-image: url('images/registration.jpg');}
 
 <h3 style="color:white;">APARTMAN</h3>
 <form>
-	<br/>
-	<br/>
-	<br/>	
+
+
+	<br>
+	<table border="0" id="rezervisiTable"></table>
+	<br>	
+	<br>		
  	<label class="a1" ><b>Id:</b></label>
     <label class="a1" id="id"><b></b></label>
 	</br>
