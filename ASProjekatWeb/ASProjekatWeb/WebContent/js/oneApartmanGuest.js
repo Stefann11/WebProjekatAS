@@ -23,8 +23,8 @@ window.onload = function () {
 					var table = $("#rezervisiTable");
 					table.empty();
 					var apartment = $("<tr></tr>");
-					apartment.append("<td style=\"background-color:#FFFFFF00\">" + "Rezerviši:" + "</td>");
-					apartment.append("<td style=\"background-color:#FFFFFF00\"><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/newReservation.html?id=" + id + "\'\" value=\"Rezerviši\"></td>");
+				    apartment.append("<td style=\"background-color: #ffffff00\">" + "Rezerviši:" + "</td>");
+					apartment.append("<td style=\"background-color: #ffffff00\"><input type=button onClick=\"location.href=\'http://localhost:8080/ASProjekatWeb/newReservation.html?id=" + id + "\'\" value=\"Rezerviši\"></td>");
 					table.append(apartment);
 				
 					var location = result["location"];	
