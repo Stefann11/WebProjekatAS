@@ -82,7 +82,7 @@ function filterApartments(){
 				$('#allActiveApartmentsTable').hide();
 			} else {
 				$('#allActiveApartmentsTable').show();
-				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Detaljniji prikaz</th><th>Rezervacija</th></thead></tr>");
+				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Detaljniji prikaz</th><th>Rezervacija</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var apartment = $("<tr></tr>");
@@ -128,9 +128,9 @@ function filterApartments(){
 					
 					apartment.append("<td>" + resLoc + "</td>");
 					
-					getAllDates(item["releaseDates"], apartment);
+					/*getAllDates(item["releaseDates"], apartment);
 					
-					getAllDates(item["availableDates"], apartment);
+					getAllDates(item["availableDates"], apartment);*/
 					
 					var host = item["host"];	
 					var hostStr = JSON.stringify(host);
@@ -215,8 +215,8 @@ function sortCenaO(){
 		    
 		      shouldSwitch = false;
 		     
-		      x = rows[i].getElementsByTagName("TD")[8];
-		      y = rows[i + 1].getElementsByTagName("TD")[8];
+		      x = rows[i].getElementsByTagName("TD")[6];
+		      y = rows[i + 1].getElementsByTagName("TD")[6];
 		     
 		      if (parseFloat(x.innerHTML)  < parseFloat(y.innerHTML)) {
 		        
@@ -247,8 +247,8 @@ function sortCenaR(){
 		     
 		      shouldSwitch = false;
 		      
-		      x = rows[i].getElementsByTagName("TD")[8];
-		      y = rows[i + 1].getElementsByTagName("TD")[8];
+		      x = rows[i].getElementsByTagName("TD")[6];
+		      y = rows[i + 1].getElementsByTagName("TD")[6];
 		     
 		      if (parseFloat(x.innerHTML)  > parseFloat(y.innerHTML)) {
 		        
@@ -308,7 +308,7 @@ function searchActiveApartments(){
 					$('#allActiveApartmentsTable').hide();
 				} else {
 					$('#allActiveApartmentsTable').show();
-					table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Detaljniji prikaz</th><th>Rezervacija</th></thead></tr>");
+					table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Detaljniji prikaz</th><th>Rezervacija</th></thead></tr>");
 					var body = $("<tbody></tbody>");
 					result.forEach(function(item, index) {
 						var apartment = $("<tr></tr>");
@@ -355,8 +355,8 @@ function searchActiveApartments(){
 
 						apartment.append("<td>" + resLoc + "</td>");
 
-						getAllDates(item["releaseDates"], apartment);
-						getAllDates(item["availableDates"], apartment);					
+						/*getAllDates(item["releaseDates"], apartment);
+						getAllDates(item["availableDates"], apartment);	*/				
 
 						var host = item["host"];	
 						var hostStr = JSON.stringify(host);
@@ -426,7 +426,7 @@ function allActiveApartments() {
 				$('#allActiveApartmentsTable').hide();
 			} else {
 				$('#allActiveApartmentsTable').show();
-				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Datumi za izdavanje</th><th>Dostupnost po datumima</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Detaljniji prikaz</th><th>Rezervacija</th></thead></tr>");
+				table.append("<thead><tr><th>Id</th><th>Tip</th><th>Broj soba</th><th>Broj gostiju</th><th>Lokacija</th><th>Domaćin</th><th>Cena po noći</th><th>Vreme za prijavu</th><th>Vreme za odjavu</th><th>Status</th><th>Detaljniji prikaz</th><th>Rezervacija</th></thead></tr>");
 				var body = $("<tbody></tbody>");
 				result.forEach(function(item, index) {
 					var apartment = $("<tr></tr>");
@@ -472,9 +472,9 @@ function allActiveApartments() {
 					
 					apartment.append("<td>" + resLoc + "</td>");
 					
-					getAllDates(item["releaseDates"], apartment);
+					/*getAllDates(item["releaseDates"], apartment);
 					
-					getAllDates(item["availableDates"], apartment);
+					getAllDates(item["availableDates"], apartment);*/
 					
 					var host = item["host"];	
 					var hostStr = JSON.stringify(host);

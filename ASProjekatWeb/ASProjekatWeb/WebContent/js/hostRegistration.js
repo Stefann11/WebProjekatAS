@@ -11,7 +11,6 @@ $(document).ready(function() {
 		
 		if (password != repassword){
 			toastr["error"]("Lozinke moraju biti iste");
-			alert("Lozinke moraju biti iste");
 			allInputs[4].append("Nisu iste lozinke");
 			$(allInputs[4]).css("color", "red");
 			event.preventDefault();
@@ -26,19 +25,19 @@ $(document).ready(function() {
 					
 			$.ajax({
 				type: "POST",
-				url: "rest/users/save",
+				url: "rest/users/saveHost",
 				contentType : "application/json",
 				data: JSON.stringify({username: username, password: password, name: name, surname: surname, gender: gender, role: role}),
-				success: function(result) {
-					toastr["success"]("Uspešno ste se napravili host account!");
-					setTimeout(function() {
-						location.href = "adminIndex.html";
-						$('#hostRegistrationForm')[0].reset();
-					}, 1000);
-				},
-				error: function(jqXHR, textStatus, errorThrown)  {
-					toastr["error"](jqXHR.responseText);
-				}
+				success: function(data, textStatus, XmlHttpRequest) {					
+				toastr["success"]("Uspešno ste napravili host-a!");
+				setTimeout(function() {
+					window.location.assign( XmlHttpRequest.responseText);
+					$('#hostRegistrationForm')[0].reset();
+				}, 1000);
+			},
+			error: function(jqXHR, textStatus, errorThrown)  {		    		
+				toastr["error"](jqXHR.responseText);
+			}
 		});
 	});
 });

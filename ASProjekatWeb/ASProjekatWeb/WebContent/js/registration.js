@@ -11,7 +11,6 @@ $(document).ready(function() {
 		
 		if (password != repassword){
 			toastr["error"]("Lozinke moraju biti iste");
-			alert("Lozinke moraju biti iste");
 			allInputs[4].append("Nisu iste lozinke");
 			$(allInputs[4]).css("color", "red");
 			event.preventDefault();

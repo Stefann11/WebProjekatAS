@@ -25,6 +25,7 @@ import javax.ws.rs.core.Response;
 import beans.Apartment;
 import beans.FilterUser;
 import beans.Reservation;
+import beans.Role;
 import beans.User;
 import dao.ApartmentDAO;
 import dao.ReservationDAO;
@@ -81,48 +82,59 @@ public class ReservationService {
 		ReservationDAO dao = (ReservationDAO) ctx.getAttribute("reservationDAO");
 		User user = (User) request.getSession().getAttribute("user");
 		
-		ApartmentDAO apartmentDAO = getApartmani();
-		Apartment apartment = apartmentDAO.findApartment(reservation.getApartment().getId());
+		if (user!=null) {
 		
-		for (Reservation oneReservation: dao.findAll()) {
-			if (oneReservation.getId() == reservation.getId()) {
-				return Response.status(Response.Status.BAD_REQUEST)
-						.entity("Mora biti jedinstven id").build();
-			}
-		}
-		
-		List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
-		
-		int flag = 0;
-		
-		if (apartment.getReleaseDates()!=null) {
-			for (Date oneDate: pickedDates) {
-				for (Date releaseDate: apartment.getReleaseDates()) {
-					if (oneDate.equals(releaseDate)) {
-						flag = 1;
-						break;
+			if (user.getRole()!=Role.GUEST) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti domacin.").build();
+			} else {
+				ApartmentDAO apartmentDAO = getApartmani();
+				Apartment apartment = apartmentDAO.findApartment(reservation.getApartment().getId());
+				
+				for (Reservation oneReservation: dao.findAll()) {
+					if (oneReservation.getId() == reservation.getId()) {
+						return Response.status(Response.Status.BAD_REQUEST)
+								.entity("Mora biti jedinstven id").build();
 					}
 				}
+				
+				List<Date> pickedDates = addDays(reservation.getStartDate(), reservation.getNumberOfOvernights());
+				
+				int flag = 0;
+				
+				if (apartment.getReleaseDates()!=null) {
+					for (Date oneDate: pickedDates) {
+						for (Date releaseDate: apartment.getReleaseDates()) {
+							if (oneDate.equals(releaseDate)) {
+								flag = 1;
+								break;
+							}
+						}
+					}
+				}
+				
+				if (flag == 0) {
+					
+					reservation.setApartment(apartment);
+					reservation.setGuest(user);
+					
+					
+					double totalPrice = 0;
+					if (apartment!=null) {
+						totalPrice = apartment.getPriceForOneNight()*reservation.getNumberOfOvernights();
+					}
+					reservation.setTotalPrice(totalPrice);
+					dao.printReservations(path, reservation);
+			
+					return Response.ok().entity("allActiveApartments.html").build();
+				}else {
+					return Response.status(Response.Status.BAD_REQUEST)
+							.entity("Odabrani datumi za rezervaciju su vec zauzeti").build();
+				}
 			}
-		}
-		
-		if (flag == 0) {
-			
-			reservation.setApartment(apartment);
-			reservation.setGuest(user);
-			
-			
-			double totalPrice = 0;
-			if (apartment!=null) {
-				totalPrice = apartment.getPriceForOneNight()*reservation.getNumberOfOvernights();
-			}
-			reservation.setTotalPrice(totalPrice);
-			dao.printReservations(path, reservation);
-	
-			return Response.ok().entity("allActiveApartments.html").build();
-		}else {
-			return Response.status(Response.Status.BAD_REQUEST)
-					.entity("Odabrani datumi za rezervaciju su vec zauzeti").build();
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti gost.").build();
 		}
 	}
 	

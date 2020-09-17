@@ -236,7 +236,7 @@ function addApartmentToHost(){
 				data: JSON.stringify({id: id, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, images: images, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
 				success: function(data, textStatus, XmlHttpRequest){
 					setTimeout(function() {
-						window.location.assign( XmlHttpRequest.responseText);
+						
 						$('#apartmentForm')[0].reset();
 					}, 1000);
 				},

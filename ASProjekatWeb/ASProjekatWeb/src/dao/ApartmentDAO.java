@@ -367,6 +367,11 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		apartmentToSave.setCheckInTime(apartment.getCheckInTime());
 		apartmentToSave.setCheckOutTime(apartment.getCheckOutTime());
 		apartmentToSave.setStatus(apartment.isStatus());
+		if (!apartment.getImages().isEmpty()) {
+			apartmentToSave.setImages(apartment.getImages());
+		}
+		
+		
 		
 		return printApartments(contextPath, apartmentToSave);
 	}
@@ -539,8 +544,8 @@ private Map<String, Apartment> apartments = new HashMap<>();
 		ObjectMapper mapper = new ObjectMapper();
 		
 		//za datum
-//		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-//		mapper.setDateFormat(df);
+		DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		mapper.setDateFormat(DATE_FORMAT);
 		
 		BufferedReader in = null;
 		

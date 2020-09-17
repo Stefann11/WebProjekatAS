@@ -82,6 +82,40 @@ public class UserService {
 		//return dao.save(user);
 	}
 	
+	@POST
+	@Path("/saveHost")
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response saveHost(User user, @Context HttpServletRequest request) {
+		User admin = (User) request.getSession().getAttribute("user");
+		if (admin!=null) {
+			if (admin.getRole()!=Role.ADMINISTRATOR) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti domacin.").build();
+			} else {
+				UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
+				for (User oneUser : dao.findAll()) {
+					if (oneUser.getUsername().equals(user.getUsername())) {
+						return Response.status(Response.Status.BAD_REQUEST)
+								.entity("Mora biti jedinstveni username.").build();
+					}
+				}
+				
+				dao.printUsers(path, user);
+				
+				return Response.ok().entity("adminIndex.html").build();
+			}
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti administrator.").build();
+		}
+		
+	
+		
+		
+		//return dao.save(user);
+	}
+	
 	@PUT
 	@Path("/edit")
 	@Produces(MediaType.TEXT_HTML)
@@ -185,8 +219,20 @@ public class UserService {
 	public Response addApartmentToHost(Apartment apartment, @Context HttpServletRequest request) {
 		UserDAO dao = (UserDAO) ctx.getAttribute("userDAO");
 		User host = (User) request.getSession().getAttribute("user");
-		dao.addApartmentToHost(apartment, host, path);
-		return Response.ok().entity("allAmenities.html?idApartment=" + apartment.getId()).build();
+		
+		if (host!=null) {
+		
+			if (host.getRole()!=Role.HOST) {
+				return Response.status(Response.Status.FORBIDDEN)
+						.entity("Može samo pristupiti domacin.").build();
+			} else {
+				dao.addApartmentToHost(apartment, host, path);
+				return Response.ok().entity("allAmenities.html?idApartment=" + apartment.getId()).build();
+			}
+		} else {
+			return Response.status(Response.Status.FORBIDDEN)
+					.entity("Može samo pristupiti domacin.").build();
+		}
 	}
 	
 	@POST

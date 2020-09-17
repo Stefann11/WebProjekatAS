@@ -129,6 +129,14 @@ function editApartment(){
 			return;
 		}
 		
+		var images = [];
+		var files = $("#files")[0].files;
+		for (var i = 0; i < files.length; i++)
+		{
+		var imgStr = "images/" + files[i].name;
+ 			images.push(imgStr);
+		}
+		
 			var $inputs = $('#apartmentForm input:not([type="submit"])');
 			var values = {};
 			$inputs.each(function() {
@@ -139,7 +147,7 @@ function editApartment(){
 				type: "POST",
 				url: "rest/apartments/edit",
 				contentType : "application/json",
-				data: JSON.stringify({id: id, type: type, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
+				data: JSON.stringify({id: id, type: type, numberOfRooms: numberOfRooms, numberOfGuests: numberOfGuests, location: location, images: images, priceForOneNight: priceForOneNight, checkInTime: checkInTime, checkOutTime: checkOutTime, status: status}),
 				success: function(data, textStatus, XmlHttpRequest){
 					toastr["success"]("Uspešno ste izmenili apartman!");
 					setTimeout(function() {

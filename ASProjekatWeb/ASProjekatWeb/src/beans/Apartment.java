@@ -16,9 +16,9 @@ public class Apartment{
 	protected int numberOfRooms;
 	protected int numberOfGuests;
 	protected Location location;
-	@JsonDeserialize(contentUsing = DateHandler.class)
+	//@JsonDeserialize(contentUsing = DateHandler.class)
 	protected List<Date> releaseDates;
-	@JsonDeserialize(contentUsing = DateHandler.class)
+	//@JsonDeserialize(contentUsing = DateHandler.class)
 	protected List<Date> availableDates;
 	protected User host;
 	protected List<CommentForApartment> comments;
@@ -137,7 +137,7 @@ public class Apartment{
 		this.location = location;
 	}
 	
-	@JsonDeserialize(contentUsing = DateHandler.class)
+	//@JsonDeserialize(contentUsing = DateHandler.class)
 	public List<Date> getReleaseDates() {
 		return releaseDates;
 	}
@@ -146,7 +146,7 @@ public class Apartment{
 		this.releaseDates = releaseDates;
 	}
 
-	@JsonDeserialize(contentUsing = DateHandler.class)
+	//@JsonDeserialize(contentUsing = DateHandler.class)
 	public List<Date> getAvailableDates() {
 		return availableDates;
 	}

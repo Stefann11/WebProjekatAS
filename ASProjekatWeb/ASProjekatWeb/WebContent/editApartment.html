@@ -27,13 +27,13 @@ body{background-image: url('images/registration.jpg');}
 	<label class="a1" for="type">Tip: </label>
 	
                     <input type="radio" id="room" name="type" value="ROOM" checked>
-                        <label class="a1" for="room">Room</label><br>
+                        <label class="a1" for="room">Room</label>
                     
                
                 
                    
                     <input type="radio" id="suite" name="type" value="SUITE">
-                        <label class="a1" for="suite">Suite</label><br>
+                        <label class="a1" for="suite">Suite</label>
                    
                 
 	<br/>
@@ -82,11 +82,15 @@ body{background-image: url('images/registration.jpg');}
 	</br>
 	<label class="a1" for="status"><b>Status:</b></label>
 	<input type="radio" id="true" name="status" value="true" >
-  	<label for="true">Aktivan</label>
+  	<label class="a1" for="true">Aktivan</label>
   	<input type="radio" id="false" name="status" value="false" checked>
-  	<label for="false">Neaktivan</label><br>
+  	<label class="a1" for="false">Neaktivan</label><br>
 	</br>
 	</br>
+	<label class="a1" for="files"><b>Dodaj slike:</b></label>
+	<input type="file" id="files" name="files" accept="image/*" multiple>
+	<br>
+	<br>
     <input type="submit" name="edit" value="Izmeni"/>
    
     <button type="button" class="cancelbtn">Otkaži</button>
